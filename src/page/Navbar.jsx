@@ -5,7 +5,7 @@ export default function Navbar() {
     <div>
   <nav className="navbar navbar-expand-lg bg-white navbar-light fixed-top shadow py-lg-0 px-4 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
     <a href="index" className="navbar-brand d-block d-lg-none">
-      <h1 className="text-primary fw-bold m-0">ProMan</h1>
+      <h1 className="text-primary fw-bold m-0">Ear Sokchan</h1>
     </a>
     <button type="button" className="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
       <span className="navbar-toggler-icon" />
@@ -18,7 +18,7 @@ export default function Navbar() {
         <a href="#service" className="nav-item nav-link">Services</a>
       </div>
       <a href="index" className="navbar-brand bg-secondary py-3 px-4 mx-3 d-none d-lg-block">
-        <h1 className="text-primary fw-bold m-0">ProMan</h1>
+        <h1 className="text-primary fw-bold m-0">Ear Sokchan</h1>
       </a>
       <div className="navbar-nav me-auto py-0">
         <a href="#project" className="nav-item nav-link">Projects</a>

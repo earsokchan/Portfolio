@@ -17,7 +17,22 @@ export default function Projects() {
           </ul>
         </div>
       </div>
+
+   
+
       <div className="row g-4 portfolio-container wow fadeInUp" data-wow-delay="0.1s">
+      <div className="col-lg-4 col-md-6 portfolio-item first">
+        <div className="portfolio-img rounded overflow-hidden">
+            <img className="img-fluid" src="img/targetclothe-preview.jpg" alt="Target Clothe" />
+            <div className="portfolio-btn">
+                <a className="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/targetclothe-preview.jpg" data-lightbox="portfolio"><i className="fa fa-eye" /></a>
+                <a className="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="https://www.targetclothe.com/"><i className="fa fa-link" /></a>
+            </div>
+        </div>
+    </div>
+
+
+
     <div className="col-lg-4 col-md-6 portfolio-item first">
         <div className="portfolio-img rounded overflow-hidden">
             <img className="img-fluid" src="img/targetclothe-preview.jpg" alt="Target Clothe" />
@@ -51,6 +66,30 @@ export default function Projects() {
             <div className="portfolio-btn">
                 <a className="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/stylish-preview.jpg" data-lightbox="portfolio"><i className="fa fa-eye" /></a>
                 <a className="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="https://stylish-indol.vercel.app/"><i className="fa fa-link" /></a>
+            </div>
+        </div>
+    </div>
+
+              {/* Amdmin Laravel */}
+    <div className="col-lg-4 col-md-6 portfolio-item second">
+        <div className="portfolio-img rounded overflow-hidden">
+            <img className="img-fluid" src="#" alt="#" />
+            <div className="portfolio-btn">
+                <a className="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="#" data-lightbox="portfolio"><i className="fa fa-eye" /></a>
+                <a className="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="#"><i className="fa fa-link" /></a>
+            </div>
+        </div>
+    </div>
+
+
+    {/* react Ecommerce online store */}
+
+    <div className="col-lg-4 col-md-6 portfolio-item second">
+        <div className="portfolio-img rounded overflow-hidden">
+            <img className="img-fluid" src="#" alt="#" />
+            <div className="portfolio-btn">
+                <a className="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="#" data-lightbox="portfolio"><i className="fa fa-eye" /></a>
+                <a className="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="#"><i className="fa fa-link" /></a>
             </div>
         </div>
     </div>

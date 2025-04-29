@@ -12,15 +12,17 @@ export default function Header() {
           <h2 className="typed-text-output d-inline" />
           <div className="typed-text">Web Developer</div>
           <div className="d-flex align-items-center pt-5">
-            <a href className="btn btn-primary py-3 px-4 me-5">Download CV</a>
-            <button type="button" className="btn-play" data-bs-toggle="modal" data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-bs-target="#videoModal">
-              <span />
-            </button>
-            <h5 className="ms-4 mb-0 d-none d-sm-block">Play Video</h5>
-          </div>
+          <a 
+            href="./CV/EarSokchan_Cv.pdf" 
+            className="btn btn-primary py-3 px-4 me-5"
+            download="YourName_CV.pdf"
+          >
+            Download CV
+          </a>
+        </div>
         </div>
         <div className="col-lg-6">
-          <img className="img-fluid" src="img/profile.png" alt />
+          <img className="img-fluid" src="img/about-2.png" alt />
         </div>
       </div>
     </div>
