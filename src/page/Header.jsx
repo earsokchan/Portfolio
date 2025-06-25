@@ -2,32 +2,80 @@ import React from 'react'
 
 export default function Header() {
   return (
-    <div>
-  <div className="container-fluid bg-light my-6 mt-0" id="home">
-    <div className="container">
-      <div className="row g-5 align-items-center">
-        <div className="col-lg-6 py-6 pb-0 pt-lg-0">
-          <h3 className="text-primary mb-3">I'm</h3>
-          <h1 className="display-3 mb-3">Ear Sokchan</h1>
-          <h2 className="typed-text-output d-inline" />
-          <div className="typed-text">Web Developer</div>
-          <div className="d-flex align-items-center pt-5">
-          <a 
-            href="./CV/EarSokchan_Cv.pdf" 
-            className="btn btn-primary py-3 px-4 me-5"
-            download="YourName_CV.pdf"
-          >
-            Download CV
-          </a>
+    <header
+      id="home"
+      style={{
+        minHeight: '100vh',
+        width: '100vw',
+        background: 'linear-gradient(120deg, #ff9466 0%, #ff7e5f 100%)',
+        color: '#fff',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        padding: 0,
+        margin: 0,
+        boxSizing: 'border-box'
+      }}
+    >
+      <div style={{
+        width: '100%',
+        maxWidth: 420,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 24
+      }}>
+        <div
+          style={{
+            borderRadius: '50%',
+            border: '6px solid #fff',
+            padding: '10px',
+            background: 'rgba(255,255,255,0.08)',
+            boxShadow: '0 4px 24px 0 rgba(0,0,0,0.10)',
+            marginBottom: 0
+          }}
+        >
+          <img
+            src="img/about-2.png"
+            alt="Ear Sokchan"
+            style={{
+              width: '200px',
+              height: '200px',
+              objectFit: 'cover',
+              borderRadius: '50%',
+              boxShadow: '0 2px 12px 0 rgba(0,0,0,0.08)'
+            }}
+          />
         </div>
-        </div>
-        <div className="col-lg-6">
-          <img className="img-fluid" src="img/about-2.png" alt />
+        <h3 style={{
+          fontWeight: 400,
+          fontSize: '1.25rem',
+          letterSpacing: '0.04em',
+          margin: 0,
+          color: '#fff'
+        }}>
+          I'm
+        </h3>
+        <h1 style={{
+          fontWeight: 700,
+          fontSize: '2.6rem',
+          margin: 0,
+          color: '#fff',
+          lineHeight: 1.1
+        }}>
+          Ear Sokchan
+        </h1>
+        <div style={{
+          fontSize: '1.15rem',
+          color: '#fff',
+          fontWeight: 500,
+          margin: 0,
+          letterSpacing: '0.01em'
+        }}>
+          Web Developer
         </div>
       </div>
-    </div>
-  </div>
-</div>
-
+    </header>
   )
 }

@@ -14,7 +14,7 @@ export default function Navbar() {
       <div className="navbar-nav ms-auto py-0">
         <a href="#home" className="nav-item nav-link active">Home</a>
         <a href="#about" className="nav-item nav-link">About</a>
-        <a href="#skill" className="nav-item nav-link">Skills</a>
+        <a href="#expertise" className="nav-item nav-link">Skills</a>
         <a href="#service" className="nav-item nav-link">Services</a>
       </div>
       <a href="index" className="navbar-brand bg-secondary py-3 px-4 mx-3 d-none d-lg-block">
@@ -26,6 +26,7 @@ export default function Navbar() {
         <a href="#testimonial" className="nav-item nav-link">Testimonial</a> */}
         <a href="#contact" className="nav-item nav-link">Contact</a>
       </div>
+      
     </div>
   </nav>
 </div>

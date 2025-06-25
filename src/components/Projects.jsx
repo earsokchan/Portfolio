@@ -1,6 +1,34 @@
 import React from 'react'
 
 export default function Projects() {
+  // Add custom style objects
+  const cardStyle = {
+    boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+    background: '#fff',
+    borderRadius: '18px',
+    transition: 'transform 0.2s, box-shadow 0.2s',
+    border: 'none',
+    overflow: 'hidden',
+    marginBottom: '24px',
+  };
+  const imgStyle = {
+    objectFit: 'cover',
+    width: '100%',
+    height: '220px',
+    borderTopLeftRadius: '18px',
+    borderTopRightRadius: '18px',
+    borderBottom: '1px solid #f0f0f0',
+  };
+  const btnGroupStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '10px',
+    padding: '16px 0',
+    background: '#fafbfc',
+    borderBottomLeftRadius: '18px',
+    borderBottomRightRadius: '18px',
+  };
+
   return (
 <div>
   <div className="container-xxl py-6 pt-5" id="project">
@@ -35,10 +63,10 @@ export default function Projects() {
 
     <div className="col-lg-4 col-md-6 portfolio-item first">
         <div className="portfolio-img rounded overflow-hidden">
-            <img className="img-fluid" src="img/targetclothe-preview.jpg" alt="Target Clothe" />
+            <img className="img-fluid" src="img/image copy 2.png" alt="Laravel + Flutter" />
             <div className="portfolio-btn">
-                <a className="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/targetclothe-preview.jpg" data-lightbox="portfolio"><i className="fa fa-eye" /></a>
-                <a className="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="https://www.targetclothe.com/"><i className="fa fa-link" /></a>
+                <a className="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/image copy 2.png" data-lightbox="portfolio"><i className="fa fa-eye" /></a>
+                <a className="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="https://youtu.be/niyT61JHwM8?si=U09U_OUvCXloy37n"><i className="fa fa-link" /></a>
             </div>
         </div>
     </div>
@@ -73,10 +101,10 @@ export default function Projects() {
               {/* Amdmin Laravel */}
     <div className="col-lg-4 col-md-6 portfolio-item second">
         <div className="portfolio-img rounded overflow-hidden">
-            <img className="img-fluid" src="#" alt="#" />
+            <img className="img-fluid" src="img/image.png" alt="Admin React+Node Project" />
             <div className="portfolio-btn">
-                <a className="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="#" data-lightbox="portfolio"><i className="fa fa-eye" /></a>
-                <a className="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="#"><i className="fa fa-link" /></a>
+                <a className="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/image.png" data-lightbox="portfolio"><i className="fa fa-eye" /></a>
+                <a className="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="https://earsokchan-portfolio.vercel.app"><i className="fa fa-link" /></a>
             </div>
         </div>
     </div>
@@ -86,13 +114,27 @@ export default function Projects() {
 
     <div className="col-lg-4 col-md-6 portfolio-item second">
         <div className="portfolio-img rounded overflow-hidden">
-            <img className="img-fluid" src="#" alt="#" />
+            <img className="img-fluid" src="img/image copy.png" alt="Admin PHP" />
             <div className="portfolio-btn">
-                <a className="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="#" data-lightbox="portfolio"><i className="fa fa-eye" /></a>
-                <a className="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="#"><i className="fa fa-link" /></a>
+                <a className="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/image copy.png" data-lightbox="portfolio"><i className="fa fa-eye" /></a>
+                <a className="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="https://github.com/Sokchan3434456677/ecom-php.git"><i className="fa fa-link" /></a>
             </div>
         </div>
     </div>
+
+
+
+
+     <div className="col-lg-4 col-md-6 portfolio-item second">
+        <div className="portfolio-img rounded overflow-hidden">
+            <img className="img-fluid" src="img/image copy 3.png" alt="React + Laravel" />
+            <div className="portfolio-btn">
+                <a className="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/image copy 3.png" data-lightbox="portfolio"><i className="fa fa-eye" /></a>
+                <a className="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="https://youtu.be/KAowhxraZ2A?si=C-GvEmB2kRSoQ4UK"><i className="fa fa-link" /></a>
+            </div>
+        </div>
+    </div>
+
 </div>
     </div>
   </div>
