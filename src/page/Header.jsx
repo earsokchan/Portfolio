@@ -75,6 +75,26 @@ export default function Header() {
         }}>
           Web Developer
         </div>
+        {/* CV Buttons */}
+        <div className="d-flex align-items-center ms-3" style={{ marginTop: 12 }}>
+          <a
+            href="/cv/EarSokchan_Cv.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-outline-primary btn-sm me-2"
+            style={{ borderColor: "#4f8cff", color: "#4f8cff" }}
+          >
+            View CV
+          </a>
+          <a
+            href="/cv/EarSokchan_Cv.pdf"
+            download="EarSokchan_Cv.pdf"
+            className="btn btn-primary btn-sm"
+            style={{ background: "#4f8cff", borderColor: "#4f8cff" }}
+          >
+            Download CV
+          </a>
+        </div>
       </div>
     </header>
   )
