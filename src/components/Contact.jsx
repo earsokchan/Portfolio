@@ -29,7 +29,7 @@ export default function Contact() {
                 <div className="d-flex pt-2">
                   <a className="btn btn-outline-primary btn-square me-2 rounded-circle d-flex align-items-center justify-content-center" style={{width:40, height:40}} href="https://t.me/Ear_Sokchan" target="_blank" rel="noopener noreferrer"><i className="fab fa-telegram-plane" /></a>
                   <a className="btn btn-outline-primary btn-square me-2 rounded-circle d-flex align-items-center justify-content-center" style={{width:40, height:40}} href="https://www.facebook.com/share/1BtFcd41V4/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer"><i className="fab fa-facebook-f" /></a>
-                  <a className="btn btn-outline-primary btn-square me-2 rounded-circle d-flex align-items-center justify-content-center" style={{width:40, height:40}} href="https://github.com/Sokchan3434456677" target="_blank" rel="noopener noreferrer"><i className="fab fa-github" /></a>
+                  <a className="btn btn-outline-primary btn-square me-2 rounded-circle d-flex align-items-center justify-content-center" style={{width:40, height:40}} href="https://github.com/earsokchan" target="_blank" rel="noopener noreferrer"><i className="fab fa-github" /></a>
                   <a className="btn btn-outline-primary btn-square rounded-circle d-flex align-items-center justify-content-center" style={{width:40, height:40}} href="https://www.linkedin.com/in/sok-chan-ba7219371?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" rel="noopener noreferrer"><i className="fab fa-linkedin-in" /></a>
                 </div>
               </div>

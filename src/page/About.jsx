@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import WorkExperices from "../components/work/WorkExperices";
+import ImageDisplay from './image/ImageDiplay';
 
 export default function About() {
   const [showCert, setShowCert] = useState(false);
@@ -282,58 +284,40 @@ export default function About() {
                     className="d-flex flex-wrap gap-3 h-100"
                     style={{ justifyContent: "space-between", height: "100%" }}
                   >
-                    <img
-                      className="img-fluid rounded shadow about-img"
+                    <ImageDisplay
                       src="img/about-1.jpg"
                       alt="about-1"
                       style={{
                         flex: "1 1 48%",
                         minWidth: 0,
-                        objectFit: "cover",
                         height: "100%",
                         maxWidth: "48%",
-                        borderRadius: "18px",
-                        transition: "transform 0.2s, box-shadow 0.2s",
-                        boxShadow: "0 4px 24px rgba(79,140,255,0.10)"
+                        width: "100%",
                       }}
-                      onMouseOver={e => { e.currentTarget.style.transform = "scale(1.03)"; e.currentTarget.style.boxShadow = "0 8px 32px rgba(79,140,255,0.18)"; }}
-                      onMouseOut={e => { e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.boxShadow = "0 4px 24px rgba(79,140,255,0.10)"; }}
                     />
-                    <img
-                      className="img-fluid rounded shadow about-img"
+                    <ImageDisplay
                       src="img/about-2.jpg"
                       alt="about-2"
                       style={{
                         flex: "1 1 48%",
                         minWidth: 0,
-                        objectFit: "cover",
                         height: "100%",
                         maxWidth: "48%",
-                        borderRadius: "18px",
-                        transition: "transform 0.2s, box-shadow 0.2s",
-                        boxShadow: "0 4px 24px rgba(79,140,255,0.10)"
+                        width: "100%",
                       }}
-                      onMouseOver={e => { e.currentTarget.style.transform = "scale(1.03)"; e.currentTarget.style.boxShadow = "0 8px 32px rgba(79,140,255,0.18)"; }}
-                      onMouseOut={e => { e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.boxShadow = "0 4px 24px rgba(79,140,255,0.10)"; }}
                     />
                   </div>
                 </div>
                 <div className="col-12" style={{ flex: "0 0 auto" }}>
-                  <img
-                    className="img-fluid rounded shadow about-img"
+                  <ImageDisplay
                     src="img/about-3.jpg"
                     alt="about-3"
                     style={{
                       width: "100%",
-                      objectFit: "cover",
                       height: "210px",
                       marginTop: 8,
-                      borderRadius: "18px",
-                      transition: "transform 0.2s, box-shadow 0.2s",
-                      boxShadow: "0 4px 24px rgba(79,140,255,0.10)"
+                      maxWidth: "100%",
                     }}
-                    onMouseOver={e => { e.currentTarget.style.transform = "scale(1.03)"; e.currentTarget.style.boxShadow = "0 8px 32px rgba(79,140,255,0.18)"; }}
-                    onMouseOut={e => { e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.boxShadow = "0 4px 24px rgba(79,140,255,0.10)"; }}
                   />
                 </div>
               </div>
@@ -341,6 +325,7 @@ export default function About() {
           </div>
         </div>
       </div>
+      <WorkExperices />
     </div>
   )
 }
