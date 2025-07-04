@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
-import WorkExperices from "../components/work/WorkExperices";
-import ImageDisplay from './image/ImageDiplay';
+import React, { useState } from 'react';
+import WorkExperiences from '../components/work/WorkExperices'; // Corrected typo in component name
 
 export default function About() {
   const [showCert, setShowCert] = useState(false);
@@ -22,13 +21,16 @@ export default function About() {
   ];
 
   return (
-    <div style={{ background: "#f4f6fb", minHeight: "100vh" }}>
+    <div style={{ background: "#f4f6fb", minHeight: "100vh", paddingBottom: "3rem" }}>
       <div className="container-xxl py-6" id="about">
         <div className="container">
-          <div className="row g-5 align-items-stretch" style={{ display: "flex" }}>
-            {/* Left: Experience Card */}
-            <div className="col-lg-6 wow fadeInUp d-flex flex-column" data-wow-delay="0.1s" style={{ height: "100%" }}>
-              <div className="d-flex align-items-center mb-5">
+          <div className="row g-5 align-items-start"> {/* Changed align-items-stretch to align-items-start for better control */}
+
+            {/* Left Column: Experience and Education */}
+            <div className="col-lg-6 wow fadeInUp d-flex flex-column" data-wow-delay="0.1s">
+
+              {/* Cybersecurity Experience Card */}
+              <div className="d-flex align-items-center mb-4">
                 <div
                   className="years flex-shrink-0 text-center me-4 shadow rounded"
                   style={{
@@ -69,7 +71,8 @@ export default function About() {
                   </li>
                 </ul>
               </div>
-              {/* --- Add Web Developer Section Below --- */}
+
+              {/* Web Developer Section */}
               <div className="bg-white rounded shadow p-4 mb-4" style={{ borderRadius: "18px", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}>
                 <div className="d-flex align-items-center mb-3">
                   <div
@@ -158,8 +161,8 @@ export default function About() {
                   </li>
                 </ul>
               </div>
-              {/* --- End Web Developer Section --- */}
-              {/* --- Add School Section Below --- */}
+
+              {/* Education Section */}
               <div className="bg-white rounded shadow p-4 mb-4" style={{ borderRadius: "18px", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}>
                 <h4 className="mb-3" style={{ color: "#4f8cff" }}>Education</h4>
                 <div className="d-flex align-items-center mb-2">
@@ -193,139 +196,122 @@ export default function About() {
                   style={{ background: "#4f8cff", borderColor: "#4f8cff" }}
                   onClick={() => { setShowCert(true); setCertIndex(0); }}
                 >
-                  View Certificate
+                  View Certificates
                 </button>
               </div>
-              
-              {/* Certificate Modal */}
-              {showCert && (
-                <div
-                  style={{
-                    position: "fixed",
-                    top: 0, left: 0, right: 0, bottom: 0,
-                    background: "rgba(0,0,0,0.5)",
-                    zIndex: 9999,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center"
-                  }}
-                  onClick={() => setShowCert(false)}
-                >
-                  <div
-                    style={{
-                      background: "#fff",
-                      padding: 0,
-                      borderRadius: 12,
-                      maxWidth: "90vw",
-                      maxHeight: "90vh",
-                      boxShadow: "0 8px 32px rgba(0,0,0,0.18)",
-                      position: "relative"
-                    }}
-                    onClick={e => e.stopPropagation()}
-                  >
-                    <button
-                      onClick={() => setShowCert(false)}
-                      style={{
-                        position: "absolute",
-                        top: 8,
-                        right: 8,
-                        background: "#4f8cff",
-                        color: "#fff",
-                        border: "none",
-                        borderRadius: "50%",
-                        width: 32,
-                        height: 32,
-                        fontSize: 18,
-                        cursor: "pointer"
-                      }}
-                      aria-label="Close"
-                    >×</button>
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "12px 0 0 0" }}>
-                      <button
-                        className="btn btn-outline-primary btn-sm"
-                        style={{ marginRight: 12, visibility: certIndex === 0 ? "hidden" : "visible" }}
-                        onClick={() => setCertIndex(i => Math.max(0, i - 1))}
-                        disabled={certIndex === 0}
-                      >
-                        Previous
-                      </button>
-                      <span style={{ fontWeight: 600, color: "#4f8cff" }}>
-                        {certificates[certIndex].title} ({certIndex + 1}/{certificates.length})
-                      </span>
-                      <button
-                        className="btn btn-outline-primary btn-sm"
-                        style={{ marginLeft: 12, visibility: certIndex === certificates.length - 1 ? "hidden" : "visible" }}
-                        onClick={() => setCertIndex(i => Math.min(certificates.length - 1, i + 1))}
-                        disabled={certIndex === certificates.length - 1}
-                      >
-                        Next
-                      </button>
-                    </div>
-                    <iframe
-                      src={certificates[certIndex].src}
-                      title={certificates[certIndex].title}
-                      style={{
-                        width: "70vw",
-                        height: "80vh",
-                        border: "none",
-                        borderRadius: "0 0 12px 12px"
-                      }}
-                    />
-                  </div>
-                </div>
-              )}
             </div>
-            {/* Right: Responsive flexbox for images, height matches left */}
-            <div className="col-lg-6 wow fadeInUp d-flex" data-wow-delay="0.5s" style={{ height: "100%" }}>
-              <div className="row g-3 mb-4 flex-grow-1 d-flex flex-column" style={{ height: "100%" }}>
-                <div className="col-12 mb-3" style={{ flex: 1 }}>
-                  {/* Responsive flexbox for images */}
-                  <div
-                    className="d-flex flex-wrap gap-3 h-100"
-                    style={{ justifyContent: "space-between", height: "100%" }}
-                  >
-                    <ImageDisplay
-                      src="img/about-1.jpg"
-                      alt="about-1"
-                      style={{
-                        flex: "1 1 48%",
-                        minWidth: 0,
-                        height: "100%",
-                        maxWidth: "48%",
-                        width: "100%",
-                      }}
-                    />
-                    <ImageDisplay
-                      src="img/about-2.jpg"
-                      alt="about-2"
-                      style={{
-                        flex: "1 1 48%",
-                        minWidth: 0,
-                        height: "100%",
-                        maxWidth: "48%",
-                        width: "100%",
-                      }}
-                    />
+
+            {/* Right Column: Certificates Display (Now occupies the right side) */}
+            <div className="col-lg-6 wow fadeInUp d-flex flex-column" data-wow-delay="0.5s">
+              <div className="bg-white rounded shadow p-4" style={{ borderRadius: "18px", boxShadow: "0 2px 12px rgba(0,0,0,0.04)", flexGrow: 1 }}>
+                <h4 className="mb-3" style={{ color: "#4f8cff" }}>Certificates & Achievements</h4>
+                {certificates.length > 0 ? (
+                  <div className="d-flex flex-column gap-3">
+                    {certificates.map((cert, index) => (
+                      <div key={index} className="d-flex align-items-center justify-content-between p-3 rounded" style={{ border: "1px solid #e3e6ee", background: "#f8f9fa" }}>
+                        <span className="text-dark fw-medium">{cert.title}</span>
+                        <a
+                          href={cert.src}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn btn-outline-secondary btn-sm"
+                          style={{ borderColor: "#6c757d", color: "#6c757d" }}
+                        >
+                          View PDF
+                        </a>
+                      </div>
+                    ))}
                   </div>
-                </div>
-                <div className="col-12" style={{ flex: "0 0 auto" }}>
-                  <ImageDisplay
-                    src="img/about-3.jpg"
-                    alt="about-3"
-                    style={{
-                      width: "100%",
-                      height: "210px",
-                      marginTop: 8,
-                      maxWidth: "100%",
-                    }}
-                  />
-                </div>
+                ) : (
+                  <p className="text-muted">No certificates to display yet.</p>
+                )}
               </div>
             </div>
+
           </div>
         </div>
       </div>
-      <WorkExperices />
+
+      {/* Certificate Modal (if still needed, though the right column now lists them) */}
+      {showCert && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0, left: 0, right: 0, bottom: 0,
+            background: "rgba(0,0,0,0.5)",
+            zIndex: 9999,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center"
+          }}
+          onClick={() => setShowCert(false)}
+        >
+          <div
+            style={{
+              background: "#fff",
+              padding: 0,
+              borderRadius: 12,
+              maxWidth: "90vw",
+              maxHeight: "90vh",
+              boxShadow: "0 8px 32px rgba(0,0,0,0.18)",
+              position: "relative",
+              display: "flex",
+              flexDirection: "column"
+            }}
+            onClick={e => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setShowCert(false)}
+              style={{
+                position: "absolute",
+                top: 8,
+                right: 8,
+                background: "#4f8cff",
+                color: "#fff",
+                border: "none",
+                borderRadius: "50%",
+                width: 32,
+                height: 32,
+                fontSize: 18,
+                cursor: "pointer"
+              }}
+              aria-label="Close"
+            >×</button>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "12px 0 12px 0", borderBottom: "1px solid #eee" }}>
+              <button
+                className="btn btn-outline-primary btn-sm"
+                style={{ marginRight: 12, visibility: certIndex === 0 ? "hidden" : "visible" }}
+                onClick={() => setCertIndex(i => Math.max(0, i - 1))}
+                disabled={certIndex === 0}
+              >
+                Previous
+              </button>
+              <span style={{ fontWeight: 600, color: "#4f8cff" }}>
+                {certificates[certIndex].title} ({certIndex + 1}/{certificates.length})
+              </span>
+              <button
+                className="btn btn-outline-primary btn-sm"
+                style={{ marginLeft: 12, visibility: certIndex === certificates.length - 1 ? "hidden" : "visible" }}
+                onClick={() => setCertIndex(i => Math.min(certificates.length - 1, i + 1))}
+                disabled={certIndex === certificates.length - 1}
+              >
+                Next
+              </button>
+            </div>
+            <iframe
+              src={certificates[certIndex].src}
+              title={certificates[certIndex].title}
+              style={{
+                width: "70vw",
+                height: "80vh",
+                border: "none",
+                borderRadius: "0 0 12px 12px"
+              }}
+            />
+          </div>
+        </div>
+      )}
+      <WorkExperiences />
     </div>
-  )
+  );
 }

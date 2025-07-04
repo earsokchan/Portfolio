@@ -54,12 +54,15 @@ export default function Header() {
                       34
                     </span>
                   </p> */}
-                  {/* <p className="flex">
-                    Followers
-                    <span className="state-value">
-                      455
-                    </span>
-                  </p> */}
+                  <a
+            href="/cv/EarSokchan_Cv.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-outline-primary btn-sm me-2"
+            style={{ borderColor: "#4f8cff", color: "#4f8cff" }}
+          >
+            View CV
+          </a>
                 </div>
               </div>
             </div>
@@ -76,15 +79,7 @@ export default function Header() {
         </StyledWrapper>
         {/* CV Buttons */}
         <div className="d-flex align-items-center ms-3" style={{ marginTop: 12 }}>
-          <a
-            href="/cv/EarSokchan_Cv.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-outline-primary btn-sm me-2"
-            style={{ borderColor: "#4f8cff", color: "#4f8cff" }}
-          >
-            View CV
-          </a>
+          
           <a
             href="/cv/EarSokchan_Cv.pdf"
             download="EarSokchan_Cv.pdf"
