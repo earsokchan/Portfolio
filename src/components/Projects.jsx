@@ -281,6 +281,14 @@ const projects = [
     description: "A modern web app combining React frontend with Laravel backend, featuring authentication and RESTful APIs.",
     link: "https://youtu.be/KAowhxraZ2A?si=C-GvEmB2kRSoQ4UK",
     gallery: []
+  },
+   {
+    img: "img/Screenshot 2025-10-05 222150.png",
+    alt: "Nextjs",
+    title: "Build a menu online",
+    description: "This a menu online For Pisey Slon.",
+    link: "https://menu-commerce-client.vercel.app/",
+    gallery: []
   }
 ];
 
