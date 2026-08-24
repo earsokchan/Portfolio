@@ -1,140 +1,324 @@
-import { motion } from 'motion/react';
-import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence, Variants } from 'motion/react';
+import { ArrowDown, Github, Linkedin, Mail, Sparkles, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
+import profileImg from '../../assets/sokchan_profile.png';
+import builwareImg from '../../assets/builware.png';
+import targetClotheImg from '../../assets/targetclothe_preview.png';
+import banthobjulImg from '../../assets/banthobjul.png';
+import dlSystemImg from '../../assets/DL-system.png';
+import theLittleCafeImg from '../../assets/thelittlacafe.jpeg';
 
 export function Hero() {
-  const containerVariants = {
+  const showcaseSlides = [
+    {
+      id: 'profile',
+      title: 'Sokchan',
+      subtitle: 'Junior Developer',
+      badge: 'Full-Stack Developer',
+      image: profileImg,
+      link: '#about',
+    },
+    {
+      id: 'builware',
+      title: 'Builware SaaS Platform',
+      subtitle: 'Multi-Store E-Commerce Platform',
+      badge: 'Featured Platform',
+      image: builwareImg,
+      link: 'https://www.builware.app/',
+    },
+    {
+      id: 'targetstore',
+      title: 'Target Store Online Shop',
+      subtitle: 'Fashion E-Commerce Website',
+      badge: 'E-Commerce & Fashion',
+      image: targetClotheImg,
+      link: 'https://www.targetclothe.com/',
+    },
+    {
+      id: 'banthobjul',
+      title: 'Bantobchuol System',
+      subtitle: 'Room Rent Management System',
+      badge: 'Room Rent SaaS',
+      image: banthobjulImg,
+      link: '#projects',
+    },
+    {
+      id: 'dlsystem',
+      title: 'DL-System Ice Warehouse',
+      subtitle: 'Ice Factory & Warehouse System',
+      badge: 'Warehouse & Logistics',
+      image: dlSystemImg,
+      link: '#projects',
+    },
+    {
+      id: 'littlecafe',
+      title: 'The Little Cafe',
+      subtitle: 'Digital Food & Cafe Menu',
+      badge: 'Food & Menu Web App',
+      image: theLittleCafeImg,
+      link: 'https://thelittlecafe.vercel.app/',
+    },
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+
+  // Auto-rotate slide every 3.5 seconds unless hovered
+  useEffect(() => {
+    if (isHovered) return;
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % showcaseSlides.length);
+    }, 3500);
+    return () => clearInterval(interval);
+  }, [isHovered, showcaseSlides.length]);
+
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
+        staggerChildren: 0.15,
+        delayChildren: 0.2,
       },
     },
   };
 
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
+  const itemVariants: Variants = {
+    hidden: { x: -30, opacity: 0 },
     visible: {
-      y: 0,
+      x: 0,
       opacity: 1,
       transition: {
-        duration: 0.8,
-        ease: [0.6, 0.05, 0.01, 0.9],
+        duration: 0.7,
+        ease: 'easeOut',
       },
     },
   };
 
-  const floatingAnimation = {
-    y: [0, -20, 0],
-    transition: {
-      duration: 3,
-      repeat: Infinity,
-      ease: 'easeInOut',
-    },
+  const activeSlide = showcaseSlides[currentIndex];
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev + 1) % showcaseSlides.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev - 1 + showcaseSlides.length) % showcaseSlides.length);
   };
 
   return (
-    <section id="home" className="min-h-screen relative flex items-center justify-center overflow-hidden bg-black">
-      {/* Animated Background */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+    <section id="home" className="min-h-screen relative flex items-center justify-center overflow-hidden bg-white pt-24 pb-16 px-6">
+      <div className="max-w-6xl mx-auto w-full">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          
+          {/* LEFT COLUMN: DETAILS */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="flex flex-col items-start text-left space-y-6"
+          >
+            {/* Welcome Badge */}
+            <motion.div variants={itemVariants}>
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-black/5 border border-black/10 rounded-full text-xs font-bold uppercase tracking-wider text-black">
+                <Sparkles size={13} /> Welcome to my portfolio
+              </span>
+            </motion.div>
+
+            {/* Main Name & Title */}
+            <motion.div variants={itemVariants} className="space-y-2">
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight text-black leading-[1.05]">
+                Sokchan
+              </h1>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-black/50">
+                Junior Developer
+              </h2>
+            </motion.div>
+
+            {/* Tagline / Subtitle */}
+            <motion.p
+              variants={itemVariants}
+              className="text-base sm:text-lg text-black/70 leading-relaxed max-w-xl"
+            >
+              Junior Developer at Technology Solution Development (TSD Co., Ltd.) &bull; Computer Science Graduate from Royal University of Phnom Penh (RUPP).
+            </motion.p>
+
+            {/* Action Buttons */}
+            <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-4 pt-2">
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })}
+                className="px-8 py-3.5 bg-black text-white rounded-xl text-xs font-bold tracking-wider uppercase hover:bg-black/80 transition-all shadow-sm"
+              >
+                View My Work
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
+                className="px-8 py-3.5 bg-black/5 text-black border border-black/10 rounded-xl text-xs font-bold tracking-wider uppercase hover:bg-black/10 transition-all"
+              >
+                Get In Touch
+              </motion.button>
+            </motion.div>
+
+            {/* Social Links */}
+            <motion.div variants={itemVariants} className="flex items-center gap-3 pt-2">
+              <motion.a
+                whileHover={{ y: -2 }}
+                href="https://github.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-11 h-11 flex items-center justify-center bg-black/5 border border-black/10 rounded-xl text-black hover:bg-black hover:text-white transition-all"
+              >
+                <Github size={18} />
+              </motion.a>
+              <motion.a
+                whileHover={{ y: -2 }}
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-11 h-11 flex items-center justify-center bg-black/5 border border-black/10 rounded-xl text-black hover:bg-black hover:text-white transition-all"
+              >
+                <Linkedin size={18} />
+              </motion.a>
+              <motion.a
+                whileHover={{ y: -2 }}
+                href="mailto:contact@example.com"
+                className="w-11 h-11 flex items-center justify-center bg-black/5 border border-black/10 rounded-xl text-black hover:bg-black hover:text-white transition-all"
+              >
+                <Mail size={18} />
+              </motion.a>
+            </motion.div>
+          </motion.div>
+
+          {/* RIGHT COLUMN: COSMIC UNIVERSE AUTOMATIC SHOWCASE SLIDER */}
+          <div
+            className="relative flex items-center justify-center"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            {/* Universe Orbiting Glow Rings */}
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+              className="absolute -inset-4 rounded-full border border-dashed border-black/15 pointer-events-none"
+            />
+            <motion.div
+              animate={{ rotate: -360 }}
+              transition={{ duration: 45, repeat: Infinity, ease: 'linear' }}
+              className="absolute -inset-10 rounded-full border border-dotted border-black/10 pointer-events-none hidden sm:block"
+            />
+
+            {/* Orbiting Tech Badges (Universe Floating Nodes) */}
+            <motion.div
+              animate={{ y: [0, -8, 0], x: [0, 5, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute -top-4 -left-2 z-20 bg-black text-white text-[11px] font-bold px-3 py-1.5 rounded-full shadow-md flex items-center gap-1.5"
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              React & Next.js
+            </motion.div>
+
+            <motion.div
+              animate={{ y: [0, 8, 0], x: [0, -6, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+              className="absolute -bottom-3 -right-2 z-20 bg-black text-white text-[11px] font-bold px-3 py-1.5 rounded-full shadow-md flex items-center gap-1.5"
+            >
+              <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+              KHQR & ABA PayWay
+            </motion.div>
+
+            {/* Main Animated Showcase Box */}
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+              className="relative w-full max-w-lg aspect-square rounded-3xl overflow-hidden border border-black/10 shadow-xl bg-white p-3 sm:p-4 group"
+            >
+              {/* Image Transition Slider */}
+              <div className="relative w-full h-full rounded-2xl overflow-hidden bg-black/5 border border-black/5">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeSlide.id}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 1.05 }}
+                    transition={{ duration: 0.6, ease: 'easeOut' }}
+                    className="w-full h-full relative"
+                  >
+                    <img
+                      src={activeSlide.image}
+                      alt={activeSlide.title}
+                      className="w-full h-full object-cover"
+                    />
+
+                    {/* Gradient Overlay for Text Readability */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-5 text-white" />
+                  </motion.div>
+                </AnimatePresence>
+
+                {/* Left & Right Slider Controls */}
+                <button
+                  onClick={prevSlide}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/40 hover:bg-black backdrop-blur-md text-white flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 shadow-md"
+                >
+                  <ChevronLeft size={18} />
+                </button>
+                <button
+                  onClick={nextSlide}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/40 hover:bg-black backdrop-blur-md text-white flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 shadow-md"
+                >
+                  <ChevronRight size={18} />
+                </button>
+
+                {/* Bottom Active Slide Details */}
+                <div className="absolute bottom-4 left-4 right-4 z-10 text-white pointer-events-none">
+                  <div className="flex items-center justify-between gap-2 mb-1">
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white">
+                      {activeSlide.badge}
+                    </span>
+                    <span className="text-[11px] font-mono opacity-80">
+                      {currentIndex + 1} / {showcaseSlides.length}
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-bold tracking-tight text-white leading-snug">
+                    {activeSlide.title}
+                  </h3>
+                  <p className="text-xs text-white/80 line-clamp-1 font-medium">
+                    {activeSlide.subtitle}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Thumbnail Indicator Dots Below */}
+            <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-20 bg-white/80 backdrop-blur-md px-3 py-1.5 rounded-full border border-black/10 shadow-sm">
+              {showcaseSlides.map((slide, idx) => (
+                <button
+                  key={slide.id}
+                  onClick={() => setCurrentIndex(idx)}
+                  className={`h-2 rounded-full transition-all ${
+                    idx === currentIndex
+                      ? 'w-6 bg-black'
+                      : 'w-2 bg-black/20 hover:bg-black/50'
+                  }`}
+                  title={slide.title}
+                />
+              ))}
+            </div>
+          </div>
+
+        </div>
       </div>
 
-      {/* 3D Floating Elements */}
+      {/* Scroll Down Indicator */}
       <motion.div
-        animate={floatingAnimation}
-        className="absolute top-20 right-20 w-20 h-20 border border-blue-500/30 rounded-lg"
-        style={{ transform: 'rotateX(45deg) rotateY(45deg)' }}
-      />
-      <motion.div
-        animate={{ ...floatingAnimation, transition: { ...floatingAnimation.transition, delay: 0.5 } }}
-        className="absolute bottom-32 left-20 w-16 h-16 border border-purple-500/30 rounded-lg"
-        style={{ transform: 'rotateX(45deg) rotateY(45deg)' }}
-      />
-
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="relative z-10 max-w-5xl mx-auto px-6 text-center"
-      >
-        <motion.div variants={itemVariants} className="mb-6">
-          <span className="px-4 py-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full text-sm text-gray-300">
-            Welcome to my portfolio
-          </span>
-        </motion.div>
-
-        <motion.h1
-          variants={itemVariants}
-          className="text-6xl md:text-8xl mb-6 text-white"
-        >
-          Sokchan
-          <br />
-          <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-            Web Developer
-          </span>
-        </motion.h1>
-
-        <motion.p
-          variants={itemVariants}
-          className="text-xl md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto"
-        >
-          Developer at TSD Co., Ltd. | Computer Science Graduate from RUPP
-        </motion.p>
-
-        <motion.div variants={itemVariants} className="flex flex-wrap items-center justify-center gap-6 mb-16">
-          <motion.button
-            whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(59, 130, 246, 0.5)' }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })}
-            className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full text-white font-medium"
-          >
-            View My Work
-          </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-            className="px-8 py-4 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full text-white font-medium hover:bg-white/10 transition-colors"
-          >
-            Get In Touch
-          </motion.button>
-        </motion.div>
-
-        <motion.div variants={itemVariants} className="flex items-center justify-center gap-6">
-          <motion.a
-            whileHover={{ y: -4, scale: 1.1 }}
-            href="#"
-            className="w-12 h-12 flex items-center justify-center bg-white/5 backdrop-blur-sm border border-white/10 rounded-full text-gray-300 hover:text-white hover:border-white/30 transition-colors"
-          >
-            <Github size={20} />
-          </motion.a>
-          <motion.a
-            whileHover={{ y: -4, scale: 1.1 }}
-            href="#"
-            className="w-12 h-12 flex items-center justify-center bg-white/5 backdrop-blur-sm border border-white/10 rounded-full text-gray-300 hover:text-white hover:border-white/30 transition-colors"
-          >
-            <Linkedin size={20} />
-          </motion.a>
-          <motion.a
-            whileHover={{ y: -4, scale: 1.1 }}
-            href="#"
-            className="w-12 h-12 flex items-center justify-center bg-white/5 backdrop-blur-sm border border-white/10 rounded-full text-gray-300 hover:text-white hover:border-white/30 transition-colors"
-          >
-            <Mail size={20} />
-          </motion.a>
-        </motion.div>
-      </motion.div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        animate={{ y: [0, 10, 0] }}
+        animate={{ y: [0, 8, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 cursor-pointer"
+        onClick={() => document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' })}
       >
-        <ArrowDown className="text-white/50" size={32} />
+        <ArrowDown className="text-black/30 hover:text-black transition-colors" size={24} />
       </motion.div>
     </section>
   );

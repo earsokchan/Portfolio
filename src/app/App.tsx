@@ -7,7 +7,7 @@ import { Contact } from './components/Contact';
 
 export default function App() {
   return (
-    <div className="bg-black overflow-x-hidden">
+    <div className="bg-white text-black min-h-screen selection:bg-black selection:text-white font-sans antialiased overflow-x-hidden">
       <Navigation />
       <Hero />
       <About />
