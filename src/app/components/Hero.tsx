@@ -7,6 +7,8 @@ import targetClotheImg from '../../assets/targetclothe_preview.png';
 import banthobjulImg from '../../assets/banthobjul.png';
 import dlSystemImg from '../../assets/DL-system.png';
 import theLittleCafeImg from '../../assets/thelittlacafe.jpeg';
+import bantobchuolDashboard from '../../assets/SCR-20260902-kgwo.png';
+import kottraKangeaDashboard from '../../assets/SCR-20260901-iuji.png';
 
 export function Hero() {
   const showcaseSlides = [
@@ -41,6 +43,22 @@ export function Hero() {
       badge: 'Room Rent SaaS',
       image: banthobjulImg,
       link: '#projects',
+    },
+    {
+      id: 'bantobchuol',
+      title: 'Bantobchuol Dashboard',
+      subtitle: 'Revenue & Utility Analytics',
+      badge: 'Room Rental System',
+      image: bantobchuolDashboard,
+      link: '#projects',
+    },
+    {
+      id: 'kottrakangea',
+      title: 'KottraKangea',
+      subtitle: 'Developer Work & Performance Dashboard',
+      badge: 'Dev Productivity SaaS',
+      image: kottraKangeaDashboard,
+      link: 'https://kottrakangea.builware.app/',
     },
     {
       id: 'dlsystem',
