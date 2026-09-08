@@ -12,10 +12,10 @@ export function Skills() {
       icon: Code2,
       description: 'Building high-performance, responsive web interfaces',
       skills: [
-        { name: 'React.js / Next.js', level: 92 },
-        { name: 'HTML5 / CSS3 / Tailwind CSS', level: 95 },
-        { name: 'JavaScript (ES6+) / TypeScript', level: 88 },
-        { name: 'Flutter (Mobile UI)', level: 75 },
+        { name: 'React.js / Next.js', level: 75 },
+        { name: 'HTML5 / CSS3 / Tailwind CSS', level: 82 },
+        { name: 'JavaScript (ES6+) / TypeScript', level: 70 },
+        { name: 'Flutter (Mobile UI)', level: 48 },
       ],
     },
     {
@@ -23,10 +23,10 @@ export function Skills() {
       icon: Server,
       description: 'Scalable server architecture & payment gateway integrations',
       skills: [
-        { name: 'Node.js / Express.js', level: 88 },
-        { name: 'Laravel (PHP)', level: 82 },
-        { name: 'RESTful API & Webhooks', level: 90 },
-        { name: 'Payment APIs (KHQR, ABA PayWay, Bakong)', level: 92 },
+        { name: 'Node.js / Express.js', level: 68 },
+        { name: 'Laravel (PHP)', level: 60 },
+        { name: 'RESTful API & Webhooks', level: 72 },
+        { name: 'Payment APIs (KHQR, ABA PayWay, Bakong)', level: 74 },
       ],
     },
     {
@@ -34,10 +34,10 @@ export function Skills() {
       icon: Database,
       description: 'Database management, cloud hosting & deployment',
       skills: [
-        { name: 'MySQL / PostgreSQL', level: 88 },
-        { name: 'MongoDB', level: 85 },
-        { name: 'Vercel / Cloudflare / Hostinger', level: 85 },
-        { name: 'AWS EC2 / Docker', level: 72 },
+        { name: 'MySQL / PostgreSQL', level: 70 },
+        { name: 'MongoDB', level: 72 },
+        { name: 'Vercel / Cloudflare / Hostinger', level: 74 },
+        { name: 'AWS EC2 / Docker', level: 55 },
       ],
     },
     {
@@ -45,10 +45,10 @@ export function Skills() {
       icon: Bot,
       description: 'Advanced AI pair-programming & automated coding tools',
       skills: [
-        { name: 'Antigravity & Cursor AI', level: 95 },
-        { name: 'GitHub Copilot & OpenAI Codex', level: 92 },
-        { name: 'Claude AI & DeepSeek', level: 90 },
-        { name: 'Grok & OpenCode', level: 88 },
+        { name: 'Antigravity & Cursor AI', level: 80 },
+        { name: 'GitHub Copilot & OpenAI Codex', level: 78 },
+        { name: 'Claude AI & DeepSeek', level: 76 },
+        { name: 'Grok & OpenCode', level: 70 },
       ],
     },
   ];
@@ -115,7 +115,7 @@ export function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
-              className="bg-white border border-black/10 rounded-3xl p-8 shadow-sm hover:border-black hover:shadow-md transition-all flex flex-col justify-between"
+              className="bg-white border border-black/10 rounded-3xl p-8 shadow-sm hover:border-black hover:shadow-md transition-colors flex flex-col justify-between"
             >
               <div>
                 {/* Header Badge */}
@@ -180,7 +180,7 @@ export function Skills() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.05 }}
                 whileHover={{ scale: 1.03 }}
-                className="bg-white/10 border border-white/15 rounded-2xl p-4 hover:bg-white hover:text-black transition-all group cursor-default"
+                className="bg-white/10 border border-white/15 rounded-2xl p-4 hover:bg-white hover:text-black transition-colors group cursor-default"
               >
                 <div className="flex items-center justify-between mb-1">
                   <span className="text-sm font-bold group-hover:text-black">{tool.name}</span>
@@ -215,7 +215,7 @@ export function Skills() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: catIdx * 0.1 }}
-                className="bg-white border border-black/10 rounded-2xl p-6 shadow-sm hover:border-black transition-all"
+                className="bg-white border border-black/10 rounded-2xl p-6 shadow-sm hover:border-black transition-colors"
               >
                 <div className="flex items-center gap-2 mb-4">
                   <Layers size={16} className="text-black/60" />
@@ -226,7 +226,7 @@ export function Skills() {
                   {cat.tools.map((tech) => (
                     <span
                       key={tech}
-                      className="px-3 py-1.5 bg-black/5 border border-black/5 rounded-xl text-xs font-semibold text-black hover:bg-black hover:text-white transition-all cursor-default"
+                      className="px-3 py-1.5 bg-black/5 border border-black/5 rounded-xl text-xs font-semibold text-black hover:bg-black hover:text-white transition-colors cursor-default"
                     >
                       {tech}
                     </span>

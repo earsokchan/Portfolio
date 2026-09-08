@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, Variants } from 'motion/react';
 import { ArrowDown, Github, Linkedin, Mail, Sparkles, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
 import profileImg from '../../assets/sokchan_profile.png';
@@ -80,15 +80,27 @@ export function Hero() {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const heroRef = useRef<HTMLDivElement>(null);
+  const [isHeroVisible, setIsHeroVisible] = useState(true);
 
-  // Auto-rotate slide every 3.5 seconds unless hovered
   useEffect(() => {
-    if (isHovered) return;
+    const el = heroRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsHeroVisible(entry.isIntersecting),
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (isHovered || !isHeroVisible) return;
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % showcaseSlides.length);
     }, 3500);
     return () => clearInterval(interval);
-  }, [isHovered, showcaseSlides.length]);
+  }, [isHovered, isHeroVisible, showcaseSlides.length]);
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -124,7 +136,7 @@ export function Hero() {
   };
 
   return (
-    <section id="home" className="min-h-screen relative flex items-center justify-center overflow-hidden bg-white pt-24 pb-16 px-6">
+    <section ref={heroRef} id="home" className="min-h-screen relative flex items-center justify-center overflow-hidden bg-white pt-24 pb-16 px-6">
       <div className="max-w-6xl mx-auto w-full">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           
@@ -166,7 +178,7 @@ export function Hero() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })}
-                className="px-8 py-3.5 bg-black text-white rounded-xl text-xs font-bold tracking-wider uppercase hover:bg-black/80 transition-all shadow-sm"
+                className="px-8 py-3.5 bg-black text-white rounded-xl text-xs font-bold tracking-wider uppercase hover:bg-black/80 transition-colors shadow-sm"
               >
                 View My Work
               </motion.button>
@@ -174,7 +186,7 @@ export function Hero() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-                className="px-8 py-3.5 bg-black/5 text-black border border-black/10 rounded-xl text-xs font-bold tracking-wider uppercase hover:bg-black/10 transition-all"
+                className="px-8 py-3.5 bg-black/5 text-black border border-black/10 rounded-xl text-xs font-bold tracking-wider uppercase hover:bg-black/10 transition-colors"
               >
                 Get In Touch
               </motion.button>
@@ -187,7 +199,7 @@ export function Hero() {
                 href="https://github.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-11 h-11 flex items-center justify-center bg-black/5 border border-black/10 rounded-xl text-black hover:bg-black hover:text-white transition-all"
+                className="w-11 h-11 flex items-center justify-center bg-black/5 border border-black/10 rounded-xl text-black hover:bg-black hover:text-white transition-colors"
               >
                 <Github size={18} />
               </motion.a>
@@ -196,14 +208,14 @@ export function Hero() {
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-11 h-11 flex items-center justify-center bg-black/5 border border-black/10 rounded-xl text-black hover:bg-black hover:text-white transition-all"
+                className="w-11 h-11 flex items-center justify-center bg-black/5 border border-black/10 rounded-xl text-black hover:bg-black hover:text-white transition-colors"
               >
                 <Linkedin size={18} />
               </motion.a>
               <motion.a
                 whileHover={{ y: -2 }}
                 href="mailto:contact@example.com"
-                className="w-11 h-11 flex items-center justify-center bg-black/5 border border-black/10 rounded-xl text-black hover:bg-black hover:text-white transition-all"
+                className="w-11 h-11 flex items-center justify-center bg-black/5 border border-black/10 rounded-xl text-black hover:bg-black hover:text-white transition-colors"
               >
                 <Mail size={18} />
               </motion.a>
@@ -218,30 +230,30 @@ export function Hero() {
           >
             {/* Universe Orbiting Glow Rings */}
             <motion.div
-              animate={{ rotate: 360 }}
+              animate={isHeroVisible ? { rotate: 360 } : {}}
               transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-              className="absolute -inset-4 rounded-full border border-dashed border-black/15 pointer-events-none"
+              className="absolute -inset-4 rounded-full border border-dashed border-black/15 pointer-events-none will-change-transform"
             />
             <motion.div
-              animate={{ rotate: -360 }}
+              animate={isHeroVisible ? { rotate: -360 } : {}}
               transition={{ duration: 45, repeat: Infinity, ease: 'linear' }}
-              className="absolute -inset-10 rounded-full border border-dotted border-black/10 pointer-events-none hidden sm:block"
+              className="absolute -inset-10 rounded-full border border-dotted border-black/10 pointer-events-none hidden sm:block will-change-transform"
             />
 
             {/* Orbiting Tech Badges (Universe Floating Nodes) */}
             <motion.div
-              animate={{ y: [0, -8, 0], x: [0, 5, 0] }}
+              animate={isHeroVisible ? { y: [0, -8, 0], x: [0, 5, 0] } : {}}
               transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute -top-4 -left-2 z-20 bg-black text-white text-[11px] font-bold px-3 py-1.5 rounded-full shadow-md flex items-center gap-1.5"
+              className="absolute -top-4 -left-2 z-20 bg-black text-white text-[11px] font-bold px-3 py-1.5 rounded-full shadow-md flex items-center gap-1.5 will-change-transform"
             >
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               React & Next.js
             </motion.div>
 
             <motion.div
-              animate={{ y: [0, 8, 0], x: [0, -6, 0] }}
+              animate={isHeroVisible ? { y: [0, 8, 0], x: [0, -6, 0] } : {}}
               transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-              className="absolute -bottom-3 -right-2 z-20 bg-black text-white text-[11px] font-bold px-3 py-1.5 rounded-full shadow-md flex items-center gap-1.5"
+              className="absolute -bottom-3 -right-2 z-20 bg-black text-white text-[11px] font-bold px-3 py-1.5 rounded-full shadow-md flex items-center gap-1.5 will-change-transform"
             >
               <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
               KHQR & ABA PayWay
@@ -249,9 +261,9 @@ export function Hero() {
 
             {/* Main Animated Showcase Box */}
             <motion.div
-              animate={{ y: [0, -10, 0] }}
+              animate={isHeroVisible ? { y: [0, -10, 0] } : {}}
               transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-              className="relative w-full max-w-lg aspect-square rounded-3xl overflow-hidden border border-black/10 shadow-xl bg-white p-3 sm:p-4 group"
+              className="relative w-full max-w-lg aspect-square rounded-3xl overflow-hidden border border-black/10 shadow-xl bg-white p-3 sm:p-4 group will-change-transform"
             >
               {/* Image Transition Slider */}
               <div className="relative w-full h-full rounded-2xl overflow-hidden bg-black/5 border border-black/5">
@@ -278,13 +290,13 @@ export function Hero() {
                 {/* Left & Right Slider Controls */}
                 <button
                   onClick={prevSlide}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/40 hover:bg-black backdrop-blur-md text-white flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 shadow-md"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/50 hover:bg-black text-white flex items-center justify-center transition-colors opacity-0 group-hover:opacity-100 shadow-md"
                 >
                   <ChevronLeft size={18} />
                 </button>
                 <button
                   onClick={nextSlide}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/40 hover:bg-black backdrop-blur-md text-white flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 shadow-md"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/50 hover:bg-black text-white flex items-center justify-center transition-colors opacity-0 group-hover:opacity-100 shadow-md"
                 >
                   <ChevronRight size={18} />
                 </button>
@@ -292,7 +304,7 @@ export function Hero() {
                 {/* Bottom Active Slide Details */}
                 <div className="absolute bottom-4 left-4 right-4 z-10 text-white pointer-events-none">
                   <div className="flex items-center justify-between gap-2 mb-1">
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white">
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-white/20 border border-white/30 text-white">
                       {activeSlide.badge}
                     </span>
                     <span className="text-[11px] font-mono opacity-80">
@@ -310,7 +322,7 @@ export function Hero() {
             </motion.div>
 
             {/* Thumbnail Indicator Dots Below */}
-            <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-20 bg-white/80 backdrop-blur-md px-3 py-1.5 rounded-full border border-black/10 shadow-sm">
+            <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-20 bg-white px-3 py-1.5 rounded-full border border-black/10 shadow-sm">
               {showcaseSlides.map((slide, idx) => (
                 <button
                   key={slide.id}
@@ -331,9 +343,9 @@ export function Hero() {
 
       {/* Scroll Down Indicator */}
       <motion.div
-        animate={{ y: [0, 8, 0] }}
+        animate={isHeroVisible ? { y: [0, 8, 0] } : {}}
         transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 cursor-pointer"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 cursor-pointer will-change-transform"
         onClick={() => document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' })}
       >
         <ArrowDown className="text-black/30 hover:text-black transition-colors" size={24} />

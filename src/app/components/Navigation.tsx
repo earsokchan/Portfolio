@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import profileLogo from '../../assets/sokchan_profile.png';
@@ -6,13 +6,28 @@ import profileLogo from '../../assets/sokchan_profile.png';
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const rafRef = useRef<number | null>(null);
+  const lastScrollRef = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      if (rafRef.current) return;
+      rafRef.current = requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        const wasAbove = lastScrollRef.current <= 50;
+        const isAbove = scrollY <= 50;
+        if (wasAbove !== isAbove) {
+          setIsScrolled(!isAbove);
+        }
+        lastScrollRef.current = scrollY;
+        rafRef.current = null;
+      });
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
   }, []);
 
   const navItems = [
@@ -35,8 +50,8 @@ export function Navigation() {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white/80 backdrop-blur-md border-b border-black/10' : 'bg-white/80 backdrop-blur-md'
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 will-change-transform ${
+        isScrolled ? 'bg-white/90 backdrop-blur-lg border-b border-black/10 shadow-sm' : 'bg-white/80'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 py-4">

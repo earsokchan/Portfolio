@@ -79,7 +79,7 @@ export function Contact() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="flex items-center gap-4 p-4 rounded-xl border border-black/5 bg-black/[0.02] hover:bg-black hover:text-white transition-all group"
+                  className="flex items-center gap-4 p-4 rounded-xl border border-black/5 bg-black/[0.02] hover:bg-black hover:text-white transition-colors group"
                 >
                   <div className="w-11 h-11 flex items-center justify-center bg-black text-white group-hover:bg-white group-hover:text-black rounded-lg transition-colors shrink-0">
                     <info.icon size={20} />
@@ -98,13 +98,13 @@ export function Contact() {
               <div className="flex gap-3">
                 <a
                   href="#"
-                  className="w-10 h-10 flex items-center justify-center bg-black/5 border border-black/10 rounded-full text-black hover:bg-black hover:text-white transition-all"
+                  className="w-10 h-10 flex items-center justify-center bg-black/5 border border-black/10 rounded-full text-black hover:bg-black hover:text-white transition-colors"
                 >
                   <Github size={18} />
                 </a>
                 <a
                   href="#"
-                  className="w-10 h-10 flex items-center justify-center bg-black/5 border border-black/10 rounded-full text-black hover:bg-black hover:text-white transition-all"
+                  className="w-10 h-10 flex items-center justify-center bg-black/5 border border-black/10 rounded-full text-black hover:bg-black hover:text-white transition-colors"
                 >
                   <Linkedin size={18} />
                 </a>
@@ -129,7 +129,7 @@ export function Contact() {
                   id="name"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-3 bg-black/5 border border-black/10 rounded-xl text-black placeholder-black/30 focus:outline-none focus:border-black transition-all text-sm font-medium"
+                  className="w-full px-4 py-3 bg-black/5 border border-black/10 rounded-xl text-black placeholder-black/30 focus:outline-none focus:border-black transition-colors text-sm font-medium"
                   placeholder="John Doe"
                   required
                 />
@@ -144,7 +144,7 @@ export function Contact() {
                   id="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-3 bg-black/5 border border-black/10 rounded-xl text-black placeholder-black/30 focus:outline-none focus:border-black transition-all text-sm font-medium"
+                  className="w-full px-4 py-3 bg-black/5 border border-black/10 rounded-xl text-black placeholder-black/30 focus:outline-none focus:border-black transition-colors text-sm font-medium"
                   placeholder="john@example.com"
                   required
                 />
@@ -159,7 +159,7 @@ export function Contact() {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   rows={5}
-                  className="w-full px-4 py-3 bg-black/5 border border-black/10 rounded-xl text-black placeholder-black/30 focus:outline-none focus:border-black transition-all text-sm font-medium resize-none"
+                  className="w-full px-4 py-3 bg-black/5 border border-black/10 rounded-xl text-black placeholder-black/30 focus:outline-none focus:border-black transition-colors text-sm font-medium resize-none"
                   placeholder="Tell me about your project..."
                   required
                 />
@@ -167,7 +167,7 @@ export function Contact() {
 
               <button
                 type="submit"
-                className="w-full px-8 py-3.5 bg-black text-white rounded-xl font-medium text-sm tracking-wide flex items-center justify-center gap-2 hover:bg-black/80 transition-all shadow-sm"
+                className="w-full px-8 py-3.5 bg-black text-white rounded-xl font-medium text-sm tracking-wide flex items-center justify-center gap-2 hover:bg-black/80 transition-colors shadow-sm"
               >
                 Send Message
                 <Send size={16} />

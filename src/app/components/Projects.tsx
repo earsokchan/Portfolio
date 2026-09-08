@@ -136,12 +136,13 @@ export function Projects() {
                 <div
                   key={imgIndex}
                   onClick={() => setSelectedImage(imgSrc)}
-                  className="snap-start shrink-0 min-w-[280px] sm:min-w-[420px] max-w-[560px] aspect-video rounded-2xl overflow-hidden border border-black/10 shadow-sm bg-black/5 cursor-pointer hover:border-black/30 hover:shadow-md transition-all relative group"
+                  className="snap-start shrink-0 min-w-[280px] sm:min-w-[420px] max-w-[560px] aspect-video rounded-2xl overflow-hidden border border-black/10 shadow-sm bg-black/5 cursor-pointer hover:border-black/30 hover:shadow-md transition-colors relative group"
                 >
                   <ImageWithFallback
                     src={imgSrc}
                     alt={`${featuredProject.title} screen ${imgIndex + 1}`}
                     className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                    loading={imgIndex < 2 ? 'eager' : 'lazy'}
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
                     <span className="opacity-0 group-hover:opacity-100 transition-opacity bg-black text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-md flex items-center gap-1">
@@ -179,11 +180,11 @@ export function Projects() {
                 href={featuredProject.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-6 py-3 bg-black text-white rounded-xl text-xs font-semibold hover:bg-black/80 transition-all shadow-sm"
+                className="flex items-center gap-2 px-6 py-3 bg-black text-white rounded-xl text-xs font-semibold hover:bg-black/80 transition-colors shadow-sm"
               >
                 <ExternalLink size={14} /> Visit Website
               </a>
-              <button className="flex items-center gap-2 px-6 py-3 bg-black/5 border border-black/10 rounded-xl text-xs font-semibold text-black hover:bg-black/10 transition-all">
+              <button className="flex items-center gap-2 px-6 py-3 bg-black/5 border border-black/10 rounded-xl text-xs font-semibold text-black hover:bg-black/10 transition-colors">
                 <Github size={14} /> Source Code
               </button>
             </div>
@@ -223,7 +224,7 @@ export function Projects() {
                           <div
                             key={imgIndex}
                             onClick={() => setSelectedImage(imgSrc)}
-                            className="snap-start shrink-0 w-[82%] sm:w-[75%] rounded-2xl overflow-hidden border border-black/10 shadow-md bg-white cursor-pointer hover:shadow-xl hover:border-black/25 transition-all duration-300 relative group"
+                            className="snap-start shrink-0 w-[82%] sm:w-[75%] rounded-2xl overflow-hidden border border-black/10 shadow-md bg-white cursor-pointer hover:shadow-xl hover:border-black/25 transition-colors duration-300 relative group"
                           >
                             {/* Browser chrome bar */}
                             <div className="flex items-center gap-1.5 px-3 py-2 bg-black/[0.04] border-b border-black/[0.07]">
@@ -237,6 +238,7 @@ export function Projects() {
                                 src={imgSrc}
                                 alt={`${project.title} screen ${imgIndex + 1}`}
                                 className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
+                                loading={imgIndex < 1 ? 'eager' : 'lazy'}
                               />
                             </div>
                             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-end justify-center pb-4">
@@ -264,6 +266,7 @@ export function Projects() {
                         src={project.image}
                         alt={project.title}
                         className="w-full h-auto max-h-[460px] object-contain group-hover:scale-[1.02] transition-transform duration-500"
+                        loading="lazy"
                       />
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
                         <span className="opacity-0 group-hover:opacity-100 transition-opacity bg-black text-white text-xs font-semibold px-3.5 py-2 rounded-full shadow-md flex items-center gap-1.5">
@@ -298,7 +301,7 @@ export function Projects() {
                         href={(project as { url: string }).url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-5 py-2.5 bg-black text-white rounded-xl text-xs font-semibold hover:bg-black/80 transition-all shadow-sm"
+                        className="flex items-center gap-2 px-5 py-2.5 bg-black text-white rounded-xl text-xs font-semibold hover:bg-black/80 transition-colors shadow-sm"
                       >
                         <ExternalLink size={14} /> Visit Website
                       </a>
@@ -307,7 +310,7 @@ export function Projects() {
                         <ExternalLink size={14} /> Live Demo
                       </button>
                     )}
-                    <button className="flex items-center gap-2 px-5 py-2.5 bg-black/5 border border-black/10 rounded-xl text-xs font-semibold text-black hover:bg-black/10 transition-all">
+                    <button className="flex items-center gap-2 px-5 py-2.5 bg-black/5 border border-black/10 rounded-xl text-xs font-semibold text-black hover:bg-black/10 transition-colors">
                       <Github size={14} /> Source Code
                     </button>
                   </div>
@@ -322,7 +325,7 @@ export function Projects() {
       {selectedImage && (
         <div
           onClick={() => setSelectedImage(null)}
-          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8 cursor-zoom-out"
+          className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4 sm:p-8 cursor-zoom-out"
         >
           <div
             className="relative max-w-5xl max-h-[92vh] bg-white p-3 rounded-2xl overflow-hidden shadow-2xl border border-black/10"
@@ -330,8 +333,7 @@ export function Projects() {
           >
             <button
               onClick={() => setSelectedImage(null)}
-              className="absolute top-5 right-5 z-20 w-10 h-10 flex items-center justify-center bg-black text-white rounded-full hover:bg-black/80 transition-colors shadow-md"
-            >
+              className="absolute top-5 right-5 z-20 w-10 h-10 flex items-center justify-center bg-black text-white rounded-full hover:bg-black/80 transition-colors shadow-md"            >
               <X size={20} />
             </button>
             <div className="overflow-auto max-h-[85vh] rounded-xl bg-black/5 p-2">
