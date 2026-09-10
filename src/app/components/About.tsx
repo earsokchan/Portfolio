@@ -39,6 +39,7 @@ export function About() {
       role: 'Junior Developer',
       company: 'TSD Co., Ltd. (Technology Solution Development)',
       description: 'Building full-stack SaaS applications, payment gateway integrations, and warehouse management systems.',
+      link: 'https://tsdsolution.net',
       type: 'work' as const,
     },
     {
@@ -54,6 +55,14 @@ export function About() {
       company: 'Royal University of Phnom Penh (RUPP)',
       description: 'Bachelor of Computer Science degree covering software engineering, algorithms, and web technologies.',
       type: 'education' as const,
+    },
+    {
+      period: '2022 - 2024',
+      role: 'Security Guard',
+      company: 'GSS CAMBODIA',
+      description: 'Ensured safety and security of premises. Maintained access control and monitored surveillance systems.',
+      link: 'https://www.gss.com.kh/',
+      type: 'work' as const,
     },
   ];
 
@@ -319,7 +328,15 @@ export function About() {
                         </span>
                       </div>
                       <h4 className="text-lg font-bold text-black">{item.role}</h4>
-                      <p className="text-xs font-semibold text-black/50 mb-3">{item.company}</p>
+                      <p className="text-xs font-semibold text-black/50 mb-3">
+                        {'link' in item && item.link ? (
+                          <a href={item.link} target="_blank" rel="noopener noreferrer" className="hover:text-black hover:underline transition-colors">
+                            {item.company}
+                          </a>
+                        ) : (
+                          item.company
+                        )}
+                      </p>
                       <p className="text-sm text-black/70 leading-relaxed">{item.description}</p>
                     </div>
                   </div>

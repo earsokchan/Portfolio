@@ -8,24 +8,102 @@ export function Contact() {
     email: '',
     message: '',
   });
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error' | 'blocked'>('idle');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const checkRateLimit = (): boolean => {
+    const now = Date.now();
+    
+    const blockedUntilStr = localStorage.getItem('contact_blocked_until');
+    if (blockedUntilStr) {
+      const blockedUntil = parseInt(blockedUntilStr, 10);
+      if (now < blockedUntil) {
+        return false;
+      } else {
+        localStorage.removeItem('contact_blocked_until');
+      }
+    }
+
+    const timestampsStr = localStorage.getItem('contact_message_timestamps');
+    let timestamps: number[] = timestampsStr ? JSON.parse(timestampsStr) : [];
+    
+    timestamps = timestamps.filter(t => now - t < 60000);
+    
+    if (timestamps.length >= 10) {
+      localStorage.setItem('contact_blocked_until', (now + 24 * 60 * 60 * 1000).toString());
+      return false;
+    }
+
+    timestamps.push(now);
+    localStorage.setItem('contact_message_timestamps', JSON.stringify(timestamps));
+    return true;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    
+    if (!checkRateLimit()) {
+      setStatus('blocked');
+      setTimeout(() => setStatus('idle'), 5000);
+      return;
+    }
+    
+    setStatus('loading');
+
+    const botToken = '8901809442:AAEtjMU9To_KAuLQwGpfFAktu0ASZ7n7ZFY';
+    // IMPORTANT: Replace 'YOUR_CHAT_ID' with your actual Telegram Chat ID
+    const chatId = '-5374685766';
+
+    const text = `
+📩 *New Message from Portfolio!*
+👤 *Name:* ${formData.name}
+📧 *Email:* ${formData.email}
+📝 *Message:*
+${formData.message}
+`;
+
+    try {
+      const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: text,
+          parse_mode: 'Markdown',
+        }),
+      });
+
+      if (response.ok) {
+        setStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+        setTimeout(() => setStatus('idle'), 3000);
+      } else {
+        setStatus('error');
+        setTimeout(() => setStatus('idle'), 3000);
+      }
+    } catch (error) {
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 3000);
+    }
   };
 
   const contactInfo = [
     {
       icon: Mail,
       title: 'Email',
-      value: 'sokchan.dev@gmail.com',
-      href: 'mailto:sokchan.dev@gmail.com',
+      value: 'sokchanear0@gmail.com',
+      href: 'mailto:sokchanear0@gmail.com',
     },
     {
       icon: Phone,
       title: 'Phone',
-      value: '+855 XX XXX XXX',
-      href: 'tel:+855xxxxxxxx',
+      value: '096 588 1722',
+      href: 'tel:0965881722',
+    },
+    {
+      icon: Send,
+      title: 'Telegram',
+      value: '@earsokchan',
+      href: 'https://t.me/earsokchan',
     },
     {
       icon: MapPin,
@@ -65,7 +143,7 @@ export function Contact() {
             <div>
               <h3 className="text-2xl font-bold text-black mb-4">Let's work together</h3>
               <p className="text-black/60 text-base leading-relaxed mb-8">
-                I'm currently available for freelance projects and full-time opportunities. 
+                I'm currently available for freelance projects and full-time opportunities.
                 Whether you need a full-stack developer or want to discuss a project idea, feel free to reach out.
               </p>
             </div>
@@ -92,24 +170,7 @@ export function Contact() {
               ))}
             </div>
 
-            {/* Social Links */}
-            <div className="pt-6">
-              <p className="text-xs font-bold text-black/50 uppercase tracking-wider mb-4">Connect with me</p>
-              <div className="flex gap-3">
-                <a
-                  href="#"
-                  className="w-10 h-10 flex items-center justify-center bg-black/5 border border-black/10 rounded-full text-black hover:bg-black hover:text-white transition-colors"
-                >
-                  <Github size={18} />
-                </a>
-                <a
-                  href="#"
-                  className="w-10 h-10 flex items-center justify-center bg-black/5 border border-black/10 rounded-full text-black hover:bg-black hover:text-white transition-colors"
-                >
-                  <Linkedin size={18} />
-                </a>
-              </div>
-            </div>
+
           </motion.div>
 
           {/* Contact Form */}
@@ -167,9 +228,10 @@ export function Contact() {
 
               <button
                 type="submit"
-                className="w-full px-8 py-3.5 bg-black text-white rounded-xl font-medium text-sm tracking-wide flex items-center justify-center gap-2 hover:bg-black/80 transition-colors shadow-sm"
+                disabled={status === 'loading' || status === 'blocked'}
+                className="w-full px-8 py-3.5 bg-black text-white rounded-xl font-medium text-sm tracking-wide flex items-center justify-center gap-2 hover:bg-black/80 transition-colors shadow-sm disabled:opacity-70"
               >
-                Send Message
+                {status === 'loading' ? 'Sending...' : status === 'success' ? 'Message Sent!' : status === 'error' ? 'Failed to Send' : status === 'blocked' ? 'Spam Detected: Blocked 1 Day' : 'Send Message'}
                 <Send size={16} />
               </button>
             </form>
