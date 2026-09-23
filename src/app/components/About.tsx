@@ -201,7 +201,7 @@ export function About() {
             <div className="grid grid-cols-3 gap-4">
               {[
                 { value: '2+', label: 'Years Coding' },
-                { value: '6+', label: 'Projects Shipped' },
+                { value: '7+', label: 'Projects Shipped' },
                 { value: '6', label: 'Payment APIs' },
               ].map((stat, idx) => (
                 <motion.div

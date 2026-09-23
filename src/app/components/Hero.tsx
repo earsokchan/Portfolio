@@ -9,6 +9,7 @@ import dlSystemImg from '../../assets/DL-system.png';
 import theLittleCafeImg from '../../assets/thelittlacafe.jpeg';
 import bantobchuolDashboard from '../../assets/SCR-20260902-kgwo.png';
 import kottraKangeaDashboard from '../../assets/SCR-20260901-iuji.png';
+import gssMefsImg from '../../assets/SCR-20260923-mefs.png';
 
 export function Hero() {
   const showcaseSlides = [
@@ -27,6 +28,14 @@ export function Hero() {
       badge: 'Featured Platform',
       image: builwareImg,
       link: 'https://www.builware.app/',
+    },
+    {
+      id: 'gsscambodia',
+      title: 'GSS Cambodia Website Clone',
+      subtitle: 'Official Corporate Security Website Clone',
+      badge: 'Featured Website Clone',
+      image: gssMefsImg,
+      link: 'https://gss-cambodia.vercel.app/',
     },
     {
       id: 'targetstore',
