@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { ExternalLink, Github, Maximize2, X, Globe } from 'lucide-react';
+import { ExternalLink, Github, Maximize2, X, Globe, Briefcase } from 'lucide-react';
 import { ImageWithFallback } from '@/app/components/figma/ImageWithFallback';
 import targetClotheImg from '../../assets/targetclothe_preview.png';
 import banthobjulImg from '../../assets/banthobjul.png';
@@ -24,6 +24,11 @@ import theLittleCafeImg from '../../assets/thelittlacafe.jpeg';
 import gssMecsImg from '../../assets/SCR-20260923-mecs.jpeg';
 import gssMefsImg from '../../assets/SCR-20260923-mefs.png';
 import gssMemwImg from '../../assets/SCR-20260923-memw.jpeg';
+import smsHomeImg from '../../assets/Screenshot 2026-10-05 at 9.26.52 PM.png';
+import smsSecondImg from '../../assets/Screenshot 2026-10-05 at 9.29.58 PM.png';
+import posDashboardImg from '../../assets/Screenshot 2026-10-05 at 9.33.51 PM.png';
+import csComputerImg from '../../assets/image.png';
+import sopheaLifestyleImg from '../../assets/image copy.png';
 
 export function Projects() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -73,7 +78,47 @@ export function Projects() {
     },
   ];
 
+  const companyProjects = [
+    {
+      company: 'TSD Solution',
+      companyUrl: 'https://tsdsolution.com/',
+      category: 'Web Product Catalog',
+      title: 'CS Computer Web Product Catalog',
+      url: 'https://tsdsolution.com/portfolio/cs-computer-web-product-catalog/',
+      description: 'Advanced web product catalog for CS Computer. Features category navigation (laptops, desktops, PC parts, peripherals, storage, network, printers), brand filtering, promotional hero sliders, detailed product specs, RAM / storage upgrade options with dynamic pricing, and a selected-items list with quantities saved on the device.',
+      image: csComputerImg,
+      tags: ['Laravel', 'PHP', 'MySQL', 'JavaScript', 'Responsive Design'],
+    },
+    {
+      company: 'TSD Solution',
+      companyUrl: 'https://tsdsolution.com/',
+      category: 'Personal Brand & Lifestyle Website',
+      title: 'Sophea Lifestyle Website',
+      url: 'https://tsdsolution.com/portfolio/website-development-in-cambodia-sophea-lifestyle/',
+      description: 'Elegant personal brand and lifestyle coaching website (sophea-lifestyle.com) for Sophea Lifestyle. Features a stylish hero section, about me, gallery, services showcase, contact form, launch-offer banner, social media links, Khmer / English language switch, and a fully responsive mobile layout.',
+      image: sopheaLifestyleImg,
+      tags: ['WordPress', 'PHP', 'MySQL', 'JavaScript', 'Responsive Design'],
+    },
+  ];
+
   const otherProjects = [
+    {
+      category: 'Point of Sale (POS) System',
+      title: 'Builware POS',
+      url: 'https://demo.builware.app/dashboard',
+      description: 'Modern Point of Sale system (demo.builware.app) for coffee shops and retail businesses. Features a live analytics dashboard (orders, revenue, sales performance trends, traffic sources), POS checkout, product & purchase management, sales & returns, people management, calendar, reports, and multi-language support.',
+      image: posDashboardImg,
+      tags: ['Next.js', 'React.js', 'Node.js', 'MongoDB', 'Chart.js'],
+    },
+    {
+      category: 'School Management System & Website',
+      title: 'Hun Sen Kampong Tralach High School',
+      url: 'https://sms.builware.app/en',
+      description: 'Official school website and School Management System (sms.builware.app) for Hun Sen Kampong Tralach High School, Kampong Chhnang. Features student results lookup, academics, student & teacher directories, school services, news, and bilingual Khmer / English support — built on the Builware platform.',
+      image: smsHomeImg,
+      images: [smsHomeImg, smsSecondImg],
+      tags: ['Next.js', 'React.js', 'Node.js', 'MongoDB', 'i18n', 'Builware'],
+    },
     {
       category: 'E-Commerce & Fashion',
       title: 'Target Store Online Shop',
@@ -356,6 +401,89 @@ export function Projects() {
               </motion.div>
             );
           })}
+        </div>
+
+        {/* 3. COMPANY WORK */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mt-32 mb-16"
+        >
+          <span className="inline-flex items-center gap-2 px-3 py-1 bg-black text-white text-xs font-bold uppercase tracking-wider rounded-full mb-4">
+            <Briefcase size={13} /> Professional Experience
+          </span>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-black mb-4">
+            Company Work
+          </h2>
+          <p className="text-lg text-black/60 max-w-2xl mx-auto">
+            Completed projects delivered for clients while working at a software company
+          </p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 gap-8">
+          {companyProjects.map((project) => (
+            <motion.div
+              key={project.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="bg-white border border-black/10 rounded-3xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow flex flex-col"
+            >
+              <div
+                onClick={() => setSelectedImage(project.image)}
+                className="relative aspect-square overflow-hidden bg-black/5 cursor-pointer group"
+              >
+                <ImageWithFallback
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                  loading="lazy"
+                />
+                <span className="absolute top-4 left-4 px-3 py-1 bg-white/90 text-black text-xs font-bold uppercase tracking-wider rounded-full shadow-sm flex items-center gap-1.5">
+                  <Briefcase size={12} /> {project.company}
+                </span>
+              </div>
+              <div className="p-6 sm:p-8 flex flex-col flex-1">
+                <span className="text-xs font-bold uppercase tracking-wider text-black/50 mb-2">
+                  {project.category}
+                </span>
+                <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-black mb-3">
+                  {project.title}
+                </h3>
+                <p className="text-sm text-black/70 leading-relaxed mb-5">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {project.tags.map((tag) => (
+                    <span key={tag} className="px-3 py-1 bg-black/5 rounded-md text-xs font-semibold text-black/70">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex flex-wrap items-center gap-3 mt-auto">
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-5 py-2.5 bg-black text-white rounded-xl text-xs font-semibold hover:bg-black/80 transition-colors shadow-sm"
+                  >
+                    <ExternalLink size={14} /> View Case Study
+                  </a>
+                  <a
+                    href={project.companyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-5 py-2.5 bg-black/5 border border-black/10 rounded-xl text-xs font-semibold text-black hover:bg-black/10 transition-colors"
+                  >
+                    <Globe size={14} /> {project.company}
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
 
