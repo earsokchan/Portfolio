@@ -1,443 +1,211 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, Variants } from 'motion/react';
-import { ArrowDown, Github, Linkedin, Mail, Sparkles, ExternalLink, ChevronLeft, ChevronRight, Users, Eye, Activity, ArrowUpRight } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { motion, Variants } from 'motion/react';
+import { Github, Linkedin, Mail, ArrowDown } from 'lucide-react';
 import profileImg from '../../assets/sokchan_profile.png';
-import builwareImg from '../../assets/builware.png';
-import targetClotheImg from '../../assets/targetclothe_preview.png';
-import banthobjulImg from '../../assets/banthobjul.png';
-import dlSystemImg from '../../assets/DL-system.png';
-import theLittleCafeImg from '../../assets/thelittlacafe.jpeg';
-import bantobchuolDashboard from '../../assets/SCR-20260902-kgwo.png';
-import kottraKangeaDashboard from '../../assets/SCR-20260901-iuji.png';
-import gssMefsImg from '../../assets/SCR-20260923-mefs.png';
+
+const STAR =
+  'M129.93 50.646L116.232 48.9802C111.751 48.4343 109.428 43.3722 111.948 39.6444L119.654 28.2507C123.099 23.1553 117.565 16.8 112.007 19.4694L99.5786 25.437C95.5135 27.3904 90.808 24.3818 90.9043 19.8894L91.1954 6.158C91.3263 0.0180817 83.219 -2.35089 79.9925 2.88452L72.78 14.5926C70.4202 18.4238 64.8285 18.4238 62.4676 14.5926L55.254 2.88452C52.0286 -2.35089 43.9213 0.0180817 44.0522 6.158L44.3443 19.8894C44.4396 24.3818 39.7351 27.3904 35.669 25.437L23.2402 19.4694C17.6821 16.8 12.1488 23.1553 15.5938 28.2507L23.2987 39.6444C25.8197 43.3722 23.4967 48.4343 19.0151 48.9802L5.31715 50.646C-0.807961 51.3912 -2.01005 59.7149 3.65522 62.1473L16.3263 67.5873C20.4725 69.3662 21.2689 74.8751 17.7946 77.7448L7.176 86.5175C2.42825 90.4403 5.93821 98.0899 12.0265 97.0874L25.6412 94.8455C30.0957 94.1111 33.7582 98.3171 32.3938 102.601L28.2271 115.693C26.3639 121.548 33.4726 126.095 38.0494 121.975L48.2849 112.765C51.6337 109.751 56.9992 111.318 58.1797 115.656L61.7859 128.912C63.3981 134.84 71.8495 134.84 73.4616 128.912L77.0679 115.656C78.2483 111.318 83.6139 109.751 86.9626 112.765L97.1982 121.975C101.776 126.095 108.885 121.548 107.02 115.693L102.854 102.601C101.49 98.3171 105.152 94.1111 109.606 94.8455L123.221 97.0874C129.309 98.0899 132.82 90.4403 128.072 86.5175L117.453 77.7448C113.98 74.8751 114.775 69.3662 118.921 67.5873L131.592 62.1473C137.259 59.7149 136.056 51.3912 129.93 50.646Z';
+const DECAGON =
+  'M58.5 0l17.28 8.288 18.874 3.402 9.084 16.81L117 42.292l-2.582 18.913L117 80.119l-13.262 13.792-9.084 16.81-18.874 3.402L58.5 122.411l-17.28-8.288-18.874-3.402-9.084-16.81L0 80.119l2.582-18.914L0 42.292 13.262 28.5l9.084-16.81L41.22 8.288z';
+
+const line: Variants = {
+  hidden: { y: '110%' },
+  show: (i: number) => ({
+    y: '0%',
+    transition: { delay: 0.15 + i * 0.12, duration: 1, ease: [0.22, 1, 0.36, 1] },
+  }),
+};
+
+const pop: Variants = {
+  hidden: { scale: 0, rotate: -30, opacity: 0 },
+  show: (d: number) => ({
+    scale: 1,
+    rotate: 0,
+    opacity: 1,
+    transition: { delay: d, type: 'spring', stiffness: 180, damping: 14 },
+  }),
+};
 
 export function Hero() {
-  const showcaseSlides = [
-    {
-      id: 'profile',
-      title: 'Sokchan',
-      subtitle: 'Junior Developer',
-      badge: 'Full-Stack Developer',
-      image: profileImg,
-      link: '#about',
-    },
-    {
-      id: 'builware',
-      title: 'Builware SaaS Platform',
-      subtitle: 'Multi-Store E-Commerce Platform',
-      badge: 'Featured Platform',
-      image: builwareImg,
-      link: 'https://www.builware.app/',
-    },
-    {
-      id: 'gsscambodia',
-      title: 'GSS Cambodia Website Clone',
-      subtitle: 'Official Corporate Security Website Clone',
-      badge: 'Featured Website Clone',
-      image: gssMefsImg,
-      link: 'https://gss-cambodia.vercel.app/',
-    },
-    {
-      id: 'targetstore',
-      title: 'Target Store Online Shop',
-      subtitle: 'Fashion E-Commerce Website',
-      badge: 'E-Commerce & Fashion',
-      image: targetClotheImg,
-      link: 'https://www.targetclothe.com/',
-    },
-    {
-      id: 'banthobjul',
-      title: 'Bantobchuol System',
-      subtitle: 'Room Rent Management System',
-      badge: 'Room Rent SaaS',
-      image: banthobjulImg,
-      link: '#projects',
-    },
-    {
-      id: 'bantobchuol',
-      title: 'Bantobchuol Dashboard',
-      subtitle: 'Revenue & Utility Analytics',
-      badge: 'Room Rental System',
-      image: bantobchuolDashboard,
-      link: '#projects',
-    },
-    {
-      id: 'kottrakangea',
-      title: 'KottraKangea',
-      subtitle: 'Developer Work & Performance Dashboard',
-      badge: 'Dev Productivity SaaS',
-      image: kottraKangeaDashboard,
-      link: 'https://kottrakangea.builware.app/',
-    },
-    {
-      id: 'dlsystem',
-      title: 'DL-System Ice Warehouse',
-      subtitle: 'Ice Factory & Warehouse System',
-      badge: 'Warehouse & Logistics',
-      image: dlSystemImg,
-      link: '#projects',
-    },
-    {
-      id: 'littlecafe',
-      title: 'The Little Cafe',
-      subtitle: 'Digital Food & Cafe Menu',
-      badge: 'Food & Menu Web App',
-      image: theLittleCafeImg,
-      link: 'https://thelittlecafe.vercel.app/',
-    },
-  ];
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
-  const heroRef = useRef<HTMLDivElement>(null);
-  const [isHeroVisible, setIsHeroVisible] = useState(true);
-  const [views, setViews] = useState(0);
+  const [views, setViews] = useState<number | null>(null);
 
   useEffect(() => {
-    const fetchViews = async () => {
-      try {
-        // Fetch real-time global visitor count
-        const response = await fetch('https://countapi.mileshilliard.com/api/v1/hit/sokchan-portfolio-views-unique');
-        if (response.ok) {
-          const data = await response.json();
-          const target = data.value + 10; // Base 10 + Real Global Views
-          
-          let start = 0;
-          const duration = 1500;
-          const increment = target / (duration / 16);
-
-          const timer = setInterval(() => {
-            start += increment;
-            if (start >= target) {
-              clearInterval(timer);
-              setViews(target);
-            } else {
-              setViews(Math.floor(start));
-            }
-          }, 16);
-        }
-      } catch (error) {
-        console.error('Error fetching real-time views:', error);
-      }
-    };
-
-    fetchViews();
+    fetch('https://countapi.mileshilliard.com/api/v1/hit/sokchan-portfolio-views-unique')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => d && setViews(d.value + 10))
+      .catch(() => {});
   }, []);
-
-  useEffect(() => {
-    const el = heroRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsHeroVisible(entry.isIntersecting),
-      { threshold: 0.1 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (isHovered || !isHeroVisible) return;
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % showcaseSlides.length);
-    }, 3500);
-    return () => clearInterval(interval);
-  }, [isHovered, isHeroVisible, showcaseSlides.length]);
-
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants: Variants = {
-    hidden: { x: -30, opacity: 0 },
-    visible: {
-      x: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.7,
-        ease: 'easeOut',
-      },
-    },
-  };
-
-  const activeSlide = showcaseSlides[currentIndex];
-
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % showcaseSlides.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + showcaseSlides.length) % showcaseSlides.length);
-  };
 
   return (
-    <section ref={heroRef} id="home" className="min-h-screen relative flex items-center justify-center overflow-hidden bg-white pt-24 pb-16 px-6">
-      <div className="max-w-6xl mx-auto w-full">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          
-          {/* LEFT COLUMN: DETAILS */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="flex flex-col items-start text-left space-y-6"
+    <section id="home" className="relative overflow-hidden pt-36 sm:pt-44 pb-0">
+      {/* Soft glow */}
+      <div
+        aria-hidden
+        className="absolute -top-40 left-1/2 -translate-x-1/2 w-[1100px] h-[700px] rounded-full opacity-40 blur-3xl pointer-events-none"
+        style={{ background: 'radial-gradient(closest-side, #3b1d8f, transparent)' }}
+      />
+
+      <div className="relative max-w-7xl mx-auto px-5 sm:px-8">
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="cr-subtitle mb-6"
+        >
+          Full-stack developer · Phnom Penh
+        </motion.p>
+
+        {/* HEADLINE */}
+        <h1 className="relative cr-display text-white text-[17vw] sm:text-[13vw] lg:text-[10.5rem] select-none">
+          <span className="cr-line-mask">
+            <motion.span custom={0} variants={line} initial="hidden" animate="show" className="block">
+              I build <span className="cr-accent text-[var(--cr-lime)]">w</span>ebsites
+            </motion.span>
+          </span>
+          <span className="cr-line-mask">
+            <motion.span custom={1} variants={line} initial="hidden" animate="show" className="block">
+              people <span className="cr-accent text-[var(--cr-pink)]">t</span>rust.
+            </motion.span>
+          </span>
+          <span className="cr-line-mask">
+            <motion.span custom={2} variants={line} initial="hidden" animate="show" className="block text-[var(--cr-lav)]">
+              Built to <span className="cr-accent text-white">s</span>cale.
+            </motion.span>
+          </span>
+
+          {/* Hand-drawn line */}
+          <svg
+            aria-hidden
+            viewBox="0 0 3113 706"
+            fill="none"
+            preserveAspectRatio="none"
+            className="cr-draw absolute left-[-4%] top-[18%] w-[108%] h-[70%] pointer-events-none"
           >
-            {/* Welcome Badge */}
-            <motion.div variants={itemVariants}>
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-black/5 border border-black/10 rounded-full text-xs font-bold uppercase tracking-wider text-black">
-                <Sparkles size={13} /> Welcome to my portfolio
-              </span>
-            </motion.div>
+            <path
+              pathLength={1}
+              d="M1.6 601.5C456.8 312.3 941.6 804 1170.1 233.5c43-75 239-160.5 371.5-134 85.85 17.17 897.99 268.99 673.5 527.5-42.93 49.43-312.5 77.18-312.5-331 0-212.5 267.2-306.3 556-291.5 288.8 14.8 339.43 203.77 336.5 256-1.77 31.5-17.5 119.39-96 107.5-52.5-7.95-44-70-19-107.5s126-73.7 204 35.5c97.5 136.5 255 168.5 220.5 303.5-27.37 107.08-351.5 182.5-589.5-49-190.4-185.2-239.5-247.5-246.5-254.5"
+              stroke="#C2EC40"
+              strokeWidth="10"
+              strokeLinecap="round"
+            />
+          </svg>
+        </h1>
 
-            {/* Main Name & Title */}
-            <motion.div variants={itemVariants} className="space-y-2">
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight text-black leading-[1.05]">
-                Sokchan
-              </h1>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-black/50">
-                Junior Developer
-              </h2>
-            </motion.div>
+        {/* Stickers */}
+        <motion.div custom={1.1} variants={pop} initial="hidden" animate="show"
+          className="cr-sticker cr-float right-[2%] top-[8%] w-28 h-28 sm:w-36 sm:h-36">
+          <svg viewBox="0 0 136 134" className="cr-spin" fill="#C2EC40"><path d={STAR} /></svg>
+          <p><span className="cr-num">2+</span>years<br />building</p>
+        </motion.div>
 
-            {/* Tagline / Subtitle */}
-            <motion.p
-              variants={itemVariants}
-              className="text-base sm:text-lg text-black/70 leading-relaxed max-w-xl"
-            >
-              Junior Developer at Technology Solution Development (TSD Co., Ltd.) &bull; Computer Science Graduate from Royal University of Phnom Penh (RUPP).
-            </motion.p>
+        <motion.div custom={1.3} variants={pop} initial="hidden" animate="show"
+          className="cr-sticker cr-float-2 right-[24%] top-[44%] w-28 h-28 sm:w-32 sm:h-32 hidden md:grid">
+          <svg viewBox="0 0 117 123" className="cr-spin-rev" fill="#F04C8A"><path d={DECAGON} /></svg>
+          <p className="!text-white">KHQR<br />& ABA<br />PayWay</p>
+        </motion.div>
 
-            {/* Action Buttons */}
-            <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-4 pt-2">
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })}
-                className="px-8 py-3.5 bg-black text-white rounded-xl text-xs font-bold tracking-wider uppercase hover:bg-black/80 transition-colors shadow-sm"
-              >
-                View My Work
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-                className="px-8 py-3.5 bg-black/5 text-black border border-black/10 rounded-xl text-xs font-bold tracking-wider uppercase hover:bg-black/10 transition-colors"
-              >
-                Get In Touch
-              </motion.button>
-            </motion.div>
+        <motion.div custom={1.5} variants={pop} initial="hidden" animate="show"
+          className="cr-sticker cr-float left-[46%] top-[6%] hidden lg:grid">
+          <div className="cr-sway px-5 py-3 rounded-2xl bg-[var(--cr-orange)] text-white text-sm font-semibold shadow-xl">
+            open to work ✦
+          </div>
+        </motion.div>
 
-            {/* Analytics / Views Widget */}
-            <motion.div 
-              variants={itemVariants} 
-              className="mt-4 pt-6 border-t border-black/5 w-full max-w-xl"
-            >
-              <div className="flex items-center justify-between mb-4 px-1">
-                <h3 className="text-sm font-bold text-black uppercase tracking-widest flex items-center gap-2">
-                  <Activity size={16} className="text-black/60" /> Live Analytics
-                </h3>
-                <span className="flex items-center gap-1.5 text-[10px] font-bold text-emerald-600 uppercase tracking-wider bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" /> Live Now
+        <motion.div custom={1.7} variants={pop} initial="hidden" animate="show"
+          className="cr-sticker cr-float-2 left-[2%] bottom-[-2%] w-32 h-32 hidden sm:grid">
+          <svg viewBox="0 0 136 134" className="cr-spin-rev" fill="#104EFF"><path d={STAR} /></svg>
+          <p className="!text-white"><span className="cr-num">10+</span>projects<br />shipped</p>
+        </motion.div>
+
+        {/* Bottom row: intro + portrait */}
+        <div className="relative grid lg:grid-cols-12 gap-10 items-end mt-14 sm:mt-20">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:col-span-6 pb-16"
+          >
+            <p className="text-lg sm:text-xl text-white/75 leading-relaxed max-w-xl">
+              Hi, I'm <span className="text-white font-semibold">Ear Sokchan</span> — Junior Developer at TSD Co., Ltd.
+              and Computer Science graduate from RUPP. I design and ship SaaS platforms, POS systems and
+              e-commerce stores that are <span className="cr-highlight font-semibold">clean in form, sharp in function.</span>
+            </p>
+
+            <div className="flex flex-wrap items-center gap-3 mt-8">
+              <button id="hero-cta-work" className="cr-btn"
+                onClick={() => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })}>
+                see my work
+              </button>
+              <button id="hero-cta-contact" className="cr-btn cr-btn--ghost"
+                onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}>
+                get in touch
+              </button>
+            </div>
+
+            <div className="flex items-center gap-6 mt-10">
+              {[
+                { icon: Github, href: 'https://github.com', label: 'GitHub' },
+                { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
+                { icon: Mail, href: 'mailto:contact@example.com', label: 'Email' },
+              ].map(({ icon: Icon, href, label }) => (
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
+                  className="w-11 h-11 grid place-items-center rounded-full border border-white/20 text-white hover:bg-[var(--cr-lime)] hover:text-[var(--cr-ink)] hover:border-transparent transition-colors">
+                  <Icon size={18} />
+                </a>
+              ))}
+              {views !== null && (
+                <span className="text-xs text-white/50 font-medium">
+                  <span className="text-[var(--cr-lime)] font-bold">{views.toLocaleString()}</span> visitors so far
                 </span>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-4">
-                {/* Visitors Card */}
-                <div className="bg-white border border-black/10 hover:border-black/30 transition-colors rounded-2xl p-5 shadow-[0_2px_10px_rgba(0,0,0,0.02)] relative overflow-hidden group">
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-black/[0.02] rounded-full -translate-y-1/2 translate-x-1/3 group-hover:scale-110 transition-transform duration-500" />
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-8 h-8 rounded-lg bg-black/5 flex items-center justify-center text-black">
-                      <Users size={16} />
-                    </div>
-                    <span className="text-[11px] font-bold text-black/50 uppercase tracking-wider">Total Visitors</span>
-                  </div>
-                  <div className="text-3xl font-black text-black tracking-tight">{views.toLocaleString()}</div>
-                  <div className="mt-2 text-[10px] font-bold text-emerald-600 flex items-center gap-1">
-                    <ArrowUpRight size={12} /> +12% this week
-                  </div>
-                </div>
-
-                {/* Page Views Card */}
-                <div className="bg-white border border-black/10 hover:border-black/30 transition-colors rounded-2xl p-5 shadow-[0_2px_10px_rgba(0,0,0,0.02)] relative overflow-hidden group">
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-black/[0.02] rounded-full -translate-y-1/2 translate-x-1/3 group-hover:scale-110 transition-transform duration-500" />
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-8 h-8 rounded-lg bg-black/5 flex items-center justify-center text-black">
-                      <Eye size={16} />
-                    </div>
-                    <span className="text-[11px] font-bold text-black/50 uppercase tracking-wider">Page Views</span>
-                  </div>
-                  <div className="text-3xl font-black text-black tracking-tight">{(views * 3).toLocaleString()}</div>
-                  <div className="mt-2 text-[10px] font-bold text-emerald-600 flex items-center gap-1">
-                    <ArrowUpRight size={12} /> +24% this week
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Social Links */}
-            <motion.div variants={itemVariants} className="flex items-center gap-3 pt-2 mt-2">
-              <motion.a
-                whileHover={{ y: -2 }}
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-11 h-11 flex items-center justify-center bg-black/5 border border-black/10 rounded-xl text-black hover:bg-black hover:text-white transition-colors"
-              >
-                <Github size={18} />
-              </motion.a>
-              <motion.a
-                whileHover={{ y: -2 }}
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-11 h-11 flex items-center justify-center bg-black/5 border border-black/10 rounded-xl text-black hover:bg-black hover:text-white transition-colors"
-              >
-                <Linkedin size={18} />
-              </motion.a>
-              <motion.a
-                whileHover={{ y: -2 }}
-                href="mailto:contact@example.com"
-                className="w-11 h-11 flex items-center justify-center bg-black/5 border border-black/10 rounded-xl text-black hover:bg-black hover:text-white transition-colors"
-              >
-                <Mail size={18} />
-              </motion.a>
-            </motion.div>
+              )}
+            </div>
           </motion.div>
 
-          {/* RIGHT COLUMN: COSMIC UNIVERSE AUTOMATIC SHOWCASE SLIDER */}
-          <div
-            className="relative flex items-center justify-center"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+          <motion.div
+            initial={{ opacity: 0, y: 80 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:col-span-6 relative flex justify-center lg:justify-end"
           >
-            {/* Universe Orbiting Glow Rings */}
-            <motion.div
-              animate={isHeroVisible ? { rotate: 360 } : {}}
-              transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-              className="absolute -inset-4 rounded-full border border-dashed border-black/15 pointer-events-none will-change-transform"
-            />
-            <motion.div
-              animate={isHeroVisible ? { rotate: -360 } : {}}
-              transition={{ duration: 45, repeat: Infinity, ease: 'linear' }}
-              className="absolute -inset-10 rounded-full border border-dotted border-black/10 pointer-events-none hidden sm:block will-change-transform"
-            />
-
-            {/* Orbiting Tech Badges (Universe Floating Nodes) */}
-            <motion.div
-              animate={isHeroVisible ? { y: [0, -8, 0], x: [0, 5, 0] } : {}}
-              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute -top-4 -left-2 z-20 bg-black text-white text-[11px] font-bold px-3 py-1.5 rounded-full shadow-md flex items-center gap-1.5 will-change-transform"
-            >
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              React & Next.js
-            </motion.div>
-
-            <motion.div
-              animate={isHeroVisible ? { y: [0, 8, 0], x: [0, -6, 0] } : {}}
-              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-              className="absolute -bottom-3 -right-2 z-20 bg-black text-white text-[11px] font-bold px-3 py-1.5 rounded-full shadow-md flex items-center gap-1.5 will-change-transform"
-            >
-              <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
-              KHQR & ABA PayWay
-            </motion.div>
-
-            {/* Main Animated Showcase Box */}
-            <motion.div
-              animate={isHeroVisible ? { y: [0, -10, 0] } : {}}
-              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-              className="relative w-full max-w-lg aspect-square rounded-3xl overflow-hidden border border-black/10 shadow-xl bg-white p-3 sm:p-4 group will-change-transform"
-            >
-              {/* Image Transition Slider */}
-              <div className="relative w-full h-full rounded-2xl overflow-hidden bg-black/5 border border-black/5">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={activeSlide.id}
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 1.05 }}
-                    transition={{ duration: 0.6, ease: 'easeOut' }}
-                    className="w-full h-full relative"
-                  >
-                    <img
-                      src={activeSlide.image}
-                      alt={activeSlide.title}
-                      className="w-full h-full object-cover"
-                    />
-
-                    {/* Gradient Overlay for Text Readability */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-5 text-white" />
-                  </motion.div>
-                </AnimatePresence>
-
-                {/* Left & Right Slider Controls */}
-                <button
-                  onClick={prevSlide}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/50 hover:bg-black text-white flex items-center justify-center transition-colors opacity-0 group-hover:opacity-100 shadow-md"
-                >
-                  <ChevronLeft size={18} />
-                </button>
-                <button
-                  onClick={nextSlide}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/50 hover:bg-black text-white flex items-center justify-center transition-colors opacity-0 group-hover:opacity-100 shadow-md"
-                >
-                  <ChevronRight size={18} />
-                </button>
-
-                {/* Bottom Active Slide Details */}
-                <div className="absolute bottom-4 left-4 right-4 z-10 text-white pointer-events-none">
-                  <div className="flex items-center justify-between gap-2 mb-1">
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-white/20 border border-white/30 text-white">
-                      {activeSlide.badge}
-                    </span>
-                    <span className="text-[11px] font-mono opacity-80">
-                      {currentIndex + 1} / {showcaseSlides.length}
-                    </span>
-                  </div>
-                  <h3 className="text-lg font-bold tracking-tight text-white leading-snug">
-                    {activeSlide.title}
-                  </h3>
-                  <p className="text-xs text-white/80 line-clamp-1 font-medium">
-                    {activeSlide.subtitle}
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Thumbnail Indicator Dots Below */}
-            <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-20 bg-white px-3 py-1.5 rounded-full border border-black/10 shadow-sm">
-              {showcaseSlides.map((slide, idx) => (
-                <button
-                  key={slide.id}
-                  onClick={() => setCurrentIndex(idx)}
-                  className={`h-2 rounded-full transition-all ${
-                    idx === currentIndex
-                      ? 'w-6 bg-black'
-                      : 'w-2 bg-black/20 hover:bg-black/50'
-                  }`}
-                  title={slide.title}
-                />
-              ))}
+            <div className="relative w-[300px] sm:w-[380px]">
+              <div className="absolute inset-x-6 bottom-0 top-16 rounded-t-[200px] bg-[var(--cr-lav)]" />
+              <img src={profileImg} alt="Ear Sokchan portrait" className="relative w-full h-auto object-contain" />
+              <span className="absolute left-0 top-24 cr-accent text-3xl text-[var(--cr-lime)] -rotate-12">
+                hello there!
+              </span>
             </div>
-          </div>
-
+          </motion.div>
         </div>
       </div>
 
-      {/* Scroll Down Indicator */}
-      <motion.div
-        animate={isHeroVisible ? { y: [0, 8, 0] } : {}}
-        transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 cursor-pointer will-change-transform"
+      {/* Marquee strip */}
+      <div className="relative bg-[var(--cr-lime)] text-[var(--cr-ink)] py-4 -rotate-1 scale-105 z-10">
+        <div className="cr-marquee">
+          {[0, 1].map((k) => (
+            <div key={k} className="cr-marquee-track" aria-hidden={k === 1}>
+              {['Next.js', 'React', 'Node.js', 'Laravel', 'MongoDB', 'MySQL', 'Tailwind', 'TypeScript', 'KHQR', 'ABA PayWay'].map((t) => (
+                <span key={t} className="cr-display text-3xl flex items-center gap-12">
+                  {t}
+                  <svg viewBox="0 0 136 134" className="w-6 h-6" fill="currentColor"><path d={STAR} /></svg>
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Wave into lavender About */}
+      <svg className="cr-wave relative -mt-6" viewBox="0 0 2315 160" fill="none" preserveAspectRatio="none" aria-hidden>
+        <path d="M-6 6L311 47c188 28 607 84 781 74 217-13 678-103 895-115 218-13 386 0 431 0l-103 154H0Z" fill="#D3C5F6" />
+      </svg>
+
+      <button
         onClick={() => document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' })}
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 text-[var(--cr-ink)]/60 hover:text-[var(--cr-ink)] cr-float"
+        aria-label="Scroll down"
       >
-        <ArrowDown className="text-black/30 hover:text-black transition-colors" size={24} />
-      </motion.div>
+        <ArrowDown size={22} />
+      </button>
     </section>
   );
 }

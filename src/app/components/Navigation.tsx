@@ -1,122 +1,129 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion } from 'motion/react';
-import { Menu, X } from 'lucide-react';
-import profileLogo from '../../assets/sokchan_profile.png';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+
+const navItems = [
+  { name: 'about', href: '#about' },
+  { name: 'projects', href: '#projects' },
+  { name: 'skills', href: '#skills' },
+  { name: 'contact', href: '#contact' },
+];
 
 export function Navigation() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const rafRef = useRef<number | null>(null);
-  const lastScrollRef = useRef(0);
+  const [open, setOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (rafRef.current) return;
-      rafRef.current = requestAnimationFrame(() => {
-        const scrollY = window.scrollY;
-        const wasAbove = lastScrollRef.current <= 50;
-        const isAbove = scrollY <= 50;
-        if (wasAbove !== isAbove) {
-          setIsScrolled(!isAbove);
-        }
-        lastScrollRef.current = scrollY;
-        rafRef.current = null;
-      });
+    let last = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setHidden(y > last && y > 200);
+      last = y;
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const navItems = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Contact', href: '#contact' },
-  ];
-
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsMobileMenuOpen(false);
-    }
+  const go = (href: string) => {
+    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+    setOpen(false);
   };
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 will-change-transform ${
-        isScrolled ? 'bg-white/90 backdrop-blur-lg border-b border-black/10 shadow-sm' : 'bg-white/80'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
-          
-          {/* Logo with Image Avatar */}
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            className="flex items-center gap-3 cursor-pointer"
-            onClick={() => scrollToSection('#home')}
-          >
-            <div className="w-9 h-9 rounded-full overflow-hidden border border-black/10 bg-black/5 shrink-0 shadow-sm">
-              <img
-                src={profileLogo}
-                alt="Ear Sokchan Logo"
-                className="w-full h-full object-cover"
+    <>
+      <motion.header
+        initial={{ y: -120, opacity: 0 }}
+        animate={{ y: hidden && !open ? -120 : 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="fixed top-0 inset-x-0 z-50 px-4 sm:px-8 pt-5"
+      >
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+          {/* Arrow-shaped glass pill nav */}
+          <nav className="relative flex items-center gap-6 sm:gap-10 pl-5 pr-12 py-3">
+            <svg
+              className="absolute inset-0 w-full h-full -z-10"
+              viewBox="0 0 538 52"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M0.73 7.55C0.73 3.78 5.09 0.73 10.46 0.73H499.93C502.44 0.73 504.86 1.41 506.67 2.63L533.73 20.81C537.73 23.49 537.73 27.97 533.73 30.65L506.67 48.83C504.86 50.05 502.44 50.73 499.93 50.73H10.46C5.09 50.73 0.73 47.68 0.73 43.91V7.55Z"
+                fill="#D3C5F6"
+                fillOpacity="0.12"
+                stroke="white"
+                strokeOpacity="0.12"
+                strokeWidth="1.4"
               />
-            </div>
-            <span className="text-xl font-black text-black tracking-tight">
-              Ear Sokchan
-            </span>
-          </motion.div>
+            </svg>
+            <div className="absolute inset-0 -z-20 rounded-xl backdrop-blur-md" />
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => (
+            <button
+              onClick={() => go('#home')}
+              className="cr-display text-2xl text-white leading-none tracking-wide"
+              aria-label="Home"
+            >
+              sok<span className="cr-accent text-[var(--cr-lime)]">c</span>han
+            </button>
+
+            <ul className="hidden md:flex items-center gap-7">
+              {navItems.map((item) => (
+                <li key={item.name}>
+                  <button
+                    onClick={() => go(item.href)}
+                    className="cr-roll-host text-sm font-medium text-white/80 hover:text-white"
+                  >
+                    <span className="cr-roll">
+                      <span className="cr-roll-stack">
+                        <span>{item.name}</span>
+                        <span className="text-[var(--cr-lime)]">{item.name}</span>
+                      </span>
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+
+            <button
+              onClick={() => setOpen((v) => !v)}
+              className="md:hidden relative w-7 h-5 flex flex-col justify-between"
+              aria-label="Toggle menu"
+              aria-expanded={open}
+            >
+              <span className={`h-[2px] bg-white transition-transform ${open ? 'translate-y-[9px] rotate-45' : ''}`} />
+              <span className={`h-[2px] bg-white transition-opacity ${open ? 'opacity-0' : ''}`} />
+              <span className={`h-[2px] bg-white transition-transform ${open ? '-translate-y-[9px] -rotate-45' : ''}`} />
+            </button>
+          </nav>
+
+          <button id="nav-cta" onClick={() => go('#contact')} className="cr-btn hidden sm:inline-flex">
+            let's talk
+          </button>
+        </div>
+      </motion.header>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ clipPath: 'circle(0% at 90% 5%)' }}
+            animate={{ clipPath: 'circle(150% at 90% 5%)' }}
+            exit={{ clipPath: 'circle(0% at 90% 5%)' }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-0 z-40 bg-[var(--cr-lav)] flex flex-col justify-center px-8"
+          >
+            {navItems.map((item, i) => (
               <motion.button
                 key={item.name}
-                whileHover={{ y: -1 }}
-                onClick={() => scrollToSection(item.href)}
-                className="text-black/60 hover:text-black font-medium transition-colors text-sm tracking-wide"
+                initial={{ y: 60, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.15 + i * 0.07, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                onClick={() => go(item.href)}
+                className="cr-display text-left text-[var(--cr-ink)] text-7xl py-2"
               >
                 {item.name}
               </motion.button>
             ))}
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden text-black p-1"
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="md:hidden mt-4 pb-4 flex flex-col gap-4 bg-white p-4 border border-black/10 rounded-2xl shadow-lg"
-          >
-            {navItems.map((item) => (
-              <button
-                key={item.name}
-                onClick={() => scrollToSection(item.href)}
-                className="text-black/70 hover:text-black font-medium text-left text-sm py-1"
-              >
-                {item.name}
-              </button>
-            ))}
           </motion.div>
         )}
-      </div>
-    </motion.nav>
+      </AnimatePresence>
+    </>
   );
 }

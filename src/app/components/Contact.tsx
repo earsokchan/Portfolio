@@ -114,7 +114,7 @@ ${formData.message}
   ];
 
   return (
-    <section id="contact" className="min-h-screen bg-white py-28 px-6 border-t border-black/5 relative overflow-hidden">
+    <section id="contact" className="cr-skin min-h-screen bg-white py-28 px-6 border-t border-black/5 relative overflow-hidden">
       <div className="max-w-6xl mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
