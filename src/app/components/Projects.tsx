@@ -1,32 +1,18 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { ExternalLink, Github, Maximize2, X, Globe, Briefcase } from 'lucide-react';
+import { ExternalLink, Globe, Briefcase, Sparkles, Maximize2, X, CheckCircle2, ArrowRight } from 'lucide-react';
 import { ImageWithFallback } from '@/app/components/figma/ImageWithFallback';
-import targetClotheImg from '../../assets/targetclothe_preview.png';
-import banthobjulImg from '../../assets/banthobjul.png';
-import dlSystemImg from '../../assets/DL-system.png';
-import builwareImg from '../../assets/builware.png';
-import bantobchuolDashboard from '../../assets/SCR-20260902-kgwo.png';
-import bantobchuolRoom from '../../assets/SCR-20260902-khai.png';
-import bantobchuolSettings from '../../assets/SCR-20260902-khwk.png';
-import bantobchuolCustomers from '../../assets/SCR-20260902-kkqc.png';
-import bantobchuolPayments from '../../assets/SCR-20260902-kkyq.png';
-import kottraKangeaWork from '../../assets/SCR-20260901-iudn.png';
-import kottraKangeaDashboard from '../../assets/SCR-20260901-iuji.png';
-import kottraKangeaClients from '../../assets/SCR-20260901-iumn.png';
-import kottraKangeaTasks from '../../assets/SCR-20260901-iuqa.png';
-import kottraKangeaCalendar from '../../assets/SCR-20260901-iutg.png';
-import kottraKangeaPerformance from '../../assets/SCR-20260901-iuwl.png';
-import kottraKangeaReports from '../../assets/SCR-20260901-iuzd.png';
-import kottraKangeaUsers from '../../assets/SCR-20260901-iveh.png';
-import kottraKangeaLogin from '../../assets/SCR-20260901-ivjr.png';
-import theLittleCafeImg from '../../assets/thelittlacafe.jpeg';
-import gssMecsImg from '../../assets/SCR-20260923-mecs.jpeg';
-import gssMefsImg from '../../assets/SCR-20260923-mefs.png';
-import gssMemwImg from '../../assets/SCR-20260923-memw.jpeg';
-import smsHomeImg from '../../assets/Screenshot 2026-10-05 at 9.26.52 PM.png';
-import smsSecondImg from '../../assets/Screenshot 2026-10-05 at 9.29.58 PM.png';
-import posDashboardImg from '../../assets/Screenshot 2026-10-05 at 9.33.51 PM.png';
+
+// Poster Showcase Imports
+import builwareAdminPoster from '../../assets/builware_admin_poster.png';
+import gssCambodiaPoster from '../../assets/gss_cambodia_poster.png';
+import builwarePosPoster from '../../assets/builware_pos_poster.png';
+import schoolManagementPoster from '../../assets/school_management_poster.png';
+import targetStorePoster from '../../assets/target_store_poster.png';
+import bantobchuolPoster from '../../assets/bantobchuol_poster.png';
+import kottraKangeaPoster from '../../assets/kottrakangea_poster.png';
+import theLittleCafePoster from '../../assets/thelittlacafe_poster.png';
+import dlSystemPoster from '../../assets/dl_system_poster.png';
 import csComputerImg from '../../assets/image.png';
 import sopheaLifestyleImg from '../../assets/image copy.png';
 
@@ -37,44 +23,118 @@ export function Projects() {
     {
       id: 'builware',
       category: 'Featured E-Commerce SaaS Platform',
-      badge: 'Featured Platform',
+      badge: 'Featured SaaS',
       title: 'Builware Platform',
-      url: 'https://www.builware.app/',
-      description: 'Professional multi-store e-commerce SaaS platform (builware.app) allowing merchants to build and launch online stores to sell 24/7. Features no-code store builder, comprehensive admin dashboard, inventory management, order tracking, shipping integration, and ABA PayWay & Bakong KHQR payment gateway.',
-      image: builwareImg,
-      images: [
-        builwareImg,
-        'https://www.builware.app/imgs/templates/admin_1.png',
-        'https://www.builware.app/imgs/templates/admin_2.png',
-        'https://www.builware.app/imgs/templates/admin_3.png',
-        'https://www.builware.app/imgs/templates/admin_4.png',
-        'https://www.builware.app/imgs/templates/Home.jpeg',
-        'https://www.builware.app/imgs/templates/Category.jpeg',
-        'https://www.builware.app/imgs/templates/View%20Detail.jpeg',
-        'https://www.builware.app/imgs/templates/Cart.png',
-        'https://www.builware.app/imgs/templates/Shiping.png',
-        'https://www.builware.app/imgs/templates/Shipping%20methon.png',
-        'https://www.builware.app/imgs/templates/Aba%20Payment.png',
-        'https://www.builware.app/imgs/templates/History%20Order.png',
-        'https://www.builware.app/imgs/templates/tracking%20order.png',
+      description: 'A comprehensive multi-store e-commerce & inventory SaaS ecosystem empowering businesses with real-time analytics, automated order fulfillment, and ABA PayWay / Bakong KHQR integration.',
+      highlights: [
+        'Multi-tenant Storefronts & Admin Management Console',
+        'Integrated ABA PayWay & Bakong KHQR Digital Payments',
+        'Real-time Sales Analytics, Inventory & Order Tracking',
       ],
+      url: 'https://www.builware.app/',
+      image: builwareAdminPoster,
       tags: ['Next.js', 'React.js', 'Node.js', 'MongoDB', 'ABA PayWay', 'Bakong KHQR'],
     },
     {
       id: 'gss-cambodia',
       category: 'Corporate Security Website Clone',
-      badge: 'Featured Website Clone',
+      badge: 'Featured Clone',
       title: 'GSS Cambodia Website Clone',
+      description: 'Pixel-perfect web clone of the official GSS Cambodia corporate site featuring security service showcases, sleek responsive layouts, interactive hero banners, and high-performance serverless architecture.',
+      highlights: [
+        'High-Performance Next.js Serverless SSR Architecture',
+        'Pixel-Perfect Responsive Layout & Smooth Micro-animations',
+        'Security Solutions & Product Showcase Service Catalog',
+      ],
       url: 'https://gss-cambodia.vercel.app/',
       orgUrl: 'https://www.gss.com.kh/',
-      description: 'A full-featured, responsive web application clone of the official Global Security Solutions (GSS Cambodia) corporate website (gss.com.kh). Developed to sharpen frontend web engineering skills, modern responsive layouts, and UI component architecture. Features security solutions showcase, service offerings, corporate profile, interactive navigation, and mobile-optimized responsiveness.',
-      image: gssMefsImg,
-      images: [
-        gssMefsImg,
-        gssMecsImg,
-        gssMemwImg,
-      ],
+      image: gssCambodiaPoster,
       tags: ['React.js', 'Next.js', 'Tailwind CSS', 'TypeScript', 'Responsive Design', 'Vercel'],
+    },
+  ];
+
+  const mainProjects = [
+    {
+      category: 'Point of Sale (POS) System',
+      title: 'Builware POS',
+      description: 'Cloud POS and store management suite built for high-volume retail transactions, table management, product barcode scanning, and instant revenue analytics.',
+      highlights: [
+        'Instant Barcode Billing & Receipt Generation',
+        'Live Inventory Tracking & Low Stock Alerts',
+      ],
+      url: 'https://demo.builware.app/dashboard',
+      image: builwarePosPoster,
+      tags: ['Next.js', 'React.js', 'Node.js', 'MongoDB', 'Chart.js'],
+    },
+    {
+      category: 'School Management System & Website',
+      title: 'Hun Sen Kampong Tralach High School',
+      description: 'Digital school portal and administrative platform facilitating student enrollment, grade recording, teacher portal management, and bilingual news distribution.',
+      highlights: [
+        'Student Academic Records & Grading Suite',
+        'Bilingual Khmer/English Interface (i18n)',
+      ],
+      url: 'https://sms.builware.app/en',
+      image: schoolManagementPoster,
+      tags: ['Next.js', 'React.js', 'Node.js', 'MongoDB', 'i18n', 'Builware'],
+    },
+    {
+      category: 'E-Commerce & Fashion',
+      title: 'Target Store Online Shop',
+      description: 'Modern clothing e-commerce store with interactive product catalogs, size/color variant selectors, shopping cart state management, and Bakong KHQR checkout.',
+      highlights: [
+        'Dynamic Product Filter & Variant Selectors',
+        'Seamless KHQR Digital Payment Checkout',
+      ],
+      url: 'https://www.targetclothe.com/',
+      image: targetStorePoster,
+      tags: ['React.js', 'Bootstrap', 'Node.js', 'MySQL', 'KHQR API'],
+    },
+    {
+      category: 'Room Rental Management System',
+      title: 'Bantobchuol System',
+      description: 'Property management platform designed for property owners to track monthly rental contracts, automatic utility bill calculations (water/electric), and tenant payment statuses.',
+      highlights: [
+        'Automatic Utility & Meter Calculation',
+        'Monthly Rent Invoice & Receipt Generator',
+      ],
+      image: bantobchuolPoster,
+      tags: ['React.js', 'Express', 'MongoDB', 'i18n', 'Node.js'],
+    },
+    {
+      category: 'Developer Productivity SaaS',
+      title: 'KottraKangea',
+      description: 'Developer task tracking and productivity management tool built to streamline sprint planning, task assignments, code review workflows, and project timelines.',
+      highlights: [
+        'Kanban & Sprint Task Board Architecture',
+        'Real-time Team Activity & Progress Metrics',
+      ],
+      url: 'https://kottrakangea.builware.app/',
+      image: kottraKangeaPoster,
+      tags: ['Next.js', 'React.js', 'Node.js', 'MongoDB', 'Builware'],
+    },
+    {
+      category: 'Warehouse & Inventory Management',
+      title: 'DL-System Ice Warehouse',
+      description: 'Enterprise ice plant supply chain and warehouse inventory system managing daily distribution routes, customer credit tracking, and stock movement logs.',
+      highlights: [
+        'Daily Production & Route Delivery Logs',
+        'Customer Credit & Outstanding Balance Tracker',
+      ],
+      image: dlSystemPoster,
+      tags: ['Laravel', 'MySQL', 'Bootstrap', 'Chart.js'],
+    },
+    {
+      category: 'Digital Food & Cafe Menu',
+      title: 'The Little Cafe (Menu Online)',
+      description: 'Sleek mobile-first digital menu website for food & beverage ordering with instant category filtering, item customization, and QR code table scanning.',
+      highlights: [
+        'Mobile-Optimized Touch Menu Experience',
+        'Instant Food Category Filtering & Search',
+      ],
+      url: 'https://thelittlecafe.vercel.app/',
+      image: theLittleCafePoster,
+      tags: ['React.js', 'Next.js', 'Tailwind CSS', 'Vercel'],
     },
   ];
 
@@ -84,8 +144,12 @@ export function Projects() {
       companyUrl: 'https://tsdsolution.com/',
       category: 'Web Product Catalog',
       title: 'CS Computer Web Product Catalog',
+      description: 'Corporate IT equipment and computer hardware web catalog showcasing tech specifications, pricing, brand filters, and direct customer inquiry channels.',
+      highlights: [
+        'Structured IT Hardware Specification Tables',
+        'Brand Category Filtering & Product Search',
+      ],
       url: 'https://tsdsolution.com/portfolio/cs-computer-web-product-catalog/',
-      description: 'Advanced web product catalog for CS Computer. Features category navigation (laptops, desktops, PC parts, peripherals, storage, network, printers), brand filtering, promotional hero sliders, detailed product specs, RAM / storage upgrade options with dynamic pricing, and a selected-items list with quantities saved on the device.',
       image: csComputerImg,
       tags: ['Laravel', 'PHP', 'MySQL', 'JavaScript', 'Responsive Design'],
     },
@@ -94,94 +158,41 @@ export function Projects() {
       companyUrl: 'https://tsdsolution.com/',
       category: 'Personal Brand & Lifestyle Website',
       title: 'Sophea Lifestyle Website',
+      description: 'Editorial personal brand and lifestyle blog built on custom WordPress architecture showcasing digital content, gallery portfolios, and publication articles.',
+      highlights: [
+        'Custom WordPress Theme & Gutenberg Layouts',
+        'Editorial Article Publishing & Gallery System',
+      ],
       url: 'https://tsdsolution.com/portfolio/website-development-in-cambodia-sophea-lifestyle/',
-      description: 'Elegant personal brand and lifestyle coaching website (sophea-lifestyle.com) for Sophea Lifestyle. Features a stylish hero section, about me, gallery, services showcase, contact form, launch-offer banner, social media links, Khmer / English language switch, and a fully responsive mobile layout.',
       image: sopheaLifestyleImg,
       tags: ['WordPress', 'PHP', 'MySQL', 'JavaScript', 'Responsive Design'],
     },
   ];
 
-  const otherProjects = [
-    {
-      category: 'Point of Sale (POS) System',
-      title: 'Builware POS',
-      url: 'https://demo.builware.app/dashboard',
-      description: 'Modern Point of Sale system (demo.builware.app) for coffee shops and retail businesses. Features a live analytics dashboard (orders, revenue, sales performance trends, traffic sources), POS checkout, product & purchase management, sales & returns, people management, calendar, reports, and multi-language support.',
-      image: posDashboardImg,
-      tags: ['Next.js', 'React.js', 'Node.js', 'MongoDB', 'Chart.js'],
-    },
-    {
-      category: 'School Management System & Website',
-      title: 'Hun Sen Kampong Tralach High School',
-      url: 'https://sms.builware.app/en',
-      description: 'Official school website and School Management System (sms.builware.app) for Hun Sen Kampong Tralach High School, Kampong Chhnang. Features student results lookup, academics, student & teacher directories, school services, news, and bilingual Khmer / English support — built on the Builware platform.',
-      image: smsHomeImg,
-      images: [smsHomeImg, smsSecondImg],
-      tags: ['Next.js', 'React.js', 'Node.js', 'MongoDB', 'i18n', 'Builware'],
-    },
-    {
-      category: 'E-Commerce & Fashion',
-      title: 'Target Store Online Shop',
-      url: 'https://www.targetclothe.com/',
-      description: 'Full-stack online clothing and fashion e-commerce web application (targetclothe.com) built as a freelance project for a client business. Features product catalog browsing, cart management, order checkout, and integrated Phillip Bank KHQR payment gateway.',
-      image: targetClotheImg,
-      tags: ['React.js', 'Bootstrap', 'Node.js', 'MySQL', 'KHQR API'],
-    },
-    {
-      category: 'Room Rental Management System',
-      title: 'Bantobchuol System',
-      description: 'Comprehensive Room Rent Management System featuring revenue analytics dashboard, water & electricity consumption tracking, room & customer management, multi-language support (Khmer, English), and payment tracking.',
-      image: bantobchuolDashboard,
-      images: [bantobchuolDashboard, bantobchuolRoom, bantobchuolCustomers, bantobchuolPayments, bantobchuolSettings],
-      tags: ['React.js', 'Express', 'MongoDB', 'i18n', 'Node.js'],
-    },
-    {
-      category: 'Developer Productivity SaaS',
-      title: 'KottraKangea',
-      url: 'https://kottrakangea.builware.app/',
-      description: 'Full-featured developer work management & performance dashboard (kottrakangea.builware.app) built on the Builware platform. Helps developers track client projects, manage task categories, monitor deadlines, view performance analytics, calendar scheduling, and generate reports — all in one workspace.',
-      image: kottraKangeaDashboard,
-      images: [kottraKangeaDashboard, kottraKangeaWork, kottraKangeaClients, kottraKangeaTasks, kottraKangeaCalendar, kottraKangeaPerformance, kottraKangeaReports, kottraKangeaUsers, kottraKangeaLogin],
-      tags: ['Next.js', 'React.js', 'Node.js', 'MongoDB', 'Builware'],
-    },
-    {
-      category: 'Warehouse & Inventory Management',
-      title: 'DL-System Ice Warehouse',
-      description: 'Comprehensive ice production and warehouse management system featuring sales tracking, ice quantity monitoring, debt tracking, inventory management, and employee activity reporting.',
-      image: dlSystemImg,
-      tags: ['Laravel', 'MySQL', 'Bootstrap', 'Chart.js'],
-    },
-    {
-      category: 'Digital Food & Cafe Menu',
-      title: 'The Little Cafe (Menu Online)',
-      url: 'https://thelittlecafe.vercel.app/',
-      description: 'Interactive online food & cafe menu digital web application (thelittlecafe.vercel.app). Features multi-category menu filtering (Food, Pizza, Drinks, Seblak, Bread), dual currency display in USD & KHR, item detail previews, and responsive mobile-friendly ordering interface.',
-      image: theLittleCafeImg,
-      tags: ['React.js', 'Next.js', 'Tailwind CSS', 'Vercel'],
-    },
-  ];
-
   return (
-    <section id="projects" className="min-h-screen bg-white py-28 px-6 border-t border-black/5">
+    <section id="projects" className="min-h-screen bg-[#fafafa] py-28 px-6 border-t border-black/5">
       <div className="max-w-6xl mx-auto">
 
-        {/* Header */}
+        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-24"
+          className="text-center mb-20"
         >
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-black mb-4">
+          <span className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-black text-white text-xs font-bold uppercase tracking-wider rounded-full mb-4 shadow-sm">
+            <Sparkles size={13} /> Project Showcase
+          </span>
+          <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight text-black mb-4">
             Featured Projects
           </h2>
-          <p className="text-lg text-black/60 max-w-2xl mx-auto">
-            Professional work, corporate clones, and freelance applications showcasing full-stack development expertise
+          <p className="text-lg text-black/60 max-w-2xl mx-auto font-medium">
+            Full-stack web applications, SaaS platforms, and digital solutions showcased with clean project insights and custom poster design.
           </p>
         </motion.div>
 
-        {/* FEATURED PROJECTS */}
+        {/* 1. FEATURED HERO PROJECTS (Split Poster + Details Layout) */}
         <div className="space-y-16 mb-24">
           {featuredProjects.map((project) => (
             <motion.div
@@ -190,235 +201,207 @@ export function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="bg-white border border-black/10 rounded-3xl p-6 sm:p-10 shadow-sm"
+              className="bg-white border border-black/10 rounded-3xl p-6 sm:p-8 shadow-sm hover:shadow-xl transition-all duration-300"
             >
-              {/* Scrollable image slider */}
-              <div className="mb-6">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-bold uppercase tracking-wider text-black/40 flex items-center gap-1.5">
-                    <Maximize2 size={13} /> {project.images.length} screenshots — scroll to view
-                  </span>
-                  <span className="px-3 py-1 bg-black text-white text-xs font-bold uppercase tracking-wider rounded-full">
-                    {project.badge}
-                  </span>
-                </div>
-                <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 scroll-smooth" style={{ scrollbarWidth: 'thin' }}>
-                  {project.images.map((imgSrc, imgIndex) => (
-                    <div
-                      key={imgIndex}
-                      onClick={() => setSelectedImage(imgSrc)}
-                      className="snap-start shrink-0 min-w-[280px] sm:min-w-[420px] max-w-[560px] aspect-video rounded-2xl overflow-hidden border border-black/10 shadow-sm bg-black/5 cursor-pointer hover:border-black/30 hover:shadow-md transition-colors relative group"
-                    >
-                      <ImageWithFallback
-                        src={imgSrc}
-                        alt={`${project.title} screen ${imgIndex + 1}`}
-                        className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
-                        loading={imgIndex < 2 ? 'eager' : 'lazy'}
-                      />
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
-                        <span className="opacity-0 group-hover:opacity-100 transition-opacity bg-black text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-md flex items-center gap-1">
-                          <Maximize2 size={12} /> Click to expand
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Divider */}
-              <hr className="border-black/10 my-8" />
-
-              {/* Details */}
-              <div className="space-y-4">
-                <span className="text-xs font-bold uppercase tracking-wider text-black/50">
-                  {project.category}
-                </span>
-                <h3 className="text-3xl md:text-5xl font-bold tracking-tight text-black">
-                  {project.title}
-                </h3>
-                <p className="text-base text-black/70 leading-relaxed max-w-4xl">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {project.tags.map((tag) => (
-                    <span key={tag} className="px-3 py-1 bg-black/5 rounded-md text-xs font-semibold text-black/70">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <div className="flex flex-wrap items-center gap-4 pt-4">
-                  <a
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-6 py-3 bg-black text-white rounded-xl text-xs font-semibold hover:bg-black/80 transition-colors shadow-sm"
+              <div className="grid lg:grid-cols-12 gap-8 items-center">
+                {/* Poster Display Frame (7 Cols) */}
+                <div className="lg:col-span-7">
+                  <div
+                    onClick={() => setSelectedImage(project.image)}
+                    className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden border border-black/10 bg-black/5 cursor-pointer group shadow-sm"
                   >
-                    <ExternalLink size={14} /> Visit Live Web App
-                  </a>
-                  {'orgUrl' in project && project.orgUrl && (
-                    <a
-                      href={(project as { orgUrl: string }).orgUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-6 py-3 bg-black/5 border border-black/10 rounded-xl text-xs font-semibold text-black hover:bg-black/10 transition-colors"
+                    <ImageWithFallback
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                      loading="eager"
+                    />
+                    <div className="absolute top-4 right-4 z-10">
+                      <span className="px-3.5 py-1.5 bg-black/85 backdrop-blur-md text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-md border border-white/20">
+                        {project.badge}
+                      </span>
+                    </div>
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                      <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black text-white text-xs font-semibold px-4 py-2 rounded-full shadow-xl flex items-center gap-2 border border-white/20">
+                        <Maximize2 size={13} /> Click to expand poster
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Clean Project Details (5 Cols) */}
+                <div className="lg:col-span-5 flex flex-col justify-between h-full space-y-5">
+                  <div>
+                    <span className="text-xs font-bold uppercase tracking-wider text-black/50 block mb-1.5">
+                      {project.category}
+                    </span>
+                    <h3 className="text-2xl sm:text-3xl font-extrabold text-black tracking-tight mb-3">
+                      {project.title}
+                    </h3>
+                    <p className="text-sm text-black/70 leading-relaxed font-normal mb-5">
+                      {project.description}
+                    </p>
+
+                    {/* Key Feature Bullet Pills */}
+                    <div className="space-y-2 mb-6">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-black/40 block mb-2">
+                        Key Capabilities
+                      </span>
+                      {project.highlights.map((highlight, idx) => (
+                        <div key={idx} className="flex items-start gap-2.5 text-xs text-black/80 font-medium">
+                          <CheckCircle2 size={15} className="text-black shrink-0 mt-0.5" />
+                          <span>{highlight}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Tech Tags */}
+                    <div className="flex flex-wrap gap-1.5 mb-6">
+                      {project.tags.map((tag) => (
+                        <span key={tag} className="px-3 py-1 bg-black/5 rounded-lg text-xs font-semibold text-black/75 border border-black/5">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Action CTA Buttons */}
+                  <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-black/10">
+                    {project.url && (
+                      <a
+                        href={project.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 px-5 py-2.5 bg-black text-white rounded-xl text-xs font-bold hover:bg-black/80 transition-colors shadow-sm"
+                      >
+                        <ExternalLink size={14} /> Visit Live App
+                      </a>
+                    )}
+                    {project.orgUrl && (
+                      <a
+                        href={project.orgUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 px-4 py-2.5 bg-black/5 border border-black/10 rounded-xl text-xs font-semibold text-black hover:bg-black/10 transition-colors"
+                      >
+                        <Globe size={14} /> Official Site
+                      </a>
+                    )}
+                    <button
+                      onClick={() => setSelectedImage(project.image)}
+                      className="flex items-center gap-1.5 px-3 py-2.5 text-xs font-semibold text-black/60 hover:text-black transition-colors ml-auto"
                     >
-                      <Globe size={14} /> Official Org Website
-                    </a>
-                  )}
-                  <button className="flex items-center gap-2 px-6 py-3 bg-black/5 border border-black/10 rounded-xl text-xs font-semibold text-black hover:bg-black/10 transition-colors">
-                    <Github size={14} /> Source Code
-                  </button>
+                      <Maximize2 size={13} /> View Artwork
+                    </button>
+                  </div>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* 2. OTHER PROJECTS — alternating 2-col with center vertical line */}
-        <div className="relative space-y-24 md:before:block md:before:absolute md:before:left-1/2 md:before:-translate-x-1/2 md:before:top-4 md:before:bottom-4 md:before:w-[2px] md:before:bg-black/15">
-          {otherProjects.map((project, index) => {
-            const isEven = index % 2 === 0;
-            const hasMultipleImages = 'images' in project && project.images && project.images.length > 1;
-
-            return (
-              <motion.div
-                key={project.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="relative grid md:grid-cols-2 gap-8 lg:gap-16 items-center"
-              >
-                {/* Center dot on the line */}
-                <div className="hidden md:block absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-black ring-4 ring-white border border-black z-10" />
-
-                {/* Image Side */}
-                <div className={`${isEven ? 'md:order-1' : 'md:order-2'}`}>
-                  {hasMultipleImages ? (
-                    /* Multi-image horizontal slider */
-                    <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-bold uppercase tracking-wider text-black/40 flex items-center gap-1.5">
-                          <Maximize2 size={13} /> {(project as { images: string[] }).images.length} screenshots — scroll to view
-                        </span>
-                      </div>
-                      <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-3 scroll-smooth" style={{ scrollbarWidth: 'thin' }}>
-                        {(project as { images: string[] }).images.map((imgSrc, imgIndex) => (
-                          <div
-                            key={imgIndex}
-                            onClick={() => setSelectedImage(imgSrc)}
-                            className="snap-start shrink-0 w-[82%] sm:w-[75%] rounded-2xl overflow-hidden border border-black/10 shadow-md bg-white cursor-pointer hover:shadow-xl hover:border-black/25 transition-colors duration-300 relative group"
-                          >
-                            {/* Browser chrome bar */}
-                            <div className="flex items-center gap-1.5 px-3 py-2 bg-black/[0.04] border-b border-black/[0.07]">
-                              <span className="w-2.5 h-2.5 rounded-full bg-red-400/70" />
-                              <span className="w-2.5 h-2.5 rounded-full bg-yellow-400/70" />
-                              <span className="w-2.5 h-2.5 rounded-full bg-green-400/70" />
-                            </div>
-                            {/* Screenshot */}
-                            <div className="aspect-video overflow-hidden bg-black/5">
-                              <ImageWithFallback
-                                src={imgSrc}
-                                alt={`${project.title} screen ${imgIndex + 1}`}
-                                className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
-                                loading={imgIndex < 1 ? 'eager' : 'lazy'}
-                              />
-                            </div>
-                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-end justify-center pb-4">
-                              <span className="opacity-0 group-hover:opacity-100 transition-opacity bg-black text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-md flex items-center gap-1">
-                                <Maximize2 size={12} /> View full
-                              </span>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                      {/* Scroll dots */}
-                      <div className="flex justify-center gap-1.5 mt-2">
-                        {(project as { images: string[] }).images.map((_, i) => (
-                          <span key={i} className="w-1.5 h-1.5 rounded-full bg-black/20" />
-                        ))}
-                      </div>
-                    </div>
-                  ) : (
-                    /* Single image */
-                    <div
-                      onClick={() => setSelectedImage(project.image)}
-                      className="relative rounded-2xl overflow-hidden border border-black/10 shadow-sm bg-black/5 group cursor-pointer"
-                    >
-                      <ImageWithFallback
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-auto max-h-[460px] object-contain group-hover:scale-[1.02] transition-transform duration-500"
-                        loading="lazy"
-                      />
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
-                        <span className="opacity-0 group-hover:opacity-100 transition-opacity bg-black text-white text-xs font-semibold px-3.5 py-2 rounded-full shadow-md flex items-center gap-1.5">
-                          <Maximize2 size={13} /> Click to view full image
-                        </span>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Detail Side */}
-                <div className={`${isEven ? 'md:order-2' : 'md:order-1'} flex flex-col justify-center`}>
-                  <span className="text-xs font-bold uppercase tracking-wider text-black/50 mb-2">
-                    {project.category}
-                  </span>
-                  <h3 className="text-2xl md:text-4xl font-bold tracking-tight text-black mb-4">
-                    {project.title}
-                  </h3>
-                  <p className="text-base text-black/70 leading-relaxed mb-6">
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2 mb-8">
-                    {project.tags.map((tag) => (
-                      <span key={tag} className="px-3 py-1 bg-black/5 rounded-md text-xs font-semibold text-black/70">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="flex items-center gap-4">
-                    {'url' in project && project.url ? (
-                      <a
-                        href={(project as { url: string }).url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-5 py-2.5 bg-black text-white rounded-xl text-xs font-semibold hover:bg-black/80 transition-colors shadow-sm"
-                      >
-                        <ExternalLink size={14} /> Visit Website
-                      </a>
-                    ) : (
-                      <button className="flex items-center gap-2 px-5 py-2.5 bg-black text-white rounded-xl text-xs font-semibold hover:bg-black/80 transition-all shadow-sm">
-                        <ExternalLink size={14} /> Live Demo
-                      </button>
-                    )}
-                    <button className="flex items-center gap-2 px-5 py-2.5 bg-black/5 border border-black/10 rounded-xl text-xs font-semibold text-black hover:bg-black/10 transition-colors">
-                      <Github size={14} /> Source Code
-                    </button>
+        {/* 2. MAIN PROJECTS GRID (Poster Top + Clean Details Below) */}
+        <div className="grid md:grid-cols-2 gap-8 mb-24">
+          {mainProjects.map((project) => (
+            <motion.div
+              key={project.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="bg-white border border-black/10 rounded-3xl p-5 sm:p-6 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+            >
+              <div>
+                {/* Poster Artwork Image Frame */}
+                <div
+                  onClick={() => setSelectedImage(project.image)}
+                  className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden border border-black/10 bg-black/5 cursor-pointer group mb-5 shadow-sm"
+                >
+                  <ImageWithFallback
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                    <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black text-white text-xs font-semibold px-4 py-2 rounded-full shadow-xl flex items-center gap-2 border border-white/20">
+                      <Maximize2 size={13} /> Expand poster
+                    </span>
                   </div>
                 </div>
-              </motion.div>
-            );
-          })}
+
+                {/* Clean Project Information */}
+                <span className="text-[11px] font-bold uppercase tracking-wider text-black/40 block mb-1">
+                  {project.category}
+                </span>
+                <h3 className="text-xl font-bold text-black tracking-tight mb-2">
+                  {project.title}
+                </h3>
+                <p className="text-xs text-black/70 leading-relaxed font-normal mb-4">
+                  {project.description}
+                </p>
+
+                {/* Key Feature Highlights */}
+                <div className="space-y-1.5 mb-4 bg-black/[0.02] p-3 rounded-xl border border-black/5">
+                  {project.highlights.map((highlight, idx) => (
+                    <div key={idx} className="flex items-center gap-2 text-[11px] text-black/75 font-medium">
+                      <CheckCircle2 size={13} className="text-black shrink-0" />
+                      <span>{highlight}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Tech Badges */}
+                <div className="flex flex-wrap gap-1.5 mb-5">
+                  {project.tags.map((tag) => (
+                    <span key={tag} className="px-2.5 py-1 bg-black/5 rounded-md text-[11px] font-semibold text-black/70">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Action Footer */}
+              <div className="flex items-center justify-between pt-3 border-t border-black/5 mt-2">
+                {project.url ? (
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-xs font-bold text-black hover:underline"
+                  >
+                    <ExternalLink size={13} /> Visit Live App
+                  </a>
+                ) : (
+                  <span className="text-xs font-semibold text-black/40">Portfolio Showcase</span>
+                )}
+                <button
+                  onClick={() => setSelectedImage(project.image)}
+                  className="flex items-center gap-1 text-xs font-semibold text-black/60 hover:text-black transition-colors"
+                >
+                  <Maximize2 size={12} /> View Poster
+                </button>
+              </div>
+            </motion.div>
+          ))}
         </div>
 
-        {/* 3. COMPANY WORK */}
+        {/* 3. COMPANY WORK SECTION */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mt-32 mb-16"
+          className="text-center mt-28 mb-12"
         >
-          <span className="inline-flex items-center gap-2 px-3 py-1 bg-black text-white text-xs font-bold uppercase tracking-wider rounded-full mb-4">
-            <Briefcase size={13} /> Professional Experience
+          <span className="inline-flex items-center gap-2 px-3 py-1 bg-black text-white text-xs font-bold uppercase tracking-wider rounded-full mb-3">
+            <Briefcase size={13} /> Professional Client Work
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-black mb-4">
-            Company Work
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-black mb-3">
+            Company Deliverables
           </h2>
-          <p className="text-lg text-black/60 max-w-2xl mx-auto">
-            Completed projects delivered for clients while working at a software company
+          <p className="text-base text-black/60 max-w-xl mx-auto font-medium">
+            Production web applications delivered for company clients
           </p>
         </motion.div>
 
@@ -430,83 +413,97 @@ export function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="bg-white border border-black/10 rounded-3xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow flex flex-col"
+              className="bg-white border border-black/10 rounded-3xl p-5 sm:p-6 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
             >
-              <div
-                onClick={() => setSelectedImage(project.image)}
-                className="relative aspect-square overflow-hidden bg-black/5 cursor-pointer group"
-              >
-                <ImageWithFallback
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
-                  loading="lazy"
-                />
-                <span className="absolute top-4 left-4 px-3 py-1 bg-white/90 text-black text-xs font-bold uppercase tracking-wider rounded-full shadow-sm flex items-center gap-1.5">
-                  <Briefcase size={12} /> {project.company}
-                </span>
-              </div>
-              <div className="p-6 sm:p-8 flex flex-col flex-1">
-                <span className="text-xs font-bold uppercase tracking-wider text-black/50 mb-2">
+              <div>
+                <div
+                  onClick={() => setSelectedImage(project.image)}
+                  className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden border border-black/10 bg-black/5 cursor-pointer group mb-5 shadow-sm"
+                >
+                  <ImageWithFallback
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <span className="absolute top-3 left-3 px-3 py-1 bg-white/90 backdrop-blur-md text-black text-xs font-bold uppercase tracking-wider rounded-full shadow-sm flex items-center gap-1.5">
+                    <Briefcase size={12} /> {project.company}
+                  </span>
+                </div>
+
+                <span className="text-[11px] font-bold uppercase tracking-wider text-black/40 block mb-1">
                   {project.category}
                 </span>
-                <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-black mb-3">
+                <h3 className="text-xl font-bold text-black tracking-tight mb-2">
                   {project.title}
                 </h3>
-                <p className="text-sm text-black/70 leading-relaxed mb-5">
+                <p className="text-xs text-black/70 leading-relaxed font-normal mb-4">
                   {project.description}
                 </p>
-                <div className="flex flex-wrap gap-2 mb-6">
+
+                <div className="space-y-1.5 mb-4 bg-black/[0.02] p-3 rounded-xl border border-black/5">
+                  {project.highlights.map((highlight, idx) => (
+                    <div key={idx} className="flex items-center gap-2 text-[11px] text-black/75 font-medium">
+                      <CheckCircle2 size={13} className="text-black shrink-0" />
+                      <span>{highlight}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex flex-wrap gap-1.5 mb-5">
                   {project.tags.map((tag) => (
-                    <span key={tag} className="px-3 py-1 bg-black/5 rounded-md text-xs font-semibold text-black/70">
+                    <span key={tag} className="px-2.5 py-1 bg-black/5 rounded-md text-[11px] font-semibold text-black/70">
                       {tag}
                     </span>
                   ))}
                 </div>
-                <div className="flex flex-wrap items-center gap-3 mt-auto">
-                  <a
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-5 py-2.5 bg-black text-white rounded-xl text-xs font-semibold hover:bg-black/80 transition-colors shadow-sm"
-                  >
-                    <ExternalLink size={14} /> View Case Study
-                  </a>
-                  <a
-                    href={project.companyUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-5 py-2.5 bg-black/5 border border-black/10 rounded-xl text-xs font-semibold text-black hover:bg-black/10 transition-colors"
-                  >
-                    <Globe size={14} /> {project.company}
-                  </a>
-                </div>
+              </div>
+
+              <div className="flex items-center justify-between pt-3 border-t border-black/5 mt-2">
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 text-xs font-bold text-black hover:underline"
+                >
+                  <ExternalLink size={13} /> View Case Study
+                </a>
+                <a
+                  href={project.companyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 text-xs font-semibold text-black/60 hover:text-black transition-colors"
+                >
+                  <Globe size={12} /> {project.company}
+                </a>
               </div>
             </motion.div>
           ))}
         </div>
+
       </div>
 
-      {/* Lightbox Modal */}
+      {/* FULLSCREEN LIGHTBOX MODAL */}
       {selectedImage && (
         <div
           onClick={() => setSelectedImage(null)}
-          className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4 sm:p-8 cursor-zoom-out"
+          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 sm:p-8 cursor-zoom-out animate-in fade-in duration-200"
         >
           <div
-            className="relative max-w-5xl max-h-[92vh] bg-white p-3 rounded-2xl overflow-hidden shadow-2xl border border-black/10"
+            className="relative max-w-6xl max-h-[92vh] bg-white p-3 sm:p-4 rounded-3xl overflow-hidden shadow-2xl border border-white/20"
             onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={() => setSelectedImage(null)}
-              className="absolute top-5 right-5 z-20 w-10 h-10 flex items-center justify-center bg-black text-white rounded-full hover:bg-black/80 transition-colors shadow-md"            >
-              <X size={20} />
+              className="absolute top-5 right-5 z-30 w-11 h-11 flex items-center justify-center bg-black text-white rounded-full hover:bg-black/80 transition-transform active:scale-95 shadow-xl border border-white/20"
+            >
+              <X size={22} />
             </button>
-            <div className="overflow-auto max-h-[85vh] rounded-xl bg-black/5 p-2">
+            <div className="overflow-auto max-h-[85vh] rounded-2xl bg-black/5 p-2">
               <img
                 src={selectedImage}
-                alt="Full size view"
-                className="w-full h-auto object-contain rounded-lg"
+                alt="Full size poster artwork"
+                className="w-full h-auto object-contain rounded-xl shadow-md"
               />
             </div>
           </div>
