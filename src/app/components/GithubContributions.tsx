@@ -1,19 +1,46 @@
 import { motion } from 'motion/react';
-import { Github, GitCommit, GitPullRequest, Flame, Calendar, ExternalLink, Code2, FolderGit2 } from 'lucide-react';
+import { Github, GitCommit, GitPullRequest, Flame, Calendar, ExternalLink, Star, GitFork, ArrowUpRight } from 'lucide-react';
 import { useState, useMemo, useEffect } from 'react';
 
 const MONTHS = ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'];
+
+const ease = [0.22, 1, 0.36, 1] as const;
+
+const LANG_COLORS: Record<string, string> = {
+  TypeScript: '#3178C6',
+  JavaScript: '#f1e05a',
+  PHP: '#4F5D95',
+  Python: '#3572A5',
+  HTML: '#e34c26',
+  CSS: '#563d7c',
+  SCSS: '#c6538c',
+  Java: '#b07219',
+  Dart: '#00B4AB',
+  Vue: '#41b883',
+  Kotlin: '#A97BFF',
+  Swift: '#F05138',
+  C: '#555555',
+  'C++': '#f34b7d',
+  Go: '#00ADD8',
+  Rust: '#dea584',
+  Shell: '#89e051',
+  Ruby: '#701516',
+  Lua: '#000080',
+};
 
 interface RealGithubRepo {
   id: number | string;
   name: string;
   full_name: string;
   html_url: string;
-  description: string | null;
+  description: string;
   language: string | null;
-  stargazers_count?: number;
-  forks_count?: number;
+  langColor: string;
+  stargazers_count: number;
+  forks_count: number;
+  topics: string[];
   updated_at?: string;
+  homepage?: string | null;
 }
 
 // Fallback curated live repositories for @earsokchan
@@ -23,16 +50,28 @@ const fallbackRepos: RealGithubRepo[] = [
     name: 'School-Management-System-Dynamic-School-Website',
     full_name: 'earsokchan/School-Management-System-Dynamic-School-Website',
     html_url: 'https://github.com/earsokchan/School-Management-System-Dynamic-School-Website',
-    description: 'Open-source dynamic school management portal software featuring bilingual Khmer / English (i18n), student grade transcript generation, and administrative portal.',
+    description:
+      'Open-source dynamic school management portal featuring bilingual Khmer / English (i18n), student grade transcript generation, and an administrative portal.',
     language: 'TypeScript',
+    langColor: '#3178C6',
+    stargazers_count: 0,
+    forks_count: 0,
+    topics: ['nextjs', 'mongodb', 'i18n', 'education'],
+    homepage: 'https://sms.builware.app/en',
   },
   {
     id: 'portfolio-repo',
     name: 'Ear-Sokchan-Portfolio',
     full_name: 'earsokchan/Ear-Sokchan-Portfolio',
     html_url: 'https://github.com/earsokchan',
-    description: 'Personal web developer portfolio showcase built with React, Next.js, Motion, and Tailwind CSS.',
+    description:
+      'Personal web developer portfolio showcase built with React, Motion and Tailwind CSS, styled after a modern creative agency aesthetic.',
     language: 'TypeScript',
+    langColor: '#3178C6',
+    stargazers_count: 0,
+    forks_count: 0,
+    topics: ['portfolio', 'react', 'tailwindcss', 'vite'],
+    homepage: null,
   },
 ];
 
@@ -93,22 +132,38 @@ export function GithubContributions() {
   const [, setHoverInfo] = useState<string | null>(null);
   const { grid, totalContribs } = useMemo(() => generateContributionData(), []);
   const [liveRepos, setLiveRepos] = useState<RealGithubRepo[]>(fallbackRepos);
+  const [publicRepoCount, setPublicRepoCount] = useState<number | null>(null);
 
-  // Fetch live repos directly from GitHub API for user @earsokchan
+  // Fetch live repos + profile counters directly from GitHub API for user @earsokchan
   useEffect(() => {
+    fetch('https://api.github.com/users/earsokchan')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data && typeof data.public_repos === 'number') setPublicRepoCount(data.public_repos);
+      })
+      .catch(() => {});
+
     fetch('https://api.github.com/users/earsokchan/repos?sort=updated&per_page=6')
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {
-          const formatted = data.map((item: any) => ({
-            id: item.id,
-            name: item.name,
-            full_name: item.full_name,
-            html_url: item.html_url,
-            description: item.description || 'Public GitHub repository by Ear Sokchan.',
-            language: item.language || 'TypeScript',
-          }));
-          setLiveRepos(formatted);
+          const formatted: RealGithubRepo[] = data
+            .filter((item: any) => !item.fork && !item.private)
+            .map((item: any) => ({
+              id: item.id,
+              name: item.name,
+              full_name: item.full_name,
+              html_url: item.html_url,
+              description: item.description || 'Public GitHub repository by Ear Sokchan.',
+              language: item.language || 'TypeScript',
+              langColor: LANG_COLORS[item.language] || '#3178C6',
+              stargazers_count: item.stargazers_count ?? 0,
+              forks_count: item.forks_count ?? 0,
+              topics: Array.isArray(item.topics) ? item.topics.slice(0, 3) : [],
+              updated_at: item.updated_at,
+              homepage: item.homepage || null,
+            }));
+          if (formatted.length > 0) setLiveRepos(formatted);
         }
       })
       .catch(() => {});
@@ -170,7 +225,9 @@ export function GithubContributions() {
           <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 flex items-center gap-3">
             <GitCommit size={18} className="text-[var(--cr-blue)] shrink-0" />
             <div>
-              <div className="text-lg font-bold text-white font-mono">10+ Repos</div>
+              <div className="text-lg font-bold text-white font-mono">
+                {publicRepoCount !== null ? publicRepoCount : '10+'} Repos
+              </div>
               <div className="text-[11px] text-white/50">Public Codebases</div>
             </div>
           </div>
@@ -244,55 +301,142 @@ export function GithubContributions() {
           </div>
         </div>
 
-        {/* ==================== LIVE REPOSITORIES SHOWCASE FROM GITHUB ==================== */}
-        <div className="pt-4 border-t border-white/10 space-y-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Code2 size={18} className="text-[var(--cr-lime)]" />
-              <h4 className="text-lg font-bold text-white">Live Repositories on github.com/earsokchan</h4>
+        {/* ==================== LIVE REPOSITORIES — CRENCY.AGENCY SHOWCASE STYLE ==================== */}
+        <div className="pt-12 mt-4 border-t border-white/10">
+          {/* Section head: kicker + oversized display title with italic accent */}
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-7 mb-12">
+            <div className="min-w-0">
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="cr-subtitle mb-5"
+              >
+                Live Repositories on github.com/earsokchan
+              </motion.p>
+
+              <h4 className="cr-display text-white text-5xl sm:text-7xl lg:text-[6.5rem]">
+                <span className="cr-line-mask">
+                  <motion.span
+                    initial={{ y: '110%' }}
+                    whileInView={{ y: '0%' }}
+                    viewport={{ once: true, margin: '-80px' }}
+                    transition={{ duration: 1, ease }}
+                    className="block"
+                  >
+                    Built &amp; <span className="cr-accent text-[var(--cr-lime)]">pushed.</span>
+                  </motion.span>
+                </span>
+              </h4>
+
+              <motion.p
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="text-sm sm:text-base text-white/70 max-w-xl leading-relaxed mt-5"
+              >
+                Public codebases pulled live from GitHub — updated the moment a commit lands on
+                <span className="text-[var(--cr-lime)] font-semibold"> @earsokchan</span>.
+              </motion.p>
             </div>
 
             <a
               href="https://github.com/earsokchan?tab=repositories"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-[var(--cr-lime)] hover:underline inline-flex items-center gap-1"
+              className="cr-btn shrink-0 self-start lg:self-auto"
             >
-              See all repos <ExternalLink size={12} />
+              see all repositories <ArrowUpRight size={16} />
             </a>
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-4">
-            {liveRepos.map((repo) => (
-              <motion.div
-                key={repo.id}
-                whileHover={{ y: -4, scale: 1.02 }}
-                className="p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-[var(--cr-lime)] transition-all flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-bold text-white font-mono break-all">{repo.name}</span>
-                    <FolderGit2 size={16} className="text-[var(--cr-lime)] shrink-0" />
-                  </div>
-                  <p className="text-xs text-white/60 line-clamp-2 leading-relaxed mb-4">{repo.description}</p>
-                </div>
+          {/* Agency-style card grid */}
+          <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
+            {liveRepos.map((repo, idx) => {
+              const counter = `${String(idx + 1).padStart(2, '0')} / ${String(liveRepos.length).padStart(2, '0')}`;
+              const title = repo.name.replace(/[-_]+/g, ' ');
 
-                <div className="flex items-center justify-between pt-3 border-t border-white/10">
-                  <span className="text-[11px] font-mono text-[var(--cr-lav)] flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-[var(--cr-lime)]" /> {repo.language || 'TypeScript'}
+              return (
+                <motion.a
+                  key={repo.id}
+                  href={repo.html_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-60px' }}
+                  transition={{ duration: 0.8, delay: (idx % 3) * 0.1, ease }}
+                  className="cr-card group"
+                >
+                  {/* Vertical spine label */}
+                  <span className="cr-spine cr-card__spine" title={repo.name}>
+                    {repo.name}
                   </span>
 
-                  <a
-                    href={repo.html_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-3 py-1.5 rounded-xl bg-white/10 text-white hover:bg-[var(--cr-lime)] hover:text-[var(--cr-ink)] font-bold text-xs transition-colors inline-flex items-center gap-1"
-                  >
-                    <Github size={12} /> View Code
-                  </a>
-                </div>
-              </motion.div>
-            ))}
+                  <div className="cr-card__body">
+                    <div className="flex items-center justify-between gap-3 mb-6">
+                      <span className="cr-pill cr-pill--lime">
+                        <Github size={13} /> {repo.language || 'Code'}
+                      </span>
+                      <span className="cr-counter text-[var(--cr-ink)]/45">{counter}</span>
+                    </div>
+
+                    <h5 className="cr-display text-2xl sm:text-3xl leading-[0.92] mb-3 break-words line-clamp-3">
+                      {title}
+                    </h5>
+
+                    <p className="text-[13px] leading-relaxed text-[var(--cr-ink)]/70 line-clamp-3 mb-5">
+                      {repo.description}
+                    </p>
+
+                    {repo.topics.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5 mb-6">
+                        {repo.topics.map((t) => (
+                          <span
+                            key={t}
+                            className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[var(--cr-ink)]/8 text-[var(--cr-ink)]/75"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+
+                    <div className="mt-auto pt-4 border-t border-[var(--cr-ink)]/12 flex items-center justify-between gap-3">
+                      <span className="inline-flex items-center gap-3 text-[11px] font-bold text-[var(--cr-ink)]/65">
+                        <span className="inline-flex items-center gap-1">
+                          <Star size={13} className="text-[var(--cr-orange)]" /> {repo.stargazers_count}
+                        </span>
+                        <span className="inline-flex items-center gap-1">
+                          <GitFork size={13} className="text-[var(--cr-blue)]" /> {repo.forks_count}
+                        </span>
+                      </span>
+
+                      <span className="cr-btn cr-btn--dark cr-btn--sm">
+                        view code <Github size={14} />
+                      </span>
+                    </div>
+                  </div>
+                </motion.a>
+              );
+            })}
+          </div>
+
+          {/* Footer row */}
+          <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
+            <p className="text-xs text-white/50">
+              Synced live from the GitHub API · {liveRepos.length} of {publicRepoCount ?? liveRepos.length} public repositories shown
+            </p>
+
+            <a
+              href="https://github.com/earsokchan"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cr-btn cr-btn--ghost"
+            >
+              github.com/earsokchan <ExternalLink size={15} />
+            </a>
           </div>
         </div>
       </div>

@@ -1,17 +1,21 @@
-import { motion, useInView, Variants } from 'motion/react';
-import { useRef } from 'react';
+import { motion, AnimatePresence, Variants } from 'motion/react';
+import { useState, useRef } from 'react';
 import {
   Code2,
   Server,
   Database,
   Bot,
   Sparkles,
-  Check
+  Check,
+  ChevronRight,
+  Terminal,
+  Cpu,
+  Filter
 } from 'lucide-react';
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-// Header animation variants (like Hero & About headers)
+// Kinetic Line Mask Reveal Variants
 const lineUp: Variants = {
   hidden: { y: '110%' },
   show: (i: number) => ({
@@ -20,6 +24,7 @@ const lineUp: Variants = {
   }),
 };
 
+// Sticker Pop Animations
 const popSticker: Variants = {
   hidden: { scale: 0, rotate: -20, opacity: 0 },
   show: (d: number) => ({
@@ -33,20 +38,21 @@ const popSticker: Variants = {
 const STAR_PATH =
   'M129.93 50.646L116.232 48.9802C111.751 48.4343 109.428 43.3722 111.948 39.6444L119.654 28.2507C123.099 23.1553 117.565 16.8 112.007 19.4694L99.5786 25.437C95.5135 27.3904 90.808 24.3818 90.9043 19.8894L91.1954 6.158C91.3263 0.0180817 83.219 -2.35089 79.9925 2.88452L72.78 14.5926C70.4202 18.4238 64.8285 18.4238 62.4676 14.5926L55.254 2.88452C52.0286 -2.35089 43.9213 0.0180817 44.0522 6.158L44.3443 19.8894C44.4396 24.3818 39.7351 27.3904 35.669 25.437L23.2402 19.4694C17.6821 16.8 12.1488 23.1553 15.5938 28.2507L23.2987 39.6444C25.8197 43.3722 23.4967 48.4343 19.0151 48.9802L5.31715 50.646C-0.807961 51.3912 -2.01005 59.7149 3.65522 62.1473L16.3263 67.5873C20.4725 69.3662 21.2689 74.8751 17.7946 77.7448L7.176 86.5175C2.42825 90.4403 5.93821 98.0899 12.0265 97.0874L25.6412 94.8455C30.0957 94.1111 33.7582 98.3171 32.3938 102.601L28.2271 115.693C26.3639 121.548 33.4726 126.095 38.0494 121.975L48.2849 112.765C51.6337 109.751 56.9992 111.318 58.1797 115.656L61.7859 128.912C63.3981 134.84 71.8495 134.84 73.4616 128.912L77.0679 115.656C78.2483 111.318 83.6139 109.751 86.9626 112.765L97.1982 121.975C101.776 126.095 108.885 121.548 107.02 115.693L102.854 102.601C101.49 98.3171 105.152 94.1111 109.606 94.8455L123.221 97.0874C129.309 98.0899 132.82 90.4403 128.072 86.5175L117.453 77.7448C113.98 74.8751 114.775 69.3662 118.921 67.5873L131.592 62.1473C137.259 59.7149 136.056 51.3912 129.93 50.646Z';
 
-// Real Official Brand SVG Components for Frameworks & Libraries
+// Official Vector Brand Icons
 const RealTechIcons: Record<string, React.FC<{ className?: string }>> = {
   React: () => (
     <svg viewBox="0 0 100 100" className="w-full h-full">
-      <ellipse cx="50" cy="50" rx="42" ry="16" fill="none" stroke="#61DAFB" strokeWidth="6" transform="rotate(0 50 50)" />
-      <ellipse cx="50" cy="50" rx="42" ry="16" fill="none" stroke="#61DAFB" strokeWidth="6" transform="rotate(60 50 50)" />
-      <ellipse cx="50" cy="50" rx="42" ry="16" fill="none" stroke="#61DAFB" strokeWidth="6" transform="rotate(120 50 50)" />
-      <circle cx="50" cy="50" r="7" fill="#61DAFB" />
+      <rect width="100" height="100" rx="18" fill="#150734" />
+      <ellipse cx="50" cy="50" rx="38" ry="14" fill="none" stroke="#61DAFB" strokeWidth="5" transform="rotate(0 50 50)" />
+      <ellipse cx="50" cy="50" rx="38" ry="14" fill="none" stroke="#61DAFB" strokeWidth="5" transform="rotate(60 50 50)" />
+      <ellipse cx="50" cy="50" rx="38" ry="14" fill="none" stroke="#61DAFB" strokeWidth="5" transform="rotate(120 50 50)" />
+      <circle cx="50" cy="50" r="6" fill="#61DAFB" />
     </svg>
   ),
   Nextjs: () => (
-    <svg viewBox="0 0 120 120" className="w-full h-full" fill="none">
-      <circle cx="60" cy="60" r="54" fill="#000000" stroke="#FFFFFF" strokeWidth="4" />
-      <path d="M42 36v48M42 36l36 48M78 36v34" stroke="#FFFFFF" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" />
+    <svg viewBox="0 0 120 120" className="w-full h-full">
+      <rect width="120" height="120" rx="22" fill="#000000" />
+      <path d="M42 36v48M42 36l36 48M78 36v34" stroke="#FFFFFF" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
     </svg>
   ),
   TypeScript: () => (
@@ -231,6 +237,12 @@ const RealTechIcons: Record<string, React.FC<{ className?: string }>> = {
       <path d="M50 15L64 38L90 44L70 62L76 88L50 74L24 88L30 62L10 44L36 38L50 15Z" fill="#C2EC40" />
     </svg>
   ),
+  Cursor: () => (
+    <svg viewBox="0 0 100 100" className="w-full h-full">
+      <rect width="100" height="100" rx="18" fill="#000000" stroke="#00F0FF" strokeWidth="3" />
+      <path d="M30 22L75 48L52 54L66 78L54 84L40 60L25 72V22Z" fill="#00F0FF" />
+    </svg>
+  ),
 };
 
 interface TechSkill {
@@ -238,9 +250,12 @@ interface TechSkill {
   category: string;
   iconKey: keyof typeof RealTechIcons;
   featured?: boolean;
+  highlightNote?: string;
 }
 
 interface SkillCategory {
+  id: string;
+  code: string;
   name: string;
   icon: React.ElementType;
   description: string;
@@ -250,98 +265,167 @@ interface SkillCategory {
 
 export function Skills() {
   const ref = useRef(null);
+  const [activeFilter, setActiveFilter] = useState<string>('all');
+  const [activeWorkflowStep, setActiveWorkflowStep] = useState<number>(0);
 
   const mainCategories: SkillCategory[] = [
     {
+      id: 'frontend',
+      code: 'CAT // 01',
       name: 'Frontend Engineering',
       icon: Code2,
-      description: 'High-performance, responsive web application interfaces',
+      description: 'High-performance, responsive web application interfaces & state engines',
       accentColor: '#104EFF',
       skills: [
-        { name: 'React.js', category: 'UI Framework', iconKey: 'React', featured: true },
-        { name: 'Next.js', category: 'Full-Stack App', iconKey: 'Nextjs', featured: true },
-        { name: 'Tailwind CSS', category: 'Styling Engine', iconKey: 'Tailwind', featured: true },
-        { name: 'TypeScript', category: 'Type Safety', iconKey: 'TypeScript', featured: true },
-        { name: 'JavaScript', category: 'Core Language', iconKey: 'JavaScript' },
-        { name: 'HTML5 & CSS3', category: 'Web Standards', iconKey: 'HTML5' },
-        { name: 'Flutter UI', category: 'Mobile Apps', iconKey: 'Flutter' },
+        { name: 'React.js', category: 'UI Framework', iconKey: 'React', featured: true, highlightNote: 'Powers targetclothe.com & TSD SaaS platforms' },
+        { name: 'Next.js', category: 'Full-Stack App', iconKey: 'Nextjs', featured: true, highlightNote: 'SSR/SSG production web applications' },
+        { name: 'Tailwind CSS', category: 'Styling Engine', iconKey: 'Tailwind', featured: true, highlightNote: 'Utility-first responsive design systems' },
+        { name: 'TypeScript', category: 'Type Safety', iconKey: 'TypeScript', featured: true, highlightNote: 'Strict type checking & zero-defect codebase' },
+        { name: 'JavaScript', category: 'Core Language', iconKey: 'JavaScript', highlightNote: 'Modern ES6+ async/await & Web APIs' },
+        { name: 'HTML5 & CSS3', category: 'Web Standards', iconKey: 'HTML5', highlightNote: 'Semantic markup, CSS Grid & Flexbox' },
+        { name: 'Flutter UI', category: 'Mobile Apps', iconKey: 'Flutter', highlightNote: 'Cross-platform mobile UI development' },
+        { name: 'Vite Engine', category: 'Build Tool', iconKey: 'Vite', highlightNote: 'Lightning fast HMR & production bundler' },
       ],
     },
     {
+      id: 'backend',
+      code: 'CAT // 02',
       name: 'Backend & Payment Systems',
       icon: Server,
-      description: 'Scalable backend services & fintech gateway integrations',
+      description: 'Scalable backend microservices & NBC Bakong payment gateways',
       accentColor: '#F04C8A',
       skills: [
-        { name: 'Node.js', category: 'JS Runtime', iconKey: 'NodeJS', featured: true },
-        { name: 'Express.js', category: 'REST API', iconKey: 'Express' },
-        { name: 'Laravel (PHP)', category: 'MVC Framework', iconKey: 'Laravel', featured: true },
-        { name: 'KHQR Payment', category: 'Bakong Gateway', iconKey: 'KHQR', featured: true },
-        { name: 'ABA PayWay', category: 'Checkout API', iconKey: 'ABAPayWay', featured: true },
-        { name: 'Bakong API', category: 'National Fintech', iconKey: 'Bakong' },
+        { name: 'Node.js', category: 'JS Runtime', iconKey: 'NodeJS', featured: true, highlightNote: 'Event-driven REST APIs & microservices' },
+        { name: 'Express.js', category: 'REST API', iconKey: 'Express', highlightNote: 'Routing, middleware & authentication APIs' },
+        { name: 'Laravel (PHP)', category: 'MVC Framework', iconKey: 'Laravel', featured: true, highlightNote: 'Robust backend logic, Eloquent ORM & web APIs' },
+        { name: 'KHQR Payment', category: 'Bakong Gateway', iconKey: 'KHQR', featured: true, highlightNote: 'National Bakong QR payment integration' },
+        { name: 'ABA PayWay', category: 'Checkout API', iconKey: 'ABAPayWay', featured: true, highlightNote: 'E-commerce credit card & ABA mobile checkout' },
+        { name: 'Bakong API', category: 'National Fintech', iconKey: 'Bakong', highlightNote: 'Direct NBC Bakong inter-bank transfers' },
       ],
     },
     {
-      name: 'Database & Cloud Hosting',
+      id: 'cloud',
+      code: 'CAT // 03',
+      name: 'Database & Cloud Infrastructure',
       icon: Database,
-      description: 'Database architecture, containerization & cloud hosting',
+      description: 'Database architecture, containerization & edge server hosting',
       accentColor: '#C2EC40',
       skills: [
-        { name: 'MySQL DB', category: 'Relational SQL', iconKey: 'MySQL', featured: true },
-        { name: 'PostgreSQL', category: 'Enterprise DB', iconKey: 'PostgreSQL' },
-        { name: 'MongoDB', category: 'NoSQL Document', iconKey: 'MongoDB', featured: true },
-        { name: 'Vercel Cloud', category: 'Edge Platform', iconKey: 'Vercel', featured: true },
-        { name: 'AWS EC2', category: 'Cloud Server', iconKey: 'AWS' },
-        { name: 'Docker', category: 'Containers', iconKey: 'Docker', featured: true },
+        { name: 'MySQL DB', category: 'Relational SQL', iconKey: 'MySQL', featured: true, highlightNote: 'Relational schemas, queries & indexing' },
+        { name: 'PostgreSQL', category: 'Enterprise DB', iconKey: 'PostgreSQL', highlightNote: 'Complex JSON queries & spatial data' },
+        { name: 'MongoDB', category: 'NoSQL Document', iconKey: 'MongoDB', featured: true, highlightNote: 'Document collections & aggregation pipelines' },
+        { name: 'Vercel Cloud', category: 'Edge Platform', iconKey: 'Vercel', featured: true, highlightNote: 'Automated CI/CD deployments & edge functions' },
+        { name: 'AWS EC2', category: 'Cloud Server', iconKey: 'AWS', highlightNote: 'Linux server administration & Nginx reverse proxy' },
+        { name: 'Docker', category: 'Containers', iconKey: 'Docker', featured: true, highlightNote: 'Containerization, compose multi-service setups' },
       ],
     },
     {
+      id: 'ai',
+      code: 'CAT // 04',
       name: 'AI Pair-Programming Stack',
       icon: Bot,
-      description: 'Agentic AI coding tools & LLM pair-programming workflows',
+      description: 'Agentic AI coding engines & LLM pair-programming workflows',
       accentColor: '#E1611C',
       skills: [
-        { name: 'Antigravity AI', category: 'Agentic Pairing', iconKey: 'Antigravity', featured: true },
-        { name: 'Claude AI', category: 'Architecture', iconKey: 'Claude', featured: true },
-        { name: 'OpenAI Codex', category: 'Code Gen', iconKey: 'OpenAI' },
-        { name: 'DeepSeek', category: 'Code Analysis', iconKey: 'DeepSeek' },
-        { name: 'Vite Engine', category: 'Build Engine', iconKey: 'Vite' },
-        { name: 'Figma System', category: 'UI Design', iconKey: 'Figma' },
+        { name: 'Antigravity AI', category: 'Agentic Pairing', iconKey: 'Antigravity', featured: true, highlightNote: 'Deepmind agentic IDE assistant for rapid dev' },
+        { name: 'Claude 3.7', category: 'Architecture', iconKey: 'Claude', featured: true, highlightNote: 'Complex system design & prompt engineering' },
+        { name: 'OpenAI Codex', category: 'Code Gen', iconKey: 'OpenAI', highlightNote: 'Automated snippet generation & boilerplate' },
+        { name: 'DeepSeek R1', category: 'Code Analysis', iconKey: 'DeepSeek', highlightNote: 'Deep logic verification & bug detection' },
+        { name: 'Cursor AI', category: 'IDE Assistant', iconKey: 'Cursor', featured: true, highlightNote: 'In-editor inline autocomplete & refactoring' },
+        { name: 'Figma System', category: 'UI Design', iconKey: 'Figma', highlightNote: 'Figma design tokens & wireframe translation' },
       ],
     },
   ];
 
-  // Marquee item list featuring official SVGs for the auto-scrolling ticker bands
+  // Marquee items for auto-scrolling ticker bands
   const marqueeItems = [
-    { name: 'React.js', iconKey: 'React', color: '#00D8FF' },
-    { name: 'Next.js', iconKey: 'Nextjs', color: '#FFFFFF' },
-    { name: 'TypeScript', iconKey: 'TypeScript', color: '#3178C6' },
-    { name: 'Tailwind CSS', iconKey: 'Tailwind', color: '#38BDF8' },
-    { name: 'Node.js', iconKey: 'NodeJS', color: '#5FA04E' },
-    { name: 'Laravel', iconKey: 'Laravel', color: '#FF2D20' },
-    { name: 'KHQR Payment', iconKey: 'KHQR', color: '#E21A22' },
-    { name: 'ABA PayWay', iconKey: 'ABAPayWay', color: '#005C8A' },
-    { name: 'MongoDB', iconKey: 'MongoDB', color: '#47A248' },
-    { name: 'MySQL', iconKey: 'MySQL', color: '#00758F' },
-    { name: 'Docker', iconKey: 'Docker', color: '#2496ED' },
-    { name: 'Vercel', iconKey: 'Vercel', color: '#FFFFFF' },
-    { name: 'Antigravity AI', iconKey: 'Antigravity', color: '#C2EC40' },
-    { name: 'Claude AI', iconKey: 'Claude', color: '#D97706' },
+    { name: 'React.js', iconKey: 'React', category: 'Frontend' },
+    { name: 'Next.js', iconKey: 'Nextjs', category: 'Full-Stack' },
+    { name: 'TypeScript', iconKey: 'TypeScript', category: 'Language' },
+    { name: 'Tailwind CSS', iconKey: 'Tailwind', category: 'Styling' },
+    { name: 'Node.js', iconKey: 'NodeJS', category: 'Backend' },
+    { name: 'Laravel', iconKey: 'Laravel', category: 'PHP' },
+    { name: 'KHQR Payment', iconKey: 'KHQR', category: 'Fintech' },
+    { name: 'ABA PayWay', iconKey: 'ABAPayWay', category: 'Checkout' },
+    { name: 'MongoDB', iconKey: 'MongoDB', category: 'Database' },
+    { name: 'MySQL', iconKey: 'MySQL', category: 'Database' },
+    { name: 'Docker', iconKey: 'Docker', category: 'DevOps' },
+    { name: 'Vercel', iconKey: 'Vercel', category: 'Cloud' },
+    { name: 'Antigravity AI', iconKey: 'Antigravity', category: 'AI Pairing' },
+    { name: 'Claude 3.7', iconKey: 'Claude', category: 'LLM' },
+    { name: 'DeepSeek R1', iconKey: 'DeepSeek', category: 'Analysis' },
   ];
+
+  // Workflow steps for AI pair-programming section
+  const workflowSteps = [
+    {
+      step: '01',
+      title: 'Architect & Design Specs',
+      tool: 'Claude 3.7 & Figma',
+      iconKey: 'Claude',
+      color: '#D97706',
+      description: 'Deconstruct requirements into clean modular schemas, database entities, and component design systems.',
+    },
+    {
+      step: '02',
+      title: 'Agentic Code Construction',
+      tool: 'Antigravity & Cursor AI',
+      iconKey: 'Antigravity',
+      color: '#C2EC40',
+      description: 'Generate high-quality TypeScript/PHP code, custom components, and payment gateway handler integration.',
+    },
+    {
+      step: '03',
+      title: 'Deep Logic & Security Audit',
+      tool: 'DeepSeek R1 & OpenAI',
+      iconKey: 'DeepSeek',
+      color: '#3B82F6',
+      description: 'Verify edge-case handling, validate API endpoints, and ensure zero-regression refactoring.',
+    },
+    {
+      step: '04',
+      title: 'Build & Edge Deployment',
+      tool: 'Vite & Vercel Cloud',
+      iconKey: 'Vercel',
+      color: '#FFFFFF',
+      description: 'Run automated build checks, bundle optimization, and push instant edge updates to live production environments.',
+    },
+  ];
+
+  // Filter categories
+  const filterTabs = [
+    { id: 'all', label: 'All Stacks' },
+    { id: 'frontend', label: 'Frontend' },
+    { id: 'backend', label: 'Backend & Fintech' },
+    { id: 'cloud', label: 'Cloud & Database' },
+    { id: 'ai', label: 'AI Workflows' },
+  ];
+
+  // Filtered Categories
+  const filteredCategories = activeFilter === 'all' 
+    ? mainCategories 
+    : mainCategories.filter(cat => cat.id === activeFilter);
+
+  const totalSkillsCount = mainCategories.reduce((acc, cat) => acc + cat.skills.length, 0);
 
   return (
     <section ref={ref} id="skills" className="cr-skin relative bg-[var(--cr-ink)] py-28 px-5 sm:px-8 border-t border-white/10 overflow-hidden">
       
-      {/* Background radial glow effect like Hero header */}
+      {/* Background radial glow effects */}
       <div
         aria-hidden
-        className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[950px] h-[600px] rounded-full opacity-20 blur-3xl pointer-events-none"
+        className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[1000px] h-[650px] rounded-full opacity-20 blur-3xl pointer-events-none"
         style={{ background: 'radial-gradient(closest-side, #c2ec40, transparent)' }}
+      />
+      <div
+        aria-hidden
+        className="absolute bottom-10 right-10 w-[500px] h-[500px] rounded-full opacity-10 blur-3xl pointer-events-none"
+        style={{ background: 'radial-gradient(closest-side, #f04c8a, transparent)' }}
       />
 
       <div className="max-w-7xl mx-auto space-y-16 relative z-10">
         
-        {/* ==================== HEADER SECTION (HEADER ANIMATION) ==================== */}
+        {/* ==================== HEADER SECTION (CRENCY AGENCY STYLE) ==================== */}
         <div className="relative">
           {/* Top Subtitle Pill */}
           <motion.div
@@ -351,12 +435,13 @@ export function Skills() {
             transition={{ duration: 0.6 }}
             className="mb-6 flex items-center gap-3"
           >
-            <span className="cr-subtitle !text-[var(--cr-lav)]">
+            <span className="cr-pill cr-pill--lime">
+              <span className="w-2 h-2 rounded-full bg-[var(--cr-ink)] animate-pulse" />
               Frameworks, Libraries & AI Workflows
             </span>
           </motion.div>
 
-          {/* Large Header Display Title with Kinetic Mask Reveal */}
+          {/* Large Display Title with Kinetic Mask Reveal */}
           <h2 className="cr-display text-white text-6xl sm:text-8xl lg:text-[8.5rem] tracking-tight">
             <span className="cr-line-mask">
               <motion.span
@@ -367,7 +452,7 @@ export function Skills() {
                 viewport={{ once: true, margin: '-80px' }}
                 className="block"
               >
-                Technical <span className="cr-accent text-[var(--cr-lime)]">S</span>kills.
+                Frameworks & <span className="cr-accent text-[var(--cr-lime)]">L</span>ibraries.
               </motion.span>
             </span>
             <span className="cr-line-mask">
@@ -379,36 +464,51 @@ export function Skills() {
                 viewport={{ once: true, margin: '-80px' }}
                 className="block text-[var(--cr-lav)] text-5xl sm:text-7xl lg:text-[7rem]"
               >
-                Real <span className="cr-accent text-[var(--cr-pink)]">l</span>ibraries & tools.
+                AI-powered <span className="cr-accent text-[var(--cr-pink)]">w</span>orkflows.
               </motion.span>
             </span>
           </h2>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="mt-6 text-lg sm:text-xl text-white/75 max-w-2xl leading-relaxed"
-          >
-            An interactive ecosystem of official framework libraries, payment gateways, databases, and AI coding assistants powering my daily development workflow.
-          </motion.p>
+          <div className="mt-6 flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="text-lg sm:text-xl text-white/75 max-w-2xl leading-relaxed"
+            >
+              An interactive ecosystem of official framework libraries, national KHQR payment gateways, databases, and agentic AI pair-programming engines powering my daily engineering velocity.
+            </motion.p>
 
-          {/* Decorative Floating Header Sticker */}
+            {/* Counter pill */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-3 px-4 py-2 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-md shrink-0"
+            >
+              <Cpu className="text-[var(--cr-lime)]" size={18} />
+              <span className="cr-counter text-xs text-white">
+                [ {totalSkillsCount} PRODUCTION TECHS ]
+              </span>
+            </motion.div>
+          </div>
+
+          {/* Decorative Crency Agency Rotating Star Sticker */}
           <motion.div
             custom={0.8}
             variants={popSticker}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
-            className="cr-sticker cr-float right-[3%] top-[8%] w-32 h-32 hidden lg:grid"
+            className="cr-sticker cr-float right-[2%] top-[6%] w-32 h-32 hidden lg:grid"
           >
             <svg viewBox="0 0 136 134" className="cr-spin" fill="#C2EC40">
               <path d={STAR_PATH} />
             </svg>
             <p className="!text-[var(--cr-ink)] font-bold">
               <span className="cr-num">100%</span>
-              real
+              official
               <br />
               icons
             </p>
@@ -416,22 +516,25 @@ export function Skills() {
         </div>
 
         {/* ==================== AUTO-RUNNING INFINITE MARQUEE TICKER BANDS ==================== */}
-        <div className="space-y-4 py-4 overflow-hidden rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md">
+        <div className="space-y-4 py-4 overflow-hidden rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md shadow-2xl">
           {/* Marquee Band 1: Auto-scrolling Left */}
           <div className="cr-marquee relative flex items-center">
             {[0, 1].map((k) => (
-              <div key={k} className="cr-marquee-track flex items-center gap-6 pr-6" aria-hidden={k === 1}>
+              <div key={k} className="cr-marquee-track flex items-center gap-5 pr-5" aria-hidden={k === 1}>
                 {marqueeItems.map((item) => {
                   const IconComp = RealTechIcons[item.iconKey as keyof typeof RealTechIcons];
                   return (
                     <div
                       key={item.name + k}
-                      className="inline-flex items-center gap-3 px-5 py-2.5 rounded-2xl bg-[var(--cr-ink-2)] border border-white/15 text-white shadow-lg hover:scale-105 transition-transform"
+                      className="inline-flex items-center gap-3 px-4 py-2 rounded-2xl bg-[var(--cr-ink-2)] border border-white/15 text-white shadow-lg hover:scale-105 hover:border-[var(--cr-lime)] transition-all cursor-default"
                     >
-                      <div className="w-7 h-7 shrink-0">
+                      <div className="w-6 h-6 shrink-0">
                         {IconComp ? <IconComp /> : null}
                       </div>
-                      <span className="text-sm font-bold tracking-wide">{item.name}</span>
+                      <span className="text-xs font-bold tracking-wide">{item.name}</span>
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-white/10 text-[var(--cr-lav)]">
+                        {item.category}
+                      </span>
                     </div>
                   );
                 })}
@@ -444,21 +547,24 @@ export function Skills() {
             {[0, 1].map((k) => (
               <div
                 key={k}
-                className="cr-marquee-track flex items-center gap-6 pr-6"
+                className="cr-marquee-track flex items-center gap-5 pr-5"
                 aria-hidden={k === 1}
-                style={{ animationDirection: 'reverse', animationDuration: '32s' }}
+                style={{ animationDirection: 'reverse', animationDuration: '34s' }}
               >
                 {[...marqueeItems].reverse().map((item) => {
                   const IconComp = RealTechIcons[item.iconKey as keyof typeof RealTechIcons];
                   return (
                     <div
                       key={item.name + '-rev-' + k}
-                      className="inline-flex items-center gap-3 px-5 py-2.5 rounded-2xl bg-[var(--cr-ink-3)] border border-white/15 text-white shadow-lg hover:scale-105 transition-transform"
+                      className="inline-flex items-center gap-3 px-4 py-2 rounded-2xl bg-[var(--cr-ink-3)] border border-white/15 text-white shadow-lg hover:scale-105 hover:border-[var(--cr-pink)] transition-all cursor-default"
                     >
-                      <div className="w-7 h-7 shrink-0">
+                      <div className="w-6 h-6 shrink-0">
                         {IconComp ? <IconComp /> : null}
                       </div>
-                      <span className="text-sm font-bold tracking-wide">{item.name}</span>
+                      <span className="text-xs font-bold tracking-wide">{item.name}</span>
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-white/10 text-[var(--cr-lav)]">
+                        {item.category}
+                      </span>
                     </div>
                   );
                 })}
@@ -467,143 +573,297 @@ export function Skills() {
           </div>
         </div>
 
-        {/* ==================== 2x2 CATEGORIES WITH AUTO-BREATHING REAL TECH CARDS ==================== */}
-        <div className="grid lg:grid-cols-2 gap-8">
-          {mainCategories.map((category, catIndex) => (
-            <motion.div
-              key={category.name}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: catIndex * 0.1, ease }}
-              className="rounded-[28px] bg-[var(--cr-ink-2)] border border-[rgba(211,197,246,0.16)] p-7 sm:p-9 shadow-2xl flex flex-col justify-between hover:border-[var(--cr-lime)]/50 transition-colors duration-500 group"
-            >
-              <div>
-                {/* Category Header */}
-                <div className="flex items-center gap-4 mb-6 border-b border-white/10 pb-5">
-                  <motion.div
-                    whileHover={{ rotate: 12, scale: 1.1 }}
-                    className="w-14 h-14 rounded-2xl grid place-items-center shrink-0 shadow-lg border border-white/10"
-                    style={{ background: category.accentColor, color: '#150734' }}
-                  >
-                    <category.icon size={26} />
-                  </motion.div>
-                  <div>
-                    <h3 className="cr-display text-3xl sm:text-4xl text-white tracking-wide">
-                      {category.name}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-white/60 mt-0.5 font-medium">
-                      {category.description}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Grid of Auto-Floating Real Tech Skill Cards */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3.5 pt-2">
-                  {category.skills.map((skill, skillIndex) => {
-                    const RealIcon = RealTechIcons[skill.iconKey];
-                    return (
-                      <motion.div
-                        key={skill.name}
-                        animate={{
-                          y: [0, -4, 0],
-                        }}
-                        transition={{
-                          duration: 4,
-                          repeat: Infinity,
-                          ease: 'easeInOut',
-                          delay: skillIndex * 0.4 + catIndex * 0.2,
-                        }}
-                        whileHover={{
-                          y: -8,
-                          scale: 1.06,
-                          rotate: skillIndex % 2 === 0 ? 1.5 : -1.5,
-                        }}
-                        className={`relative rounded-2xl p-4 border transition-all duration-300 flex flex-col justify-between cursor-default ${
-                          skill.featured
-                            ? 'bg-white/10 border-white/20 hover:bg-white hover:text-[var(--cr-ink)] shadow-lg'
-                            : 'bg-white/5 border-white/10 hover:bg-white/15 hover:border-white/30'
-                        } group/card`}
-                      >
-                        {/* Top Row: Official SVG Icon + Core Badge */}
-                        <div className="flex items-center justify-between mb-3">
-                          <div className="w-10 h-10 shrink-0 transition-transform duration-300 group-hover/card:scale-110 drop-shadow-md">
-                            {RealIcon ? <RealIcon /> : null}
-                          </div>
-
-                          {skill.featured && (
-                            <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-[var(--cr-lime)] text-[var(--cr-ink)]">
-                              <Check size={10} strokeWidth={3} /> Core
-                            </span>
-                          )}
-                        </div>
-
-                        {/* Tech Name & Category Tag */}
-                        <div>
-                          <h4 className="text-sm font-bold text-white group-hover/card:text-[var(--cr-ink)] transition-colors leading-snug">
-                            {skill.name}
-                          </h4>
-                          <span className="text-[11px] font-medium text-white/50 group-hover/card:text-[var(--cr-ink)]/70 transition-colors mt-0.5 block">
-                            {skill.category}
-                          </span>
-                        </div>
-                      </motion.div>
-                    );
-                  })}
-                </div>
-              </div>
-            </motion.div>
-          ))}
+        {/* ==================== INTERACTIVE FILTER CONTROL TABS ==================== */}
+        <div className="flex flex-wrap items-center gap-2.5 pt-4">
+          <span className="text-xs font-bold uppercase tracking-wider text-[var(--cr-lav)] mr-2 flex items-center gap-1.5">
+            <Filter size={14} className="text-[var(--cr-lime)]" /> Filter Category:
+          </span>
+          {filterTabs.map((tab) => {
+            const isActive = activeFilter === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveFilter(tab.id)}
+                className={`px-4 py-2 rounded-full text-xs font-bold tracking-wide transition-all ${
+                  isActive
+                    ? 'bg-[var(--cr-lime)] text-[var(--cr-ink)] shadow-lg scale-105'
+                    : 'bg-white/10 text-white hover:bg-white/20 border border-white/10'
+                }`}
+              >
+                {tab.label}
+              </button>
+            );
+          })}
         </div>
 
-        {/* ==================== AI PAIR-PROGRAMMING HIGHLIGHT BANNER ==================== */}
+        {/* ==================== CRENCY AGENCY CATEGORIES & TECH CARDS ==================== */}
+        <div className="space-y-12">
+          <AnimatePresence mode="wait">
+            {filteredCategories.map((category, catIndex) => (
+              <motion.div
+                key={category.id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5, delay: catIndex * 0.1, ease }}
+                className="relative flex items-stretch rounded-[28px] bg-[var(--cr-ink-2)] border border-[rgba(211,197,246,0.16)] overflow-hidden shadow-2xl hover:border-[var(--cr-lime)]/40 transition-all duration-500 group"
+              >
+                {/* Agency Vertical Spine Header */}
+                <div className="flex justify-center items-center w-[46px] flex-none py-5 border-r border-white/5 bg-[var(--cr-ink-3)] hidden md:flex transition-colors group-hover:bg-[var(--cr-ink-2)]">
+                  <span className="cr-spine text-white/30 group-hover:text-[var(--cr-lime)] group-hover:tracking-[0.26em]">
+                    {category.code}
+                  </span>
+                </div>
+
+                {/* Main Card Body */}
+                <div className="flex-1 min-w-0 flex flex-col p-6 sm:p-9 w-full">
+                  {/* Category Header */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-7 border-b border-white/10 pb-5">
+                    <div className="flex items-center gap-4">
+                      <motion.div
+                        whileHover={{ rotate: 12, scale: 1.1 }}
+                        className="w-14 h-14 rounded-2xl grid place-items-center shrink-0 shadow-xl border border-white/10"
+                        style={{ background: category.accentColor, color: '#150734' }}
+                      >
+                        <category.icon size={26} />
+                      </motion.div>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-mono font-bold text-[var(--cr-lav)] md:hidden">
+                            {category.code}
+                          </span>
+                          <h3 className="cr-display text-3xl sm:text-4xl text-white tracking-wide">
+                            {category.name}
+                          </h3>
+                        </div>
+                        <p className="text-xs sm:text-sm text-white/60 mt-1 font-medium">
+                          {category.description}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="shrink-0 self-start sm:self-center">
+                      <span className="cr-pill cr-pill--ghost text-xs">
+                        {category.skills.length} TECHS
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Grid of Floating Tech Skill Cards */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {category.skills.map((skill, skillIndex) => {
+                      const RealIcon = RealTechIcons[skill.iconKey];
+                      return (
+                        <motion.div
+                          key={skill.name}
+                          animate={{ y: [0, -2, 0] }}
+                          transition={{
+                            duration: 4,
+                            repeat: Infinity,
+                            ease: 'easeInOut',
+                            delay: skillIndex * 0.3 + catIndex * 0.2,
+                          }}
+                          whileHover={{
+                            y: -6,
+                            scale: 1.02,
+                            rotate: skillIndex % 2 === 0 ? 1 : -1,
+                          }}
+                          className="relative rounded-[20px] p-5 border transition-all duration-300 flex flex-col justify-between cursor-default group/card bg-[var(--cr-lime)] border-[var(--cr-lime)] shadow-[0_0_30px_rgba(194,236,64,0.15)] hover:shadow-[0_0_40px_rgba(194,236,64,0.3)]"
+                        >
+                          <div>
+                            {/* Top Row: SVG Icon + Core Badge */}
+                            <div className="flex items-center justify-between mb-4">
+                              <div className="w-10 h-10 shrink-0 transition-transform duration-300 group-hover/card:scale-110 drop-shadow-md">
+                                {RealIcon ? <RealIcon /> : null}
+                              </div>
+
+                              {skill.featured && (
+                                <span className="inline-flex items-center gap-1 text-[9px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-full bg-[var(--cr-ink)] text-[var(--cr-lime)] transition-colors">
+                                  <Check size={10} strokeWidth={3} /> Core
+                                </span>
+                              )}
+                            </div>
+
+                            {/* Tech Name & Category Tag */}
+                            <h4 className="text-base font-bold transition-colors leading-snug text-[var(--cr-ink)]">
+                              {skill.name}
+                            </h4>
+                            <span className="text-[11px] font-semibold transition-colors mt-1 block text-[var(--cr-ink)]/70">
+                              {skill.category}
+                            </span>
+                          </div>
+
+                          {/* Highlight Note / Real Application Tooltip */}
+                          {skill.highlightNote && (
+                            <div className="mt-5 pt-4 border-t transition-colors border-[var(--cr-ink)]/20">
+                              <p className="text-[11px] leading-relaxed font-medium flex items-start gap-1.5 text-[var(--cr-ink)]/90">
+                                <span className="shrink-0 text-[var(--cr-ink)]">✦</span>
+                                {skill.highlightNote}
+                              </p>
+                            </div>
+                          )}
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
+
+        {/* ==================== AI PAIR-PROGRAMMING WORKFLOW SHOWCASE BANNER ==================== */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease }}
-          className="rounded-[32px] bg-gradient-to-r from-[var(--cr-ink-2)] via-[var(--cr-ink-3)] to-[var(--cr-ink-2)] border-2 border-[var(--cr-lime)] p-8 sm:p-12 relative overflow-hidden shadow-2xl"
+          className="rounded-[32px] bg-gradient-to-br from-[var(--cr-ink-2)] via-[var(--cr-ink-3)] to-[var(--cr-ink)] border-2 border-[var(--cr-lime)] p-8 sm:p-12 relative overflow-hidden shadow-2xl"
         >
-          {/* Decorative Corner Glow */}
-          <div className="absolute -right-10 -bottom-10 w-64 h-64 bg-[var(--cr-lime)]/10 rounded-full blur-2xl pointer-events-none" />
+          {/* Background Ambient Glow */}
+          <div className="absolute -right-12 -bottom-12 w-80 h-80 bg-[var(--cr-lime)]/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute left-1/3 -top-20 w-64 h-64 bg-[var(--cr-pink)]/10 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="relative z-10 grid lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-7 space-y-4">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--cr-lime)] text-[var(--cr-ink)] text-xs font-bold uppercase tracking-wider">
-                <Sparkles size={14} /> AI-Native Development Stack
+          <div className="relative z-10 space-y-10">
+            {/* Banner Header */}
+            <div className="grid lg:grid-cols-12 gap-8 items-center border-b border-white/10 pb-8">
+              <div className="lg:col-span-7 space-y-4">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--cr-lime)] text-[var(--cr-ink)] text-xs font-bold uppercase tracking-wider shadow-lg">
+                  <Sparkles size={14} /> Agentic AI Engineering Stack
+                </div>
+                <h3 className="cr-display text-4xl sm:text-5xl lg:text-6xl text-[#ffffff] tracking-wide">
+                  Supercharged by <span className="cr-accent text-[var(--cr-lime)]">A</span>I Assistants
+                </h3>
+                <p className="text-sm sm:text-base text-[#ffffff]/75 leading-relaxed max-w-xl">
+                  I combine agentic AI pairing engines with official framework libraries to achieve 10x engineering velocity, rapid prototyping, and bug-free production deliveries.
+                </p>
               </div>
-              <h3 className="cr-display text-4xl sm:text-5xl lg:text-6xl text-white tracking-wide">
-                Supercharged by <span className="cr-accent text-[var(--cr-lime)]">A</span>I Assistants
-              </h3>
-              <p className="text-sm sm:text-base text-white/75 leading-relaxed max-w-xl">
-                I leverage agentic AI pairing engines (Antigravity, Cursor, Copilot, Claude & DeepSeek) with official framework libraries to accelerate velocity and ship production systems.
-              </p>
+
+              {/* AI Agent Cards */}
+              <div className="lg:col-span-5 flex flex-wrap gap-3 justify-start lg:justify-end">
+                {[
+                  { name: 'Antigravity', role: 'Agentic IDE', iconKey: 'Antigravity', highlight: true },
+                  { name: 'Claude 3.7', role: 'Architecture', iconKey: 'Claude', highlight: false },
+                  { name: 'DeepSeek R1', role: 'Code Analysis', iconKey: 'DeepSeek', highlight: false },
+                  { name: 'Cursor AI', role: 'Inline Pairing', iconKey: 'Cursor', highlight: false },
+                ].map((aiTool, idx) => {
+                  const ToolIcon = RealTechIcons[aiTool.iconKey as keyof typeof RealTechIcons];
+                  return (
+                    <motion.div
+                      key={aiTool.name}
+                      animate={{ y: [0, -3, 0] }}
+                      transition={{ duration: 3, repeat: Infinity, delay: idx * 0.5 }}
+                      whileHover={{ scale: 1.08, rotate: idx % 2 === 0 ? 2 : -2 }}
+                      className={`px-4 py-3 rounded-2xl border backdrop-blur-md text-xs font-bold flex items-center gap-3 transition-all cursor-default ${
+                        aiTool.highlight
+                          ? 'bg-[var(--cr-lime)] text-[var(--cr-ink)] border-[var(--cr-lime)] shadow-lg'
+                          : 'bg-[#ffffff]/10 text-[#ffffff] border-white/20 hover:bg-[var(--cr-lime)] hover:text-[var(--cr-ink)]'
+                      }`}
+                    >
+                      <div className="w-6 h-6 shrink-0">
+                        {ToolIcon ? <ToolIcon /> : null}
+                      </div>
+                      <div>
+                        <div className="leading-tight">{aiTool.name}</div>
+                        <span className="opacity-70 text-[10px] font-mono block">
+                          {aiTool.role}
+                        </span>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
             </div>
 
-            <div className="lg:col-span-5 flex flex-wrap gap-3 justify-start lg:justify-end">
-              {[
-                { name: 'Antigravity', role: 'Agentic AI', iconKey: 'Antigravity' },
-                { name: 'Cursor AI', role: 'IDE Pair', iconKey: 'React' },
-                { name: 'Claude 3.7', role: 'Architecture', iconKey: 'Claude' },
-                { name: 'DeepSeek R1', role: 'Analysis', iconKey: 'DeepSeek' },
-              ].map((aiTool, idx) => {
-                const ToolIcon = RealTechIcons[aiTool.iconKey as keyof typeof RealTechIcons];
-                return (
-                  <motion.div
-                    key={aiTool.name}
-                    animate={{ y: [0, -3, 0] }}
-                    transition={{ duration: 3, repeat: Infinity, delay: idx * 0.5 }}
-                    whileHover={{ scale: 1.08, rotate: idx % 2 === 0 ? 2 : -2 }}
-                    className="px-4 py-2.5 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-md text-white text-xs font-semibold flex items-center gap-2.5 hover:bg-[var(--cr-lime)] hover:text-[var(--cr-ink)] hover:border-transparent transition-all cursor-default"
-                  >
-                    <div className="w-5 h-5 shrink-0">
-                      {ToolIcon ? <ToolIcon /> : null}
-                    </div>
-                    <span>{aiTool.name}</span>
-                    <span className="opacity-50 text-[10px] font-mono">· {aiTool.role}</span>
-                  </motion.div>
-                );
-              })}
+            {/* 4-Step Interactive Workflow */}
+            <div>
+              <div className="flex items-center justify-between mb-6">
+                <h4 className="text-xs font-bold uppercase tracking-widest text-[var(--cr-lav)] flex items-center gap-2">
+                  <Terminal size={14} className="text-[var(--cr-lime)]" /> 4-Step AI Pair-Programming Cycle:
+                </h4>
+                <span className="text-xs font-mono text-[#ffffff]/50">
+                  Click step to explore
+                </span>
+              </div>
+
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {workflowSteps.map((ws, index) => {
+                  const IconComp = RealTechIcons[ws.iconKey as keyof typeof RealTechIcons];
+                  const isSelected = activeWorkflowStep === index;
+                  return (
+                    <motion.div
+                      key={ws.step}
+                      onClick={() => setActiveWorkflowStep(index)}
+                      whileHover={{ scale: 1.03 }}
+                      className={`p-5 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between ${
+                        isSelected
+                          ? 'bg-[#ffffff] text-[var(--cr-ink)] border-[var(--cr-lime)] shadow-xl'
+                          : 'bg-[#ffffff]/5 text-[#ffffff] border-white/10 hover:bg-[#ffffff]/10'
+                      }`}
+                    >
+                      <div>
+                        <div className="flex items-center justify-between mb-3">
+                          <span
+                            className={`cr-counter text-xs px-2.5 py-1 rounded-full font-bold ${
+                              isSelected
+                                ? 'bg-[var(--cr-ink)] text-[var(--cr-lime)]'
+                                : 'bg-[#ffffff]/10 text-[var(--cr-lav)]'
+                            }`}
+                          >
+                            STEP {ws.step}
+                          </span>
+                          <div className="w-7 h-7 shrink-0">
+                            {IconComp ? <IconComp /> : null}
+                          </div>
+                        </div>
+
+                        <h5 className={`font-bold text-base mb-1 ${isSelected ? 'text-[var(--cr-ink)]' : 'text-[#ffffff]'}`}>
+                          {ws.title}
+                        </h5>
+                        <span className={`text-[11px] font-mono block mb-2 ${isSelected ? 'text-[var(--cr-ink)]/70' : 'text-[var(--cr-lav)]'}`}>
+                          {ws.tool}
+                        </span>
+
+                        <p className={`text-xs leading-relaxed ${isSelected ? 'text-[var(--cr-ink)]/80 font-medium' : 'text-[#ffffff]/60'}`}>
+                          {ws.description}
+                        </p>
+                      </div>
+
+                      <div className="mt-4 pt-2 flex items-center justify-between">
+                        <span className={`text-[10px] font-bold uppercase tracking-wider ${isSelected ? 'text-[var(--cr-ink)]' : 'text-[var(--cr-lime)]'}`}>
+                          {isSelected ? 'Active Step' : 'View Workflow'}
+                        </span>
+                        <ChevronRight size={14} className={isSelected ? 'text-[var(--cr-ink)]' : 'text-white/40'} />
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Bottom Proof Metrics */}
+            <div className="pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-4 text-xs">
+              <div className="flex flex-wrap items-center gap-6 text-white/80 font-medium">
+                <span className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-[var(--cr-lime)]" />
+                  10x Engineering Velocity
+                </span>
+                <span className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-[var(--cr-pink)]" />
+                  Zero-Defect Refactoring
+                </span>
+                <span className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-[var(--cr-blue)]" />
+                  100% Production Ready
+                </span>
+              </div>
+
+              <a
+                href="#contact"
+                className="cr-btn cr-btn--sm hover:scale-105 transition-transform"
+              >
+                let's build together
+              </a>
             </div>
           </div>
         </motion.div>

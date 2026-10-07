@@ -241,6 +241,100 @@ html { background: var(--cr-ink); scroll-behavior: smooth; }
 .cr-skin.cr-skin--lav .bg-black { background-color: var(--cr-ink) !important; color: var(--cr-lime) !important; }
 .cr-skin.cr-skin--lav .bg-black * { color: var(--cr-lime) !important; }
 
+/* ---------- Agency-style pill label (cases-label) ---------- */
+.cr-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  text-transform: uppercase;
+  background: rgba(21, 7, 52, 0.07);
+  border-radius: 999px;
+  padding: 0.6rem 0.9rem;
+  font-family: var(--cr-body);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  color: var(--cr-ink);
+  white-space: nowrap;
+}
+.cr-pill--lime { background: var(--cr-lime); }
+.cr-pill--ghost {
+  background: transparent;
+  border: 1px solid rgba(211, 197, 246, 0.28);
+  color: var(--cr-lav);
+}
+
+/* ---------- Agency-style counter (01 / 06) ---------- */
+.cr-counter {
+  font-family: var(--cr-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+
+/* ---------- Agency-style vertical spine label ---------- */
+.cr-spine {
+  writing-mode: vertical-rl;
+  text-transform: uppercase;
+  font-family: var(--cr-body);
+  font-weight: 700;
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: letter-spacing 0.35s cubic-bezier(0.3, 1.25, 0.45, 1), color 0.35s;
+}
+
+/* ---------- Agency-style showcase card (cases slide) ---------- */
+.cr-card {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  border-radius: 24px;
+  background: var(--cr-lav);
+  border: 1px solid rgba(21, 7, 52, 0.06);
+  box-shadow: 0 16px 34px rgba(20, 9, 58, 0.18);
+  overflow: hidden;
+  color: var(--cr-ink);
+  transition: transform 0.6s var(--cr-ease), box-shadow 0.6s var(--cr-ease);
+}
+.cr-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 28px 52px rgba(20, 9, 58, 0.3);
+}
+.cr-card__spine {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 46px;
+  flex: none;
+  padding: 1.1rem 0;
+  border-right: 1px solid rgba(21, 7, 52, 0.08);
+  color: rgba(21, 7, 52, 0.55);
+}
+.cr-card:hover .cr-card__spine { letter-spacing: 0.26em; color: var(--cr-ink); }
+.cr-card__body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1.5rem 1.4rem;
+}
+.cr-card__body h4,
+.cr-card__body .cr-display { transition: color 0.35s; }
+.cr-card:hover .cr-card__body h4,
+.cr-card:hover .cr-card__body .cr-display { color: #2a1a5e; }
+
+/* ---------- Dark bubble button (btn-bubble) ---------- */
+.cr-btn--dark { background: var(--cr-ink); border-color: var(--cr-ink); color: var(--cr-white); }
+.cr-btn--dark::after { background: var(--cr-lime); }
+.cr-btn--dark:hover { color: var(--cr-ink); }
+.cr-btn--sm { padding: 0.62rem 1.15rem; font-size: 0.78rem; }
+
 @media (prefers-reduced-motion: reduce) {
   .cr-spin, .cr-spin-rev, .cr-float, .cr-float-2, .cr-sway, .cr-marquee-track { animation: none !important; }
 }
