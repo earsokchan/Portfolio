@@ -110,10 +110,10 @@ function generateContributionData() {
         level === 0
           ? 0
           : level === 1
-          ? Math.floor(rand * 3) + 1
-          : level === 2
-          ? Math.floor(rand * 4) + 4
-          : Math.floor(rand * 6) + 8;
+            ? Math.floor(rand * 3) + 1
+            : level === 2
+              ? Math.floor(rand * 4) + 4
+              : Math.floor(rand * 6) + 8;
       totalContribs += count;
 
       weekDays.push({
@@ -141,7 +141,7 @@ export function GithubContributions() {
       .then((data) => {
         if (data && typeof data.public_repos === 'number') setPublicRepoCount(data.public_repos);
       })
-      .catch(() => {});
+      .catch(() => { });
 
     fetch('https://api.github.com/users/earsokchan/repos?sort=updated&per_page=6')
       .then((res) => (res.ok ? res.json() : null))
@@ -166,7 +166,7 @@ export function GithubContributions() {
           if (formatted.length > 0) setLiveRepos(formatted);
         }
       })
-      .catch(() => {});
+      .catch(() => { });
   }, []);
 
   return (

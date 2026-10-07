@@ -13,6 +13,7 @@ import bantobchuolPoster from '../../assets/bantobchuol_poster.png';
 import kottraKangeaPoster from '../../assets/kottrakangea_poster.png';
 import theLittleCafePoster from '../../assets/thelittlacafe_poster.png';
 import dlSystemPoster from '../../assets/dl_system_poster.png';
+import portfolioPoster from '../../assets/portfolio_poster.png';
 
 export type PersonalProject = {
   id: string;
@@ -153,6 +154,17 @@ const mainProjects: PersonalProject[] = [
     image: theLittleCafePoster,
     tags: ['React.js', 'Next.js', 'Tailwind CSS', 'Vercel'],
   },
+  {
+    id: 'portfolio-source',
+    category: 'Free Open Source Portfolio',
+    title: 'Developer Portfolio',
+    description:
+      'The complete open-source code for this personal developer portfolio. Features smooth animations, dynamic project fetching, and modern React practices.',
+    highlights: ['Modern UI with Motion animations', 'Reusable React components & modular structure'],
+    url: 'https://github.com/earsokchan/Portfolio',
+    image: portfolioPoster,
+    tags: ['React.js', 'TypeScript', 'Tailwind CSS', 'Motion'],
+  },
 ];
 
 // DEDICATED SEPARATE OPEN SOURCE & FREE SOURCE CODE PROJECTS
@@ -169,6 +181,18 @@ const openSourceRepos: OpenSourceRepo[] = [
     githubUrl: 'https://github.com/earsokchan/School-Management-System-Dynamic-School-Website',
     demoUrl: 'https://sms.builware.app/en',
     tags: ['Next.js', 'MongoDB', 'i18n', 'Education'],
+  },
+  {
+    id: 'developer-portfolio',
+    title: 'Developer Portfolio Source Code',
+    repoName: 'earsokchan/Portfolio',
+    description:
+      'Open-source repository for my personal developer portfolio featuring smooth scrolling, beautiful UI components, and fully responsive design built with React, Vite, and Tailwind CSS.',
+    language: 'TypeScript',
+    langColor: '#3178C6',
+    license: 'MIT',
+    githubUrl: 'https://github.com/earsokchan/Portfolio',
+    tags: ['React.js', 'Vite', 'Tailwind CSS', 'Portfolio'],
   },
 ];
 
