@@ -5,6 +5,7 @@ import { GithubContributions } from './GithubContributions';
 
 // Poster Showcase Imports
 import builwareAdminPoster from '../../assets/builware_admin_poster.png';
+import gpsSpeedCamPoster from '../../assets/Poster@2x.png';
 import gssCambodiaPoster from '../../assets/gss_cambodia_poster.png';
 import builwarePosPoster from '../../assets/builware_pos_poster.png';
 import schoolManagementPoster from '../../assets/school_management_poster.png';
@@ -42,7 +43,7 @@ export type OpenSourceRepo = {
   tags: string[];
 };
 
-const ACCENTS = ['#C2EC40', '#F04C8A', '#104EFF', '#E1611C', '#D3C5F6', '#EA3323'];
+const ACCENTS = ['#C2EC40', '#00D8F6', '#F04C8A', '#104EFF', '#E1611C', '#D3C5F6', '#EA3323'];
 
 const featuredProjects: PersonalProject[] = [
   {
@@ -59,6 +60,22 @@ const featuredProjects: PersonalProject[] = [
     url: 'https://www.builware.app/',
     image: builwareAdminPoster,
     tags: ['Next.js', 'React.js', 'Node.js', 'MongoDB', 'ABA PayWay', 'Bakong KHQR'],
+  },
+  {
+    id: 'gps-speed-cam',
+    category: 'GPS Video Camera App',
+    title: 'GPS Speed Cam (Orbit 360)',
+    description:
+      'A camera app that records video with live GPS ground speed on screen. Track current, max and average speed plus trip distance, in VIDEO, DUAL CAM, 360 and 4K modes.',
+    highlights: [
+      'Live GPS speed readout with ±5m lock accuracy',
+      'Trip stats: current, max, avg speed & distance',
+      'Dual-cam capture & Three.js 360° viewer',
+      '4K video recording with quick thumb controls',
+    ],
+    url: 'https://camera360-theta.vercel.app/',
+    image: gpsSpeedCamPoster,
+    tags: ['Next.js 16', 'React 19', 'Three.js', 'TypeScript', 'Tailwind CSS', 'PWA'],
   },
   {
     id: 'gss-clone',
@@ -450,14 +467,26 @@ export function Projects() {
                     {repo.language}
                   </span>
 
-                  <a
-                    href={repo.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[var(--cr-lime)] text-[var(--cr-ink)] font-bold text-xs hover:scale-105 transition-transform shadow-md"
-                  >
-                    <Github size={14} /> Get Code
-                  </a>
+                  <div className="flex items-center gap-2">
+                    {repo.demoUrl && (
+                      <a
+                        href={repo.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs transition-colors"
+                      >
+                        <Globe size={13} /> Demo
+                      </a>
+                    )}
+                    <a
+                      href={repo.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[var(--cr-lime)] text-[var(--cr-ink)] font-bold text-xs hover:scale-105 transition-transform shadow-md"
+                    >
+                      <Github size={14} /> Get Code
+                    </a>
+                  </div>
                 </div>
               </div>
             </motion.div>
