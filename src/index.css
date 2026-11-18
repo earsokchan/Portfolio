@@ -1,0 +1,117 @@
+@import '@fontsource/bricolage-grotesque/400.css';
+@import '@fontsource/bricolage-grotesque/600.css';
+@import '@fontsource/bricolage-grotesque/700.css';
+@import '@fontsource/bricolage-grotesque/800.css';
+
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #d4261c;
+  --color-ink: #141010;
+  --color-cream: #fff3e6;
+
+  --font-sans: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --radius-card: 30px;
+  --radius-section: 56px;
+
+  --tracking-editorial: -0.045em;
+  --leading-tightest: 0.98;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    background-color: #fff3e6;
+    color: #141010;
+    scroll-behavior: auto; /* Managed by Lenis */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  body {
+    background-color: #fff3e6;
+    color: #141010;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background-color: #d4261c;
+    color: #ffffff;
+  }
+
+  /* Lenis recommended CSS */
+  html.lenis, html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none;
+  }
+}
+
+/* Custom Editorial Utilities */
+.editorial-heading {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+
+.stroke-text {
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.35);
+  color: transparent;
+}
+
+.stroke-text-ink {
+  -webkit-text-stroke: 1.5px rgba(20, 16, 16, 0.25);
+  color: transparent;
+}
+
+/* Custom marquee animation */
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 28s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
