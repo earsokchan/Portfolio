@@ -23,6 +23,37 @@ const CATEGORIES = [
 
 type CategoryFilter = (typeof CATEGORIES)[number];
 
+export const isProjectInFilter = (p: Project, filter: CategoryFilter): boolean => {
+  if (filter === 'ALL') return true;
+  if (filter === 'SAAS & COMMERCE') {
+    return (
+      p.id === 'builware-saas' ||
+      p.id === 'target-store' ||
+      p.id === 'kottrakangea' ||
+      p.id === 'gss-cambodia'
+    );
+  }
+  if (filter === 'POS & SYSTEMS') {
+    return (
+      p.id === 'builware-pos' ||
+      p.id === 'school-sms' ||
+      p.id === 'bantobchuol' ||
+      p.id === 'dl-system'
+    );
+  }
+  if (filter === 'WEBGL & APPS') {
+    return p.id === 'gps-speed-cam' || p.id === 'little-cafe';
+  }
+  if (filter === 'OPEN SOURCE') {
+    return (
+      p.id === 'developer-portfolio' ||
+      p.id === 'school-sms' ||
+      Boolean(p.githubUrl)
+    );
+  }
+  return true;
+};
+
 export const ProjectList: React.FC = () => {
   const [activeProject, setActiveProject] = useState<Project | null>(null);
   const [selectedFilter, setSelectedFilter] = useState<CategoryFilter>('ALL');
@@ -60,72 +91,40 @@ export const ProjectList: React.FC = () => {
 
   // Filtered projects
   const filteredProjects = useMemo(() => {
-    if (selectedFilter === 'ALL') return PROJECTS;
-    if (selectedFilter === 'SAAS & COMMERCE') {
-      return PROJECTS.filter(
-        (p) =>
-          p.id === 'builware-saas' ||
-          p.id === 'target-store' ||
-          p.id === 'kottrakangea' ||
-          p.id === 'gss-cambodia'
-      );
-    }
-    if (selectedFilter === 'POS & SYSTEMS') {
-      return PROJECTS.filter(
-        (p) =>
-          p.id === 'builware-pos' ||
-          p.id === 'school-sms' ||
-          p.id === 'bantobchuol' ||
-          p.id === 'dl-system'
-      );
-    }
-    if (selectedFilter === 'WEBGL & APPS') {
-      return PROJECTS.filter(
-        (p) => p.id === 'gps-speed-cam' || p.id === 'little-cafe'
-      );
-    }
-    if (selectedFilter === 'OPEN SOURCE') {
-      return PROJECTS.filter(
-        (p) =>
-          p.id === 'developer-portfolio' ||
-          p.id === 'school-sms' ||
-          Boolean(p.githubUrl)
-      );
-    }
-    return PROJECTS;
+    return PROJECTS.filter((p) => isProjectInFilter(p, selectedFilter));
   }, [selectedFilter]);
 
   return (
     <section
       id="projects"
       ref={containerRef}
-      className="py-24 sm:py-32 px-6 sm:px-12 md:px-16 bg-[#fff3e6] relative select-none"
+      className="py-16 sm:py-24 lg:py-32 px-4 sm:px-8 md:px-12 lg:px-16 bg-[#fff3e6] relative select-none w-full max-w-full overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto space-y-12">
+      <div className="max-w-7xl mx-auto space-y-10 sm:space-y-12 w-full min-w-0">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#141010]/15 pb-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#141010]/15 pb-6 sm:pb-8">
           <Reveal>
             <div className="space-y-3">
-              <div className="flex items-center gap-3 text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#d4261c]">
-                <span className="w-8 h-0.5 bg-[#d4261c]" />
+              <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#d4261c]">
+                <span className="w-6 sm:w-8 h-0.5 bg-[#d4261c]" />
                 <span>04 / SELECTED WORKS & ARCHIVE — {PROJECTS.length} PROJECTS</span>
               </div>
-              <h2 className="font-display font-black text-4xl sm:text-6xl md:text-7xl uppercase leading-[0.98] tracking-[-0.045em] text-[#141010]">
+              <h2 className="font-display font-black text-3xl sm:text-5xl md:text-6xl lg:text-7xl uppercase leading-[0.98] tracking-[-0.04em] text-[#141010] break-words">
                 PROJECT ARCHIVE
               </h2>
             </div>
           </Reveal>
           <Reveal delay={0.1}>
-            <p className="text-sm sm:text-base text-[#141010]/70 max-w-md font-normal leading-relaxed">
-              Complete catalog of {PROJECTS.length} production systems, commercial SaaS products, and open-source software. Hover on desktop for dynamic cursor preview.
+            <p className="text-xs sm:text-sm md:text-base text-[#141010]/70 max-w-md font-normal leading-relaxed">
+              Complete catalog of {PROJECTS.length} production systems, enterprise platforms, and commercial web applications. Hover on desktop for dynamic cursor preview.
             </p>
           </Reveal>
         </div>
 
         {/* Category Filter Tabs */}
         <Reveal delay={0.15}>
-          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-            <span className="text-xs font-black uppercase tracking-wider text-[#141010]/50 mr-1 hidden sm:inline">
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2.5">
+            <span className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-[#141010]/50 mr-1 hidden sm:inline">
               FILTER ARCHIVE:
             </span>
             {CATEGORIES.map((cat) => {
@@ -133,27 +132,21 @@ export const ProjectList: React.FC = () => {
               const count =
                 cat === 'ALL'
                   ? PROJECTS.length
-                  : cat === 'SAAS & COMMERCE'
-                  ? 4
-                  : cat === 'POS & SYSTEMS'
-                  ? 4
-                  : cat === 'WEBGL & APPS'
-                  ? 2
-                  : 3;
+                  : PROJECTS.filter((p) => isProjectInFilter(p, cat)).length;
 
               return (
                 <button
                   key={cat}
                   type="button"
                   onClick={() => setSelectedFilter(cat)}
-                  className={`px-4 py-2 rounded-full text-xs font-black uppercase tracking-wider transition-all duration-200 focus:outline-none ${
+                  className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-black uppercase tracking-wider transition-all duration-200 focus:outline-none ${
                     isSelected
                       ? 'bg-[#141010] text-[#fff3e6] shadow-md scale-105'
                       : 'bg-white text-[#141010]/80 border border-[#141010]/15 hover:border-[#d4261c] hover:text-[#d4261c]'
                   }`}
                 >
                   <span>{cat}</span>
-                  <span className="ml-1.5 opacity-60">({count})</span>
+                  <span className="ml-1 opacity-60">({count})</span>
                 </button>
               );
             })}
@@ -161,7 +154,7 @@ export const ProjectList: React.FC = () => {
         </Reveal>
 
         {/* Numbered Project Rows */}
-        <div className="divide-y divide-[#141010]/15 border-y border-[#141010]/15">
+        <div className="divide-y divide-[#141010]/15 border-y border-[#141010]/15 w-full min-w-0">
           {filteredProjects.map((project) => {
             const isHovered = activeProject?.id === project.id;
 
@@ -170,11 +163,11 @@ export const ProjectList: React.FC = () => {
                 key={project.id}
                 onMouseEnter={() => !mouse.isTouch && setActiveProject(project)}
                 onMouseLeave={() => !mouse.isTouch && setActiveProject(null)}
-                className={`group relative transition-colors duration-300 ${
+                className={`group relative transition-colors duration-300 w-full min-w-0 ${
                   isHovered ? 'bg-[#d4261c] text-white' : 'bg-transparent text-[#141010]'
                 }`}
               >
-                <div className="py-8 sm:py-12 px-4 sm:px-8 flex flex-col gap-6">
+                <div className="py-6 sm:py-10 lg:py-12 px-3 sm:px-8 flex flex-col gap-5 sm:gap-6 w-full min-w-0">
                   {/* Top Row: Number, Title, Category, Action Buttons */}
                   <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                     {/* Left: Number & Big Title */}

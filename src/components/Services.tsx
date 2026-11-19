@@ -11,6 +11,8 @@ import {
   ShieldCheck,
   CheckCircle2,
   ArrowUpRight,
+  Layout,
+  Sparkles,
 } from 'lucide-react';
 
 const ICON_MAP = {
@@ -20,6 +22,8 @@ const ICON_MAP = {
   Layers,
   Smartphone,
   ShieldCheck,
+  Layout,
+  Sparkles,
 };
 
 export const Services: React.FC = () => {
@@ -66,8 +70,8 @@ export const Services: React.FC = () => {
   };
 
   return (
-    <section id="services" className="py-24 sm:py-32 px-6 sm:px-12 md:px-16 bg-[#fff3e6]">
-      <div className="max-w-7xl mx-auto space-y-16">
+    <section id="services" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-8 md:px-12 lg:px-16 bg-[#fff3e6] w-full max-w-full overflow-hidden">
+      <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16 w-full min-w-0">
         {/* Section Heading */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#141010]/15 pb-8">
           <Reveal>

@@ -24,8 +24,8 @@ export const CTA: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="px-4 sm:px-8 py-12 bg-[#fff3e6]">
-      <div className="bg-white rounded-[56px] border border-[#141010]/10 py-24 sm:py-32 px-6 sm:px-12 md:px-16 overflow-hidden relative shadow-xl">
+    <section id="contact" className="px-3 sm:px-6 md:px-8 py-8 sm:py-12 bg-[#fff3e6] w-full max-w-full overflow-hidden">
+      <div className="bg-white rounded-[32px] sm:rounded-[56px] border border-[#141010]/10 py-16 sm:py-24 lg:py-32 px-4 sm:px-8 md:px-12 lg:px-16 overflow-hidden relative shadow-xl w-full min-w-0">
         {/* Ambient Corner Accent */}
         <div
           aria-hidden="true"
@@ -37,7 +37,7 @@ export const CTA: React.FC = () => {
           <Reveal>
             <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#141010] text-[#fff3e6] text-xs font-black uppercase tracking-widest">
               <span className="w-2 h-2 rounded-full bg-[#d4261c] animate-ping" />
-              <span>06 / INITIATE COLLABORATION</span>
+              <span>07 / INITIATE COLLABORATION</span>
             </div>
           </Reveal>
 

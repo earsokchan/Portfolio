@@ -5,15 +5,15 @@ import { Briefcase, Calendar, MapPin, CheckCircle2, ArrowUpRight } from 'lucide-
 
 export const Experience: React.FC = () => {
   return (
-    <section id="experience" className="py-24 sm:py-32 px-6 sm:px-12 md:px-16 bg-[#fff3e6]">
-      <div className="max-w-7xl mx-auto space-y-16">
+    <section id="experience" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-8 md:px-12 lg:px-16 bg-[#fff3e6] w-full max-w-full overflow-hidden">
+      <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16 w-full min-w-0">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#141010]/15 pb-8">
           <Reveal>
             <div className="space-y-3">
               <div className="flex items-center gap-3 text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#d4261c]">
                 <span className="w-8 h-0.5 bg-[#d4261c]" />
-                <span>05 / CAREER CHRONOLOGY</span>
+                <span>06 / CAREER CHRONOLOGY</span>
               </div>
               <h2 className="font-display font-black text-4xl sm:text-6xl md:text-7xl uppercase leading-[0.98] tracking-[-0.045em] text-[#141010]">
                 EXPERIENCE

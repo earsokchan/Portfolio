@@ -1,12 +1,12 @@
 import React from 'react';
 import { Reveal } from './Reveal';
-import { ArrowUpRight, Award, CheckCircle2, Code2, Globe } from 'lucide-react';
+import { ArrowUpRight, Award, CheckCircle2, Code2, Globe, Sparkles } from 'lucide-react';
 
 const STATS = [
   {
-    number: '10+',
+    number: '12+',
     label: 'PROJECTS SHIPPED',
-    detail: 'From SaaS to POS & PWA architectures',
+    detail: 'From SaaS to POS & Free Website Templates',
   },
   {
     number: '02+',
@@ -19,16 +19,16 @@ const STATS = [
     detail: 'Bakong KHQR & ABA PayWay transactions',
   },
   {
-    number: 'RUPP',
-    label: 'HONORS GRADUATE',
-    detail: 'Computer Science B.S. degree in Phnom Penh',
+    number: 'FREE',
+    label: 'THEMES & STARTERS',
+    detail: 'Open-source HTML5, CSS3 & JS templates',
   },
 ];
 
 export const About: React.FC = () => {
   return (
-    <section id="about" className="py-24 sm:py-32 px-6 sm:px-12 md:px-16 bg-[#fff3e6] text-[#141010]">
-      <div className="max-w-7xl mx-auto space-y-20">
+    <section id="about" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-8 md:px-12 lg:px-16 bg-[#fff3e6] text-[#141010] w-full max-w-full overflow-hidden">
+      <div className="max-w-7xl mx-auto space-y-12 sm:space-y-20 w-full min-w-0">
         {/* Section Header */}
         <Reveal>
           <div className="flex items-center gap-3 text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#d4261c]">
@@ -84,6 +84,10 @@ export const About: React.FC = () => {
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#141010]/10 text-xs font-extrabold uppercase tracking-wider text-[#141010]">
                 <CheckCircle2 className="w-3.5 h-3.5 text-[#d4261c]" />
                 <span>CLEAN ARCHITECTURE</span>
+              </div>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#141010]/10 text-xs font-extrabold uppercase tracking-wider text-[#141010]">
+                <Sparkles className="w-3.5 h-3.5 text-[#d4261c]" />
+                <span>FREE THEMES & WEB TEMPLATES</span>
               </div>
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#141010]/10 text-xs font-extrabold uppercase tracking-wider text-[#141010]">
                 <Globe className="w-3.5 h-3.5 text-[#d4261c]" />

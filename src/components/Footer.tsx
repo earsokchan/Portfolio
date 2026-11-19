@@ -7,8 +7,8 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-[#141010] text-[#fff3e6] rounded-t-[56px] pt-20 sm:pt-28 pb-12 px-6 sm:px-12 md:px-16 overflow-hidden relative select-none">
-      <div className="max-w-7xl mx-auto space-y-20">
+    <footer className="bg-[#141010] text-[#fff3e6] rounded-t-[36px] sm:rounded-t-[56px] pt-16 sm:pt-24 lg:pt-28 pb-10 sm:pb-12 px-4 sm:px-8 md:px-12 lg:px-16 overflow-hidden relative select-none w-full max-w-full">
+      <div className="max-w-7xl mx-auto space-y-12 sm:space-y-20 w-full min-w-0">
         {/* Top Info Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 border-b border-white/15 pb-16">
           {/* Column 1: Slogan & Status */}
@@ -20,7 +20,7 @@ export const Footer: React.FC = () => {
               </span>
             </div>
             <p className="text-sm text-[#fff3e6]/70 leading-relaxed">
-              Open for full-stack engineering roles, FinTech consultations, and bespoke contracts for 2026.
+              Open for full-stack engineering roles, FinTech consultations, free website templates, and bespoke contracts for 2026.
             </p>
           </div>
 
@@ -51,8 +51,13 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
+                <a href="#templates" className="hover:text-[#d4261c] transition-colors">
+                  05 / FREE TEMPLATES
+                </a>
+              </li>
+              <li>
                 <a href="#experience" className="hover:text-[#d4261c] transition-colors">
-                  05 / EXPERIENCE
+                  06 / EXPERIENCE
                 </a>
               </li>
             </ul>

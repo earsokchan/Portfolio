@@ -15,7 +15,7 @@ export interface ServiceItem {
   colSpanDesktop: string; // Tailwind grid span, e.g. 'lg:col-span-8'
   colSpanTablet: string;  // e.g. 'md:col-span-6'
   bgVariant: ServiceBgVariant;
-  iconName: 'Code2' | 'CreditCard' | 'Gauge' | 'Layers' | 'Smartphone' | 'ShieldCheck';
+  iconName: 'Code2' | 'CreditCard' | 'Gauge' | 'Layers' | 'Smartphone' | 'ShieldCheck' | 'Layout' | 'Sparkles';
 }
 
 export const SERVICES: ServiceItem[] = [
@@ -49,13 +49,30 @@ export const SERVICES: ServiceItem[] = [
       'Bank-grade validation & tokenization',
     ],
     colSpanDesktop: 'lg:col-span-4',
-    colSpanTablet: 'md:col-span-6',
+    colSpanTablet: 'md:col-span-12',
     bgVariant: 'red',
     iconName: 'CreditCard',
   },
   {
-    id: 'pos-realtime',
+    id: 'free-templates',
     number: '03',
+    title: 'Free Themes & Website Templates',
+    tag: 'HTML5 / CSS3 / JavaScript / Starters',
+    description:
+      'Architecting responsive, high-converting website templates and theme starter kits for food chains, retail brands, cafes, and developers. Built with clean semantic HTML, modern CSS3 animations, and vanilla JavaScript—100% free and open-source.',
+    features: [
+      'Semantic HTML5 & modern CSS3 animations (zero runtime bloat)',
+      '100% responsive cross-device fidelity (Mobile, Tablet, Desktop)',
+      'Open-source starter kits with instant GitHub & Vercel deployment',
+    ],
+    colSpanDesktop: 'lg:col-span-6',
+    colSpanTablet: 'md:col-span-12',
+    bgVariant: 'cream',
+    iconName: 'Layout',
+  },
+  {
+    id: 'pos-realtime',
+    number: '04',
     title: 'Point of Sale & Hardware',
     tag: 'Retail Infrastructure',
     description:
@@ -65,14 +82,14 @@ export const SERVICES: ServiceItem[] = [
       'WebUSB / WebSerial printer protocols',
       'Stock synchronization across branches',
     ],
-    colSpanDesktop: 'lg:col-span-4',
-    colSpanTablet: 'md:col-span-6',
+    colSpanDesktop: 'lg:col-span-6',
+    colSpanTablet: 'md:col-span-12',
     bgVariant: 'white',
     iconName: 'Code2',
   },
   {
     id: 'performance-seo',
-    number: '04',
+    number: '05',
     title: 'Ultra-Performance & Core Web Vitals',
     tag: 'Optimization',
     description:
@@ -82,14 +99,14 @@ export const SERVICES: ServiceItem[] = [
       'Zero Cumulative Layout Shift (CLS)',
       'Next-gen image optimization pipelines',
     ],
-    colSpanDesktop: 'lg:col-span-4',
-    colSpanTablet: 'md:col-span-6',
-    bgVariant: 'cream',
+    colSpanDesktop: 'lg:col-span-6',
+    colSpanTablet: 'md:col-span-12',
+    bgVariant: 'white',
     iconName: 'Gauge',
   },
   {
     id: 'pwa-mobile',
-    number: '05',
+    number: '06',
     title: 'Progressive Web Apps & Mobile',
     tag: 'Cross-Platform',
     description:
@@ -99,9 +116,9 @@ export const SERVICES: ServiceItem[] = [
       'Smooth 60fps gestural navigation',
       'Hardware camera & location API access',
     ],
-    colSpanDesktop: 'lg:col-span-4',
-    colSpanTablet: 'md:col-span-6',
-    bgVariant: 'white',
+    colSpanDesktop: 'lg:col-span-6',
+    colSpanTablet: 'md:col-span-12',
+    bgVariant: 'ink',
     iconName: 'Smartphone',
   },
 ];

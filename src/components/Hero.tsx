@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
+import { motion, useScroll, useTransform, useReducedMotion, Variants } from 'framer-motion';
 import { ArrowDown, ArrowUpRight, Terminal, ShieldCheck, Sparkles } from 'lucide-react';
 import profileImg from '../assets/sokchan_profile.png';
 import { MagneticButton } from './MagneticButton';
@@ -22,7 +22,7 @@ export const Hero: React.FC = () => {
   // Parallax transform for the background giant outlined text
   const parallaxX = useTransform(scrollYProgress, [0, 1], ['0%', '-25%']);
 
-  const lineVariants = {
+  const lineVariants: Variants = {
     hidden: { y: '115%', opacity: 0 },
     visible: (i: number) => ({
       y: '0%',
@@ -30,7 +30,7 @@ export const Hero: React.FC = () => {
       transition: {
         delay: 0.15 + i * 0.14,
         duration: 0.9,
-        ease: [0.22, 1, 0.36, 1],
+        ease: [0.22, 1, 0.36, 1] as const,
       },
     }),
   };
@@ -44,7 +44,7 @@ export const Hero: React.FC = () => {
     <section
       id="home"
       ref={containerRef}
-      className="relative bg-[#d4261c] text-[#fff3e6] rounded-b-[56px] pt-32 sm:pt-40 pb-20 sm:pb-28 px-6 sm:px-12 md:px-16 overflow-hidden select-none"
+      className="relative bg-[#d4261c] text-[#fff3e6] rounded-b-[36px] sm:rounded-b-[56px] pt-28 sm:pt-40 pb-16 sm:pb-28 px-4 sm:px-8 md:px-12 lg:px-16 overflow-hidden select-none w-full max-w-full"
     >
       {/* Giant Outlined Background Word with Scroll Parallax */}
       <div
@@ -55,11 +55,11 @@ export const Hero: React.FC = () => {
           style={{ x: shouldReduceMotion ? 0 : parallaxX }}
           className="whitespace-nowrap font-display font-black text-[22vw] leading-none uppercase stroke-text tracking-[-0.04em]"
         >
-          DEVELOPER · ARCHITECT · ENGINEER · DEVELOPER ·
+          DEVELOPER · ARCHITECT · THEME CREATOR · ENGINEER · DEVELOPER ·
         </motion.div>
       </div>
 
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative max-w-7xl mx-auto w-full min-w-0">
         {/* Top Editorial Kicker */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-8 sm:mb-12 border-b border-[#fff3e6]/20 pb-4 text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#fff3e6]/90">
           <div className="flex items-center gap-2">
@@ -67,7 +67,7 @@ export const Hero: React.FC = () => {
             <span>EAR SOKCHAN — PORTFOLIO 2026</span>
           </div>
           <div className="flex items-center gap-3 text-[#fff3e6]/80">
-            <span>FULL-STACK DEVELOPER</span>
+            <span>FULL-STACK DEVELOPER & THEME ARCHITECT</span>
             <span>·</span>
             <span>PHNOM PENH, CAMBODIA</span>
           </div>
@@ -99,7 +99,7 @@ export const Hero: React.FC = () => {
               transition={{ delay: 0.65, duration: 0.7 }}
               className="text-base sm:text-xl text-[#fff3e6]/85 max-w-xl font-normal leading-relaxed"
             >
-              Junior Software Developer at <strong className="text-white font-semibold">TSD Co., Ltd.</strong> and Computer Science graduate from <strong className="text-white font-semibold">RUPP</strong>. Building enterprise SaaS platforms, offline-first POS systems, and native Bakong KHQR FinTech integrations.
+              Junior Software Developer at <strong className="text-white font-semibold">TSD Co., Ltd.</strong> and Computer Science graduate from <strong className="text-white font-semibold">RUPP</strong>. Building enterprise SaaS platforms, offline-first POS systems, free theme website templates (HTML/CSS/JS), and native Bakong KHQR FinTech integrations.
             </motion.p>
 
             {/* Magnetic Action Buttons */}
@@ -131,11 +131,15 @@ export const Hero: React.FC = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1, duration: 0.7 }}
-              className="flex flex-wrap items-center gap-6 pt-4 text-xs font-bold uppercase tracking-wider text-[#fff3e6]/75"
+              className="flex flex-wrap items-center gap-5 pt-4 text-xs font-bold uppercase tracking-wider text-[#fff3e6]/75"
             >
               <div className="flex items-center gap-2">
                 <Terminal className="w-4 h-4 text-[#fff3e6]" />
                 <span>REACT 18 · TYPESCRIPT · NODE</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-[#fff3e6]" />
+                <span>FREE THEMES & HTML/CSS/JS STARTERS</span>
               </div>
               <div className="flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-[#fff3e6]" />

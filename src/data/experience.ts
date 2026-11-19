@@ -46,10 +46,11 @@ export const EXPERIENCES: ExperienceItem[] = [
       'Partnered directly with startup founders and local commercial brands to conceptualize, design, and deploy bespoke web applications.',
     achievements: [
       'Delivered 6+ custom web applications with responsive design systems, achieving average Google Lighthouse scores of 96+.',
+      'Authored open-source website templates and responsive themes in semantic HTML5, CSS3, and modern JavaScript with 100% cross-device fidelity.',
       'Engineered the Bantobchuol rental portal with interactive map filtering, real-time messaging, and digital lease workflows.',
       'Configured automated CI/CD deployment pipelines on Vercel and Railway with automated linting, test suites, and preview URLs.',
     ],
-    skills: ['React', 'JavaScript (ESNext)', 'Tailwind CSS', 'PostgreSQL', 'Mapbox GL', 'Git/GitHub'],
+    skills: ['HTML5 / CSS3', 'JavaScript (ESNext)', 'Web Templates', 'React', 'Tailwind CSS', 'Git/GitHub'],
   },
   {
     id: 'rupp-degree',

@@ -12,6 +12,7 @@ import { About } from './components/About';
 import { Services } from './components/Services';
 import { TechStack } from './components/TechStack';
 import { ProjectList } from './components/ProjectList';
+import { FreeTemplates } from './components/FreeTemplates';
 import { Experience } from './components/Experience';
 import { CTA } from './components/CTA';
 import { Footer } from './components/Footer';
@@ -40,7 +41,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#fff3e6] text-[#141010] relative selection:bg-[#d4261c] selection:text-white">
+    <div className="min-h-screen bg-[#fff3e6] text-[#141010] relative selection:bg-[#d4261c] selection:text-white w-full max-w-full overflow-x-hidden">
       {/* Scroll Progress Bar at the top */}
       <ProgressBar />
 
@@ -54,7 +55,7 @@ export default function App() {
       <Navbar />
 
       {/* Main Page Flow */}
-      <main>
+      <main className="w-full max-w-full overflow-x-hidden">
         {/* Hero Section */}
         <Hero />
 
@@ -72,6 +73,9 @@ export default function App() {
 
         {/* Numbered Project Catalog with Cursor Preview on Desktop */}
         <ProjectList />
+
+        {/* Free Themes & Website Templates Product Catalog */}
+        <FreeTemplates />
 
         {/* Experience Section with Red Hover Lifting Cards */}
         <Experience />

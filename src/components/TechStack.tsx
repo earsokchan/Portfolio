@@ -14,6 +14,7 @@ import {
   Server,
   Workflow,
   Sparkles,
+  Layout,
 } from 'lucide-react';
 
 interface TechChip {
@@ -32,6 +33,12 @@ const TECH_ITEMS: TechChip[] = [
   { name: 'FRAMER MOTION', category: 'ANIMATION', level: 'PHYSICS', icon: Sparkles },
   { name: 'LENIS SCROLL', category: 'SMOOTH ENGINE', level: 'INTEGRATED', icon: Workflow },
 
+  // Web Standards & Free Theme Templates
+  { name: 'HTML5 & SEMANTIC UI', category: 'WEB STANDARDS', level: 'W3C COMPLIANT', icon: Globe },
+  { name: 'CSS3 & ANIMATIONS', category: 'STYLING & FX', level: 'FLEX / KEYFRAMES', icon: Sparkles },
+  { name: 'VANILLA JAVASCRIPT', category: 'CORE SCRIPTING', level: 'ES6+ / ZERO BLOAT', icon: Code2 },
+  { name: 'FREE THEME TEMPLATES', category: 'OPEN-SOURCE STARTERS', level: '100% FREE', icon: Layout },
+
   // Payments & Hardware
   { name: 'BAKONG KHQR', category: 'FINTECH RAIL', level: 'NATIVE API', icon: CreditCard },
   { name: 'ABA PAYWAY', category: 'PAYMENT GATEWAY', level: 'PRODUCTION', icon: CreditCard },
@@ -49,10 +56,10 @@ const TECH_ITEMS: TechChip[] = [
 
 export const TechStack: React.FC = () => {
   return (
-    <section className="px-4 sm:px-8 py-8">
+    <section className="px-3 sm:px-6 md:px-8 py-6 sm:py-8 w-full max-w-full overflow-hidden">
       <div
         id="stack"
-        className="bg-[#141010] text-[#fff3e6] rounded-[56px] py-24 sm:py-32 px-6 sm:px-12 md:px-16 overflow-hidden relative shadow-2xl"
+        className="bg-[#141010] text-[#fff3e6] rounded-[32px] sm:rounded-[56px] py-16 sm:py-24 lg:py-32 px-4 sm:px-8 md:px-12 lg:px-16 overflow-hidden relative shadow-2xl w-full min-w-0"
       >
         {/* Background Subtle Ambient Glow */}
         <div
@@ -76,8 +83,7 @@ export const TechStack: React.FC = () => {
             </Reveal>
             <Reveal delay={0.1}>
               <p className="text-sm sm:text-base text-[#fff3e6]/70 max-w-md font-normal leading-relaxed">
-                Battle-tested tools and frameworks deployed in production environments across
-                e-commerce, FinTech, and enterprise operations.
+                Battle-tested tools, core web standards (HTML5/CSS3/JS), and modern frameworks deployed in production across SaaS platforms, FinTech, and free theme templates.
               </p>
             </Reveal>
           </div>
